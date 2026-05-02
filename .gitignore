@@ -1,7 +1,6 @@
 out/
 drafts/
 node_modules/
-static/fonts/
 data/archivebox/node_modules/
 data/archivebox/logs/
 data/archivebox/sources/
