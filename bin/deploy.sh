@@ -41,7 +41,7 @@ if [[ "$PAGES" ]]; then
 	TMPDIR=$(mktemp -d 2>/dev/null || mktemp -d -t 'notebooktmp')
 	trap 'rm -rf $TMPDIR' EXIT
 
-	cp --recursive . "$TMPDIR"
+	cp -R . "$TMPDIR"
 	cd "$TMPDIR"
 
 	echo "switching to gh-pages branch..."
