@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
-sed \
-	-e "s/[ ]*\(<label for='[^']*' class='margin-toggle sidenote-number'\)/\1/g" \
-	-e "s/<\/span> ,/<\/span>,/g"
+perl -0777 -pe '
+	s{\s*(<label[^>]*class=["'\'']margin-toggle sidenote-number["'\''])}{$1}g;
+	s{(</span>)\s+([A-Za-z0-9])}{$1 $2}g;
+	s{</span>\s+([,.;:!?])}{</span>$1}g;
+'
