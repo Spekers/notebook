@@ -1,0 +1,23 @@
+{
+    "Status-Code": 200,
+    "Date": "Sat, 02 May 2026 16:20:20 GMT",
+    "Content-Type": "text/html; charset=UTF-8",
+    "Connection": "keep-alive",
+    "Server": "cloudflare",
+    "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "Vary": "Accept-Encoding",
+    "X-Powered-By": "Craft CMS",
+    "X-Robots-Tag": "all",
+    "Link": "<https://theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean>; rel='canonical'",
+    "Referrer-Policy": "no-referrer-when-downgrade",
+    "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=u%2BMgWQPJrS1k7scgJOHRe1f86dTgKKki69O72VwRGZKnYKRXb3CZUC0Os5kb7ULhnog5tPafuaZVyQbE5NNqeCKDv2zC6rThpavmV%2BTk0jzXG0e2PI%2F4x40x004N\"}]}",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-XSS-Protection": "1; mode=block",
+    "X-Content-Type-Options": "nosniff",
+    "Cache-Control": "max-age=0, s-maxage=60, stale-while-revalidate",
+    "Age": "365663",
+    "last-modified": "Sat, 02 May 2026 15:35:56 GMT",
+    "cf-cache-status": "HIT",
+    "Content-Encoding": "gzip",
+    "CF-RAY": "9f585a4c7ce275ff-ZRH"
+}

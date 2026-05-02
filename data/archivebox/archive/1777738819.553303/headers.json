@@ -1,0 +1,14 @@
+{
+    "Status-Code": 200,
+    "Server": "nginx",
+    "Content-Type": "text/html; charset=utf-8",
+    "Connection": "keep-alive",
+    "Vary": "Accept-Encoding",
+    "Cache-Control": "no-cache, private",
+    "Date": "Sat, 02 May 2026 16:21:42 GMT",
+    "Set-Cookie": "XSRF-TOKEN=eyJpdiI6IkN2cnArZnNEb3ovZjI2NXFHV3R0amc9PSIsInZhbHVlIjoiK085U1FDMWhVZjhSTGRaUGl6U0dtdjc3WCtoSXRSM3lOWmdISnRKaUVSbHNFNm5ZMFE4MWUyNXlEZ3JMbmI0dnVMU0hFdTRNdlJ4NE92RmR3ek5pTFlnSUdGd0hWZGpBdEpueWdDSEE1RlVsL1BFYTJyUUUxTEVENDVlKy9JTFIiLCJtYWMiOiI2MmJkZTJiNDNiNTU0M2Y2ZTljZjc0NjI4ZDU4YTg1Zjg3YTgzZTk5Yzc5NTY2NDE1MGI3NzA1YzIwZDI1OWQyIiwidGFnIjoiIn0%3D; expires=Sat, 02 May 2026 18:21:42 GMT; Max-Age=7200; path=/; secure; samesite=lax, laravel_session=eyJpdiI6Im1rbGtnZVc3MjRUZ1NzWG4wcCt1VVE9PSIsInZhbHVlIjoiSm1MUjhXQnkzRWNuRnZnczNkekl6SFFIVXJqQ3VYVEVsQlBGN3NPMVR0dGJGMTVmd1ByRHZGaFpodTlqZmdzTmJGaWF1K1FDaEt3YjY1c3ZJQUN6R2pzSG5FUXU1ZXRiaUdFYzB5N0N1SmVidG1xNkhXQ01rMGJ0cWlEMFkzNHAiLCJtYWMiOiI4NzI3N2I4ZDc5ZmEwZDU0YWNmMmUyZThhMmFhOTY3ZjVhNmViYWMwODQ1MDQxM2IzYmFmNWU3MmQ3ODJiZjk5IiwidGFnIjoiIn0%3D; expires=Sat, 02 May 2026 18:21:42 GMT; Max-Age=7200; path=/; secure; httponly; samesite=lax",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-XSS-Protection": "1; mode=block",
+    "X-Content-Type-Options": "nosniff",
+    "Content-Encoding": "gzip"
+}
