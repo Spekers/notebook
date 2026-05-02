@@ -11,7 +11,7 @@ if [ "$#" -ne 1 ]; then
 fi
 
 ENTRY_PATH=./entries/$(date +'%s')-$ENTRY_SLUG.md
-TIMEZONE=$(timedatectl show -p Timezone --value)
+TIMEZONE=$(date +%Z)
 
 cat <<ENTRY_START_TEXT > "$ENTRY_PATH"
 ---
