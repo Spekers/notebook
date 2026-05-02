@@ -18,7 +18,7 @@ do
 	ENTRY_TIMEZONE=$(echo "$ENTRY_FRONT_MATTER" | jq -r .timezone)
 	ENTRY_TIMESTAMP=$(basename "$1" | cut -d- -f1)
 	ENTRY_DATE_ATOM=$(TZ=$ENTRY_TIMEZONE date -d @"$ENTRY_TIMESTAMP" +'%Y-%m-%dT%H:%M:%SZ')
-	ATOM_ENTRIES+=("<entry><id>$ENTRY_URL</id><title>$ENTRY_TITLE_NOHTML</title><updated>$ENTRY_DATE_ATOM</updated><link rel='alternate' href='$ENTRY_URL'/><author><name>Wesley Aptekar-Cassels</name></author></entry>")
+	ATOM_ENTRIES+=("<entry><id>$ENTRY_URL</id><title>$ENTRY_TITLE_NOHTML</title><updated>$ENTRY_DATE_ATOM</updated><link rel='alternate' href='$ENTRY_URL'/><author><name>Sip Fokkema</name></author></entry>")
 	shift
 done
 
@@ -30,7 +30,7 @@ sed \
 	-e "s/★TWITTER_CARD_TYPE★/summary/g" \
 	-e "/★EXTRA_TAGS★/{
 		i <meta property=\"og:image\" content=\"$BLOG_URL/fleuron.png\"/>
-		i <meta name=\"description\" content=\"Wesley's notebook\"/>
+		i <meta name=\"description\" content=\"Sip's notebook\"/>
 	}" \
 	-e "/★PAGE_CONTENT★/{
 		s/★PAGE_CONTENT★//g
