@@ -1,6 +1,6 @@
-# Wesley's Notebook
+# Sip's Notebook
 
-This is the source code for my [notebook blog](https://notebook.wesleyac.com/), where I initially [wrote daily](https://notebook.drmaciver.com/posts/2020-06-08-10:11.html), and now write occasionally. It is built with a set of shell scripts primarily using [sed](https://www.gnu.org/software/sed/manual/sed.html), [ninja](https://ninja-build.org/), and [pandoc](https://pandoc.org/). I think it's pretty nice.
+This is the source code for my [notebook blog](https://notebook.sip.com/). It is a fork of [wesley's notebook](https://github.com/WesleyAC/notebook). I thank him for giving me the inspiration and the generosity of providing his code.
 
 ## Archival and Broken Links
 

@@ -1,10 +1,10 @@
 {
-  "name": "wesley-notebook",
+  "name": "sip-notebook",
   "version": "1.0.0",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WesleyAC/notebook.git"
+    "url": "git+https://github.com/Spekers/notebook.git"
   },
   "devDependencies": {
     "eslint": "^7.32.0",

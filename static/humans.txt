@@ -1,9 +1,8 @@
-Wesley's Notebook
+Sip's Notebook
 ~~~
-by Wesley Aptekar-Cassels
+by Sip Fokkema
+forked from Wesley Aptekar-Cassels' notebook (https://github.com/WesleyAC/notebook)
 inspired by David R. MacIver's notebook
 with CSS based on tufte-css by Dave Liepmann
-and fonts by Jackson Showalter-Cavanaugh and Emily Jing Sum Chan
-additional thanks to Evy Kassirer for writing review and inspiration
 
 <3
