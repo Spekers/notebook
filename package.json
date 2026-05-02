@@ -7,7 +7,9 @@
     "url": "git+https://github.com/Spekers/notebook.git"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "eslint": "^7.32.0",
+    "globals": "^17.6.0",
     "html-minifier": "^4.0.0",
     "svgo": "^2.6.1",
     "terser": "^5.9.0"
