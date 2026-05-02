@@ -1,7 +1,7 @@
 ---
 {
 	"timezone": "CEST",
-	"location": ""
+	"location": "Lausanne"
 }
 ---
 # On Masculinity
