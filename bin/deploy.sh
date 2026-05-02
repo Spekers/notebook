@@ -60,8 +60,6 @@ if [[ "$PAGES" ]]; then
 	git commit --allow-empty -m "$(git log -1 --pretty=%B)" > /dev/null
 	echo "pushing compiled site..."
 	git push -f -q origin gh-pages > /dev/null
-else
-	rsync -rtp out/site/ hack.wesleyac.com:/var/www/notebook.wesleyac.com/
 fi
 
 echo "deployed <3"
