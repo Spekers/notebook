@@ -66,6 +66,12 @@ rule assemble-journal-atom
 
 rule assemble-home
   command = ./bin/build/assemble-home.sh $in $out
+
+rule assemble-mix
+  command = ./bin/build/assemble-mix.sh $in $out
+
+rule assemble-mixes
+  command = ./bin/build/assemble-mixes.sh $in $out
 """
 
 fifo_name = 'build.ninja'
@@ -122,6 +128,20 @@ try:
         build_ninja.write("build out/site/atom.xml: copy-file out/tmp/atom.xml\n")
         build_ninja.write("build out/tmp/journal/index.min.html: minify-html out/tmp/journal/index.html\n")
         build_ninja.write("build out/site/journal/index.html: copy-file out/tmp/journal/index.min.html\n")
+
+        mix_files = sorted(os.listdir("mixes"), reverse=True) if os.path.isdir("mixes") else []
+        mix_files = [m for m in mix_files if m.endswith(".md")]
+        for mix in mix_files:
+            mix_slug = mix.split("-", 1)[1].split(".")[0]
+            build_ninja.write(f"build out/tmp/mixes/{mix_slug}/index.html: assemble-mix mixes/{mix} | bin/build/assemble-mix.sh bin/build/strip-front-matter.sh bin/build/vars.sh parts/template.html parts/mix.html\n")
+            build_ninja.write(f"build out/tmp/mixes/{mix_slug}/index.min.html: minify-html out/tmp/mixes/{mix_slug}/index.html\n")
+            build_ninja.write(f"build out/site/mixes/{mix_slug}/index.html: copy-file out/tmp/mixes/{mix_slug}/index.min.html\n")
+            build_ninja.write(f"build out/site/mixes/{mix_slug}/{mix_slug}.md: make-markdown-file mixes/{mix}\n")
+
+        if mix_files:
+            build_ninja.write(f"build out/tmp/mixes/index.html: assemble-mixes mixes/{' mixes/'.join(mix_files)} | bin/build/assemble-mixes.sh bin/build/vars.sh parts/template.html parts/mixes.html\n")
+            build_ninja.write("build out/tmp/mixes/index.min.html: minify-html out/tmp/mixes/index.html\n")
+            build_ninja.write("build out/site/mixes/index.html: copy-file out/tmp/mixes/index.min.html\n")
 
         latest_entry = entry_files[0]
         build_ninja.write(f"build out/tmp/index.html: assemble-home entries/{latest_entry} | bin/build/assemble-home.sh bin/build/get-entry-title.sh bin/build/vars.sh parts/template.html parts/index.html\n")

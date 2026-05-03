@@ -16,7 +16,7 @@ Whenever I update a post, a changelog is generated from the git history and embe
 
 ## Sidenotes
 
-I make extensive use of sidenotes. The implementation is based on [tufte-css](https://edwardtufte.github.io/tufte-css/), but there is [additional javascript](/parts/sideline.js) used to draw lines connecting sidenote labels to sidenotes on hover.
+The implementation is based on [tufte-css](https://edwardtufte.github.io/tufte-css/), but there is [additional javascript](/parts/sideline.js) used to draw lines connecting sidenote labels to sidenotes on hover.
 
 ## Image compression
 
@@ -28,11 +28,15 @@ Images are automatically compressed with [`pngcrush`](https://pmt.sourceforge.io
 
 ## 404 Page
 
-My [404 page](https://sips-log.com/404) allows you to write what you think should be there, and share it with others should you so wish. It's inspired by [The Creative Independent's](https://thecreativeindependent.com/) 404 page.
+The [404 page](https://sips-log.com/404) allows you to write what you think should be there, and share it with others should you so wish. It's inspired by [The Creative Independent's](https://thecreativeindependent.com/) 404 page.
 
 ## Fonts
 
 I'm using [EB Garamond](https://github.com/octaviopardo/EBGaramond12), an open-source revival of Claude Garamont's 16th-century types by Georg Duffner and Octavio Pardo. It's licensed under the [SIL Open Font License](https://openfontlicense.org/), so the woff2 files are committed directly to this repository under [/static/fonts/](/static/fonts/) and self-hosted alongside the site — no third-party CDN.
+
+## Mixtapes
+
+Mixtape pages use [98.css](https://jdan.github.io/98.css/) by Jordan Scales to recreate the Windows 95/98 UI aesthetic — the title bars, window chrome, and Media Player styling all come from there. Audio files (mp3s) are hosted on [Cloudflare R2](https://www.cloudflare.com/developer-platform/products/r2/) and served from a custom subdomain, so the repository stays small and bandwidth is free at the edge.
 
 ## Post Template Generator
 
@@ -50,7 +54,6 @@ In the future, I'd like to make a few improvements to my setup:
 * Generate changelog diffs locally, instead of linking to GitHub.
 * Add search (via [stork](https://stork-search.net/) or [tinysearch](https://endler.dev/2019/tinysearch/)).
 * Allow for different written and posted dates
-* Add a mixtape page. Possible showing the corresponding youtube video, with the timestamps
 
 ## License
 

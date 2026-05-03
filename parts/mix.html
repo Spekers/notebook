@@ -1,0 +1,123 @@
+<article class="mix-page">
+<link rel="stylesheet" href="https://unpkg.com/98.css"/>
+<style>
+	html, body { background: #008080; }
+	body { padding-left: 0 !important; padding-right: 0 !important; max-width: none !important; }
+	.mix-page { background: #008080; padding: 24px; min-height: 100vh; box-sizing: border-box; }
+	.mix-page .page { max-width: 640px; margin: 0 auto; }
+	.mix-page .window + .window { margin-top: 16px; }
+	.mix-page .cover { width: 100%; display: block; image-rendering: pixelated; }
+	.mix-page .player { display: flex; flex-direction: column; gap: 8px; padding: 12px; }
+	.mix-page .transport { display: flex; align-items: center; gap: 8px; }
+	.mix-page .seek { flex: 1; }
+	.mix-page .time { font-family: "Courier New", monospace; min-width: 90px; text-align: right; }
+	.mix-page .tracklist { list-style: none; padding: 0; margin: 0; }
+	.mix-page .tracklist li { display: flex; gap: 12px; padding: 4px 8px; cursor: pointer; }
+	.mix-page .tracklist li:hover { background: #000080; color: #fff; }
+	.mix-page .tracklist .ts { font-family: "Courier New", monospace; color: #0000ee; min-width: 56px; }
+	.mix-page .tracklist li:hover .ts { color: #fff; }
+	.mix-page a { color: #0000ee; }
+</style>
+<div class="page">
+
+	<div class="window">
+		<div class="title-bar">
+			<div class="title-bar-text">★MIX_TITLE★</div>
+			<div class="title-bar-controls"><button aria-label="Minimize"></button><button aria-label="Maximize"></button><button aria-label="Close"></button></div>
+		</div>
+		<div class="window-body">
+			<p><strong>Date:</strong> ★MIX_DATE★</p>
+			<img class="cover" src="★MIX_COVER★" alt="★MIX_TITLE★ cover"/>
+		</div>
+	</div>
+
+	<div class="window">
+		<div class="title-bar"><div class="title-bar-text">Windows Media Player</div></div>
+		<div class="window-body player">
+			<div class="transport">
+				<button id="playBtn" style="width: 64px;">Play</button>
+				<input id="seek" class="seek" type="range" min="0" max="1000" value="0" step="1"/>
+				<span id="time" class="time">00:00 / --:--</span>
+			</div>
+			<div class="transport">
+				<label for="vol">Vol</label>
+				<input id="vol" type="range" min="0" max="100" value="80"/>
+			</div>
+		</div>
+	</div>
+
+	<div class="window">
+		<div class="title-bar"><div class="title-bar-text">Description</div></div>
+		<div class="window-body">
+★MIX_DESCRIPTION★
+		</div>
+	</div>
+
+	<div class="window">
+		<div class="title-bar"><div class="title-bar-text">Tracklist</div></div>
+		<div class="window-body">
+			<ul class="tracklist" id="tracklist">
+★MIX_TRACKLIST★
+			</ul>
+		</div>
+	</div>
+
+	<div class="window">
+		<div class="title-bar"><div class="title-bar-text">Research</div></div>
+		<div class="window-body">
+★MIX_RESEARCH★
+		</div>
+	</div>
+
+</div>
+
+<audio id="audio" preload="none" src="★MIX_AUDIO★"></audio>
+<script>
+(function() {
+	const audio = document.getElementById("audio");
+	const playBtn = document.getElementById("playBtn");
+	const seek = document.getElementById("seek");
+	const time = document.getElementById("time");
+	const vol = document.getElementById("vol");
+	let scrubbing = false;
+
+	const fmt = (s) => {
+		if (!isFinite(s)) return "--:--";
+		s = Math.floor(s);
+		const m = Math.floor(s / 60), r = s % 60;
+		return String(m).padStart(2, "0") + ":" + String(r).padStart(2, "0");
+	};
+
+	audio.volume = vol.value / 100;
+	playBtn.addEventListener("click", () => {
+		if (audio.paused) audio.play();
+		else audio.pause();
+	});
+	audio.addEventListener("play", () => { playBtn.textContent = "Pause"; });
+	audio.addEventListener("pause", () => { playBtn.textContent = "Play"; });
+	audio.addEventListener("ended", () => { playBtn.textContent = "Play"; });
+	audio.addEventListener("timeupdate", () => {
+		if (scrubbing) return;
+		const dur = audio.duration || 0;
+		if (dur) seek.value = (audio.currentTime / dur) * 1000;
+		time.textContent = fmt(audio.currentTime) + " / " + fmt(dur);
+	});
+	audio.addEventListener("loadedmetadata", () => {
+		time.textContent = fmt(audio.currentTime) + " / " + fmt(audio.duration);
+	});
+	seek.addEventListener("input", () => { scrubbing = true; });
+	seek.addEventListener("change", () => {
+		if (audio.duration) audio.currentTime = (seek.value / 1000) * audio.duration;
+		scrubbing = false;
+	});
+	vol.addEventListener("input", () => { audio.volume = vol.value / 100; });
+	document.getElementById("tracklist").addEventListener("click", (e) => {
+		const li = e.target.closest("li[data-t]");
+		if (!li) return;
+		const t = Number(li.dataset.t);
+		audio.currentTime = t;
+		if (audio.paused) audio.play();
+	});
+})();
+</script>
+</article>
