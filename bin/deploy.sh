@@ -8,7 +8,6 @@ while test $# != 0
 do
     case "$1" in
     --yolo) YOLO_MODE=t ;;
-    --pages) PAGES=t ;;
     *) exit 1 ;;
     esac
     shift
