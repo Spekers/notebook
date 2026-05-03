@@ -85,6 +85,9 @@ sed \
 	-e "s/★OG_TITLE★/$MIX_TITLE_SED/g" \
 	-e "s/★OG_TYPE★/article/g" \
 	-e "s/★TWITTER_CARD_TYPE★/summary/g" \
+	-e "/★EXTRA_TAGS★/{
+		i <link rel=\"stylesheet\" href=\"https://unpkg.com/98.css\"/>
+	}" \
 	-e "/★PAGE_CONTENT★/{
 		s/★PAGE_CONTENT★//g
 		r /dev/stdin
