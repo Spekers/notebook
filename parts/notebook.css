@@ -25,7 +25,7 @@ body {
     margin-right: auto;
     padding-left: 12.5%;
     font-family: 'EB Garamond', Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
-    background-color: #f9f5ff; /* Also change this in /nyc-places and parts/template.html if you change this */
+    background-color: #e0d7df; /* Also change this in /nyc-places and parts/template.html if you change this */
     color: #111;
     max-width: 1400px;
     counter-reset: sidenote-counter;
@@ -195,11 +195,11 @@ a:visited {
 
 a:link, .tufte-underline, .hover-tufte-underline:hover {
     text-decoration: none;
-    background: -webkit-linear-gradient(#f9f5ff, #f9f5ff), -webkit-linear-gradient(#f9f5ff, #f9f5ff), -webkit-linear-gradient(currentColor, currentColor);
-    background: linear-gradient(#f9f5ff, #f9f5ff), linear-gradient(#f9f5ff, #f9f5ff), linear-gradient(currentColor, currentColor);
+    background: -webkit-linear-gradient(#e0d7df, #e0d7df), -webkit-linear-gradient(#e0d7df, #e0d7df), -webkit-linear-gradient(currentColor, currentColor);
+    background: linear-gradient(#e0d7df, #e0d7df), linear-gradient(#e0d7df, #e0d7df), linear-gradient(currentColor, currentColor);
     background-size: 0.05em 1px, 0.05em 1px, 1px 1px;
     background-repeat: no-repeat, no-repeat, repeat-x;
-    text-shadow: 0.03em 0 #f9f5ff, -0.03em 0 #f9f5ff, 0 0.03em #f9f5ff, 0 -0.03em #f9f5ff, 0.06em 0 #f9f5ff, -0.06em 0 #f9f5ff, 0.09em 0 #f9f5ff, -0.09em 0 #f9f5ff, 0.12em 0 #f9f5ff, -0.12em 0 #f9f5ff, 0.15em 0 #f9f5ff, -0.15em 0 #f9f5ff;
+    text-shadow: 0.03em 0 #e0d7df, -0.03em 0 #e0d7df, 0 0.03em #e0d7df, 0 -0.03em #e0d7df, 0.06em 0 #e0d7df, -0.06em 0 #e0d7df, 0.09em 0 #e0d7df, -0.09em 0 #e0d7df, 0.12em 0 #e0d7df, -0.12em 0 #e0d7df, 0.15em 0 #e0d7df, -0.15em 0 #e0d7df;
     background-position: 0% 95%, 100% 95%, 0% 95%;
 }
 

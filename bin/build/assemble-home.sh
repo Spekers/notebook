@@ -9,7 +9,10 @@ OUT_FILE="$2"
 
 LATEST_SLUG=$(basename "$LATEST_ENTRY" | cut -d- -f2- | rev | cut -d. -f2- | rev)
 LATEST_TITLE_HTML=$(./bin/build/get-entry-title.sh --html "$LATEST_ENTRY")
-LATEST_LINK="<a href='/$LATEST_SLUG/'>$LATEST_TITLE_HTML</a>"
+LATEST_TS=$(basename "$LATEST_ENTRY" | cut -d- -f1)
+
+# Escape sed-replacement special chars (& \ /) and newlines in title
+esc_title=$(printf '%s' "$LATEST_TITLE_HTML" | sed -e 's/[\/&]/\\&/g')
 
 sed \
 	-e "s/★PAGE_TITLE★/$BLOG_NAME/g" \
@@ -25,4 +28,7 @@ sed \
 		r ./parts/index.html
 	}" \
 	./parts/template.html |
-sed "s#★LATEST_JOURNAL★#$LATEST_LINK#" > "$OUT_FILE"
+sed \
+	-e "s/★LATEST_JOURNAL_TS★/$LATEST_TS/g" \
+	-e "s/★LATEST_JOURNAL_SLUG★/$LATEST_SLUG/g" \
+	-e "s/★LATEST_JOURNAL_TITLE★/$esc_title/g" > "$OUT_FILE"
