@@ -1,4 +1,4 @@
-# Sip's Notebook
+# Sip's Logbook
 
 This is the source code for my [notebook blog](https://sips-log.com/). It is a fork of [wesley's notebook](https://github.com/WesleyAC/notebook). I thank him for giving me the inspiration and the generosity of providing his code.
 
