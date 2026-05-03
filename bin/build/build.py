@@ -61,8 +61,11 @@ rule assemble-post
 rule assemble-404
   command = ./bin/build/assemble-404.sh $out
 
-rule assemble-index-atom
-  command = ./bin/build/assemble-index-atom.sh $in $out
+rule assemble-journal-atom
+  command = ./bin/build/assemble-journal-atom.sh $in $out
+
+rule assemble-home
+  command = ./bin/build/assemble-home.sh $in $out
 """
 
 fifo_name = 'build.ninja'
@@ -115,8 +118,13 @@ try:
             build_ninja.write(f"build out/site/{out_file}/index.html: copy-file out/tmp/{out_file}/index.min.html\n")
             build_ninja.write(f"build out/site/{out_file}/{out_file}.md: make-markdown-file entries/{entry}\n")
 
-        build_ninja.write(f"build out/tmp/index.html out/tmp/atom.xml: assemble-index-atom entries/{' entries/'.join(entry_files)} | bin/build/assemble-index-atom.sh bin/build/get-entry-title.sh bin/build/vars.sh parts/template.html parts/index.html parts/atom.xml\n")
+        build_ninja.write(f"build out/tmp/journal/index.html out/tmp/atom.xml: assemble-journal-atom entries/{' entries/'.join(entry_files)} | bin/build/assemble-journal-atom.sh bin/build/get-entry-title.sh bin/build/vars.sh parts/template.html parts/journal.html parts/atom.xml\n")
         build_ninja.write("build out/site/atom.xml: copy-file out/tmp/atom.xml\n")
+        build_ninja.write("build out/tmp/journal/index.min.html: minify-html out/tmp/journal/index.html\n")
+        build_ninja.write("build out/site/journal/index.html: copy-file out/tmp/journal/index.min.html\n")
+
+        latest_entry = entry_files[0]
+        build_ninja.write(f"build out/tmp/index.html: assemble-home entries/{latest_entry} | bin/build/assemble-home.sh bin/build/get-entry-title.sh bin/build/vars.sh parts/template.html parts/index.html\n")
         build_ninja.write("build out/tmp/index.min.html: minify-html out/tmp/index.html\n")
         build_ninja.write("build out/site/index.html: copy-file out/tmp/index.min.html\n")
 

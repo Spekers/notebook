@@ -36,7 +36,7 @@ sed \
 		s/★PAGE_CONTENT★//g
 		r /dev/stdin
 	}" \
-	./parts/template.html < ./parts/index.html > "$1"
+	./parts/template.html < ./parts/journal.html > "$1"
 
 # shellcheck disable=SC1111
 printf '%s\n' "${HTML_ENTRIES[@]}" |
