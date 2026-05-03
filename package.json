@@ -1,10 +1,10 @@
 {
-  "name": "sip-notebook",
+  "name": "sips-log",
   "version": "1.0.0",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Spekers/notebook.git"
+    "url": "git+https://github.com/Spekers/sips-log"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
