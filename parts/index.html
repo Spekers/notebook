@@ -1,6 +1,8 @@
 <article class="home" style="padding-bottom:0px">
+	<div class="home-grid">
+	<div class="home-main">
 	<h1>Sip’s Log</h1>
-	<p class="subtitle"><em>A place for thoughts to grow</em></p>
+	<p class="subtitle"><em>My very own broom closet</em></p>
 
 	<nav class="retro-tabs">
 		<a class="retro-btn" href="/journal/">Journal</a>
@@ -53,15 +55,37 @@
 			<li><a href="https://www.goodreads.com/user/show/177405334-sipke-fokkema">Goodreads</a></li>
 			<li><a href="https://letterboxd.com/TheOnlySpike/">Letterboxd</a></li>
 			<li><a href="https://open.spotify.com/user/miymsb1vqs2qo3mmtc1l9jv8t?si=8cf86f72d4774130">Spotify</a></li>
-			<li><a href="https://github.com/Spekers/notebook">Source</a></li>
+			<li><a href="https://github.com/Spekers/notebook">Source Code</a></li>
 			<li><a href="https://webring.xxiivv.com">Webring</a></li>
 		</ul>
 	</footer>
+	</div>
+	<aside class="home-aside">
+		<img src="/home-page.jpg" alt="" class="home-image"/>
+	</aside>
+	</div>
 </article>
 
 <style>
 .home h1 { margin-bottom: 0.2rem; }
 .home .subtitle { margin-top: 0; }
+.home-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2rem;
+	align-items: start;
+}
+.home-main { min-width: 0; }
+.home-aside { min-width: 0; }
+.home-image {
+	display: block;
+	width: 100%;
+	height: auto;
+	border: 1px solid #000;
+}
+@media (max-width: 700px) {
+	.home-grid { grid-template-columns: 1fr; }
+}
 
 .retro-tabs {
 	display: flex;
@@ -112,7 +136,7 @@
 	display: flex;
 	width: max-content;
 	height: 100%;
-	animation: ticker-scroll 20s linear infinite;
+	animation: ticker-scroll 10s linear infinite;
 }
 .ticker:hover .ticker-track { animation-play-state: paused; }
 .ticker-group {
@@ -157,6 +181,12 @@
 	margin: 0;
 }
 .socials li { margin: 0; }
+.socials a {
+	background: linear-gradient(#e0d7df, #e0d7df), linear-gradient(#e0d7df, #e0d7df), linear-gradient(currentColor, currentColor);
+	background-size: 0.05em 1px, 0.05em 1px, 1px 1px;
+	background-repeat: no-repeat, no-repeat, repeat-x;
+	background-position: 0% 95%, 100% 95%, 0% 95%;
+}
 .retro-tabs a { margin: 0; }
 .ticker-group li { margin: 0; }
 </style>
