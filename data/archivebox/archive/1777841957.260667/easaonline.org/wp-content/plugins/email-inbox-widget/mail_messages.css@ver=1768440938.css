@@ -1,0 +1,92 @@
+
+.mailbox_feed_pre_list_content {
+
+}
+.mailbox_feed_container {
+  max-width:50em;
+    margin:0 auto;
+}
+
+ul.mailbox_feed_list li a {
+    background: #00a7b5;
+    color: #EEE;
+    padding: 0.3em;
+    display:block;
+    transform: scale(1.0);
+    transition: transform .3s linear;
+    line-height: 1.3;
+}
+ul.mailbox_feed_list li a.active {
+    background: #001008;
+    color: #EEE;
+    transform: scale(1.05) !important;
+    opacity: 0.7;
+    cursor: default;
+}
+
+ul.mailbox_feed_list li {
+}
+
+
+ul.mailbox_feed_list li a:focus {
+    color:#fff;
+}
+ul.mailbox_feed_list li a:hover, ul.mailbox_feed_list li a:focus {
+    transform: scale(1.06);
+    color:#fff;
+}
+
+ul.mailbox_feed_list {
+    list-style: none;
+    width: 100%;
+    margin:0;
+    padding:0;
+}
+ul.mailbox_feed_list li a span {
+    display:block;
+    font-size:0.85em;
+    opacity:0.8;
+}
+
+.mailbox_message .mailbox_date, ul.mailbox_feed_list li a:hover span, ul.mailbox_feed_list li a:focus span , ul.mailbox_feed_list li a.active span {
+}
+
+.mailbox_message {
+    background: #F9FFFF;
+    margin: 0 auto;
+    width:100%;
+    padding:0.8em;
+}
+.mailbox_message pre {
+    font-size:0.8em;
+    padding: 3%;
+    color:#030;
+    background:#EEE;
+}
+
+.mailbox_message .headers {
+    background: #00a7b5;
+    color: #EEE;
+    padding: 1.2em;
+}
+
+.mailbox_message .mail_body {
+    border: 2px solid #BED;
+    border-top: none;
+    padding: 2%;
+}
+div.mail-list-browser {
+    display:flex;
+    flex-wrap:wrap;
+    max-width:100em;
+    margin:0 auto;
+}
+div.mail-list-browser-list {
+    flex: 14em 2 1;
+}
+div.mail-list-browser-message {
+    flex: 26em 4 1;
+}
+div.mail-list-browser-plain-text {
+    flex: 38em 2 1;
+}

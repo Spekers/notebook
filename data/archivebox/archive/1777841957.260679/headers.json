@@ -1,0 +1,20 @@
+{
+    "Status-Code": 200,
+    "Date": "Sun, 03 May 2026 21:01:49 GMT",
+    "Content-Type": "text/html; charset=UTF-8",
+    "Connection": "keep-alive",
+    "Server": "cloudflare",
+    "X-Powered-By": "PHP/8.3.6",
+    "x-flying-press-source": "PHP",
+    "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "Last-Modified": "Fri, 01 May 2026 01:33:29 GMT",
+    "CDN-Cache-Control": "max-age=2592000",
+    "Cache-Control": "no-cache, must-revalidate",
+    "x-flying-press-cache": "HIT",
+    "cf-cache-status": "DYNAMIC",
+    "Speculation-Rules": "\"/cdn-cgi/speculation\"",
+    "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=gTCKeHV3dPXPrrETn4t46kYGqX6%2BoaZcrYmaM4XLN59URIiBf5c5F%2F6L%2FmOX1ELVwlV6RfqCzlVgDQNkqjTlI3doeipKm%2BFGUMdkCd4NOX%2B7krjjGGO1DqEOowayqOyCGq49Nj3eHAC0MpufmQ%3D%3D\"}]}",
+    "Content-Encoding": "gzip",
+    "CF-RAY": "9f6233fde953931a-ZRH",
+    "alt-svc": "h3=\":443\"; ma=86400"
+}

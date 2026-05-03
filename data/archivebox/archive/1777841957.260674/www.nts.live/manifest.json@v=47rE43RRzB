@@ -1,0 +1,28 @@
+{
+    "name": "NTS Radio",
+    "short_name": "NTS",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png?v=47rE43RRzB",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png?v=47rE43RRzB",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#000000",
+    "background_color": "#000000",
+    "display": "standalone",
+    "orientation": "portrait",
+    "start_url": "/?utm_source=homescreen",
+    "prefer_related_applications": true,
+    "related_applications": [
+        {
+            "platform": "play",
+            "id": "com.ntslive.ntsradio"
+        }
+    ]
+}
