@@ -7,7 +7,6 @@ source ./bin/build/vars.sh
 MIX_PATH="$1"
 OUT_FILE="$2"
 MIX_NAME=$(basename "$MIX_PATH")
-MIX_SLUG=$(echo "$MIX_NAME" | cut -d- -f2- | rev | cut -d. -f2- | rev)
 MIX_FRONT_MATTER=$(sed -n '2,/^---$/{ /^---$/d; p; }' "$MIX_PATH")
 MIX_TIMEZONE=$(echo "$MIX_FRONT_MATTER" | jq -r .timezone)
 MIX_TIMESTAMP=$(echo "$MIX_NAME" | cut -d- -f1)
