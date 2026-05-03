@@ -1,9 +1,8 @@
 <article class="mix-page">
 <link rel="stylesheet" href="https://unpkg.com/98.css"/>
 <style>
-	html, body { background: #008080; }
-	body { padding-left: 0 !important; padding-right: 0 !important; max-width: none !important; }
-	.mix-page { background: #008080; padding: 24px; min-height: 100vh; box-sizing: border-box; }
+	body:has(.mix-page) { padding-left: 0 !important; }
+	.mix-page { padding: 24px 0; }
 	.mix-page .page { max-width: 640px; margin: 0 auto; }
 	.mix-page .window + .window { margin-top: 16px; }
 	.mix-page .cover { width: 100%; display: block; image-rendering: pixelated; }
@@ -23,7 +22,7 @@
 	<div class="window">
 		<div class="title-bar">
 			<div class="title-bar-text">★MIX_TITLE★</div>
-			<div class="title-bar-controls"><button aria-label="Minimize"></button><button aria-label="Maximize"></button><button aria-label="Close"></button></div>
+			<div class="title-bar-controls"><button aria-label="Minimize"></button><button aria-label="Maximize"></button><button aria-label="Close" onclick="location.href='/mixes/'"></button></div>
 		</div>
 		<div class="window-body">
 			<p><strong>Date:</strong> ★MIX_DATE★</p>

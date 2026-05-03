@@ -36,7 +36,7 @@ h1 {
     font-weight: 700;
     margin-top: 4rem;
     margin-bottom: 1.5rem;
-    font-size: 4.2rem;
+    font-size: 3rem;
     line-height: 1;
     width: 55%;
 }
@@ -440,8 +440,6 @@ label.margin-toggle:not(.sidenote-number) {
 }
 
 /* Home page */
-.home h1 { margin-bottom: 0.2rem; }
-.home .subtitle { margin-top: 0; }
 .home-grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -492,6 +490,16 @@ label.margin-toggle:not(.sidenote-number) {
 }
 .retro-btn.is-disabled {
 	color: #6b6b6b;
+	cursor: default;
+	pointer-events: none;
+}
+.retro-btn.is-active {
+	border-top: 2px solid #808080;
+	border-left: 2px solid #808080;
+	border-right: 2px solid #fff;
+	border-bottom: 2px solid #fff;
+	box-shadow: none;
+	transform: translate(1px, 1px);
 	cursor: default;
 	pointer-events: none;
 }
