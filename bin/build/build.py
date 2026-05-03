@@ -144,7 +144,8 @@ try:
             build_ninja.write("build out/site/mixes/index.html: copy-file out/tmp/mixes/index.min.html\n")
 
         latest_entry = entry_files[0]
-        build_ninja.write(f"build out/tmp/index.html: assemble-home entries/{latest_entry} | bin/build/assemble-home.sh bin/build/get-entry-title.sh bin/build/vars.sh parts/template.html parts/index.html\n")
+        latest_mix = mix_files[0]
+        build_ninja.write(f"build out/tmp/index.html: assemble-home entries/{latest_entry} mixes/{latest_mix} | bin/build/assemble-home.sh bin/build/get-entry-title.sh bin/build/vars.sh parts/template.html parts/index.html\n")
         build_ninja.write("build out/tmp/index.min.html: minify-html out/tmp/index.html\n")
         build_ninja.write("build out/site/index.html: copy-file out/tmp/index.min.html\n")
 
