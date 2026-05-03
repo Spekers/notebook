@@ -37,30 +37,28 @@ else
     ./bin/validate.sh
 fi
 
-if [[ "$PAGES" ]]; then
-	TMPDIR=$(mktemp -d 2>/dev/null || mktemp -d -t 'notebooktmp')
-	trap 'rm -rf $TMPDIR' EXIT
+TMPDIR=$(mktemp -d 2>/dev/null || mktemp -d -t 'notebooktmp')
+trap 'rm -rf $TMPDIR' EXIT
 
-	cp -R . "$TMPDIR"
-	cd "$TMPDIR"
+cp -R . "$TMPDIR"
+cd "$TMPDIR"
 
-	echo "switching to gh-pages branch..."
-	if git branch | grep -q gh-pages
-	then
-		git branch -D gh-pages &> /dev/null
-	fi
-	git checkout -b gh-pages &> /dev/null
-
-	find . -maxdepth 1 ! -name '.' ! -name 'out' ! -name '.git' ! -name '.gitignore' ! -name 'node_modules' ! -name 'static' -exec rm -rf {} \;
-	find ./static -maxdepth 1 ! -wholename './static' ! -name 'fonts' -exec rm -rf {} \;
-	cp -r out/site/* .
-
-	echo "committing compiled site..."
-	git add -A > /dev/null
-	git commit --allow-empty -m "$(git log -1 --pretty=%B)" > /dev/null
-	echo "pushing compiled site..."
-	git push -f -q origin gh-pages > /dev/null
+echo "switching to gh-pages branch..."
+if git branch | grep -q gh-pages
+then
+	git branch -D gh-pages &> /dev/null
 fi
+git checkout -b gh-pages &> /dev/null
+
+find . -maxdepth 1 ! -name '.' ! -name 'out' ! -name '.git' ! -name '.gitignore' ! -name 'node_modules' ! -name 'static' -exec rm -rf {} \;
+find ./static -maxdepth 1 ! -wholename './static' ! -name 'fonts' -exec rm -rf {} \;
+cp -r out/site/* .
+
+echo "committing compiled site..."
+git add -A > /dev/null
+git commit --allow-empty -m "$(git log -1 --pretty=%B)" > /dev/null
+echo "pushing compiled site..."
+git push -f -q origin gh-pages > /dev/null
 
 echo "deployed <3"
 
