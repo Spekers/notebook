@@ -13,22 +13,22 @@ Hi everyone, I think it’s very hard not to get distracted with everything dema
 
 ## Tracklist
 - 00:00 — fantompower - My Take on Solidao.
-- 01:00 — Machinone - Pebble
-- 02:00 — r mccarthy - I Think I Lost That Love
-- 03:00 — Car Culture, Pysical Therapy - Is Love Knowing
-- 04:00 — Alabaster DePlume - If You're Sure You Want To
-- 05:00 — Skúli Sverrisson - Instants
-- 06:00 — Lontalius - When The Seasons Roll Over
-- 07:00 — Lontalius - 130224
-- 08:00 — haruka nakamura - your sonnet
-- 09:00 — Ryuichi Sakamoto - Diabaram
-- 10:00 — ･ ･－･ ･－ ･･･ ･ －･･ - ･－－･ －－－ ･ － － ･－･ ･ ･ 
-- 11:00 — Ruby Haunt - Blue Hour
-- 12:00 — Alaskan Tapes - Dreamer
-- 13:00 — desert sand feels warm at night - Eternal Hope
-- 14:00 — Nitsua - landscapes
-- 15:00 — Gigi Masin - The Word Love
-- 16:00 — Alicks - MVI_2005.AVI
+- 02:35 — Machinone - Pebble
+- 04:43 — r mccarthy - I Think I Lost That Love
+- 08:42 — Car Culture, Pysical Therapy - Is Love Knowing
+- 13:10 — Alabaster DePlume - If You're Sure You Want To
+- 17:01 — Skúli Sverrisson - Instants
+- 19:29 — Lontalius - When The Seasons Roll Over
+- 22:10 — Lontalius - 130224
+- 22:46 — haruka nakamura - your sonnet
+- 27:02 — Ryuichi Sakamoto - Diabaram
+- 31:15 — ･ ･－･ ･－ ･･･ ･ －･･ - ･－－･ －－－ ･ － － ･－･ ･ ･ 
+- 34:17 — Ruby Haunt - Blue Hour
+- 35:36 — Alaskan Tapes - Dreamer
+- 38:07 — desert sand feels warm at night - Eternal Hope
+- 43:39 — Nitsua - landscapes
+- 46:53 — Gigi Masin - The Word Love
+- 55:50 — Alicks - MVI_2005.AVI
 
 ## Research
 
