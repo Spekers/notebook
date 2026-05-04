@@ -6,3 +6,5 @@ data/archivebox/logs/
 data/archivebox/sources/
 PLANS.md
 inspiration/
+.DS_Store
+**/.DS_Store
