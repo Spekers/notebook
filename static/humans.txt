@@ -1,6 +1,6 @@
-Sip's Notebook
+Sip's Logbook
 ~~~
-by Sip Fokkema
+by Sipke Fokkema
 forked from Wesley Aptekar-Cassels' notebook (https://github.com/WesleyAC/notebook)
 inspired by David R. MacIver's notebook
 with CSS based on tufte-css by Dave Liepmann
