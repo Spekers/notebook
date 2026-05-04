@@ -17,7 +17,7 @@ export default {
 			if (url.pathname === "/admin/pending" && req.method === "GET") return await adminPending(req, env, cors);
 			if (url.pathname === "/admin/approve" && req.method === "POST") return await adminApprove(req, env, cors);
 			if (url.pathname === "/admin/delete" && req.method === "POST") return await adminDelete(req, env, cors);
-		} catch (err) {
+		} catch {
 			return json({ error: "internal" }, 500, cors);
 		}
 
@@ -53,6 +53,7 @@ function normSlug(s) {
 
 function clean(s, max) {
 	if (typeof s !== "string") return null;
+	// eslint-disable-next-line no-control-regex
 	const t = s.replace(/\r\n/g, "\n").replace(/[\x00-\x08\x0B-\x1F\x7F]/g, "").trim();
 	if (!t || t.length > max) return null;
 	return t;
