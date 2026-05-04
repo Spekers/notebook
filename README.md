@@ -1,6 +1,6 @@
 # Sip's Logbook
 
-This is the source code for my [notebook blog](https://sips-log.com/). It is a fork of [wesley's notebook](https://github.com/WesleyAC/notebook). I thank him for giving me the inspiration and the generosity of providing his code.
+This is the source code for my [notebook blog](https://sips-log.com/). It is a fork of [wesley's notebook](https://github.com/WesleyAC/notebook). I thank them for giving me the inspiration and the generosity of providing their code.
 
 ## Archival and Broken Links
 
