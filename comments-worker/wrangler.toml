@@ -1,6 +1,6 @@
 name = "sips-log-comments"
 main = "src/index.js"
-compatibility_date = "2025-01-01"
+compatibility_date = "2026-01-01"
 
 routes = [
   { pattern = "comments.sips-log.com/*", zone_name = "sips-log.com" }
@@ -11,9 +11,9 @@ ALLOWED_ORIGIN = "https://sips-log.com"
 TURNSTILE_SITEKEY = ""
 
 [[d1_databases]]
-binding = "DB"
+binding = "sips_log_comments"
 database_name = "sips-log-comments"
-database_id = "REPLACE_WITH_ID_FROM_WRANGLER_D1_CREATE"
+database_id = "abb4e87d-c5be-47d4-9255-f1f3668a91f1"
 
 # secrets (set with: wrangler secret put NAME)
 #   IP_SALT          - random 32+ byte string, used to hash IPs

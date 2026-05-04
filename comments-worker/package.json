@@ -8,6 +8,6 @@
     "db:export": "wrangler d1 export sips-log-comments --output=backup.sql --remote"
   },
   "devDependencies": {
-    "wrangler": "^3.90.0"
+    "wrangler": "^4.87.0"
   }
 }

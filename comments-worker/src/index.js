@@ -83,7 +83,7 @@ async function listComments(req, env, cors) {
 	const slug = normSlug(url.searchParams.get("slug"));
 	if (!slug) return json({ error: "bad_slug" }, 400, cors);
 
-	const { results } = await env.DB.prepare(
+	const { results } = await env.sips_log_comments.prepare(
 		"SELECT id, name, body, created_at FROM comments WHERE slug = ? AND approved = 1 ORDER BY created_at ASC LIMIT ?"
 	).bind(slug, PAGE_LIMIT).all();
 
@@ -108,14 +108,14 @@ async function postComment(req, env, cors) {
 	const ip_hash = await hashIp(ip, env.IP_SALT || "unset");
 	const now = Date.now();
 
-	const recent = await env.DB.prepare(
+	const recent = await env.sips_log_comments.prepare(
 		"SELECT created_at FROM comments WHERE ip_hash = ? ORDER BY created_at DESC LIMIT 1"
 	).bind(ip_hash).first();
 	if (recent && now - recent.created_at < RATE_WINDOW_MS) {
 		return json({ error: "rate_limited" }, 429, cors);
 	}
 
-	await env.DB.prepare(
+	await env.sips_log_comments.prepare(
 		"INSERT INTO comments (slug, name, body, created_at, approved, ip_hash) VALUES (?, ?, ?, ?, 0, ?)"
 	).bind(slug, name, body, now, ip_hash).run();
 
@@ -130,7 +130,7 @@ function requireAdmin(req, env) {
 
 async function adminPending(req, env, cors) {
 	if (!requireAdmin(req, env)) return json({ error: "unauthorized" }, 401, cors);
-	const { results } = await env.DB.prepare(
+	const { results } = await env.sips_log_comments.prepare(
 		"SELECT id, slug, name, body, created_at FROM comments WHERE approved = 0 ORDER BY created_at ASC LIMIT 500"
 	).all();
 	return json({ comments: results }, 200, cors);
@@ -140,7 +140,7 @@ async function adminApprove(req, env, cors) {
 	if (!requireAdmin(req, env)) return json({ error: "unauthorized" }, 401, cors);
 	const { id } = await req.json().catch(() => ({}));
 	if (!Number.isInteger(id)) return json({ error: "bad_id" }, 400, cors);
-	await env.DB.prepare("UPDATE comments SET approved = 1 WHERE id = ?").bind(id).run();
+	await env.sips_log_comments.prepare("UPDATE comments SET approved = 1 WHERE id = ?").bind(id).run();
 	return json({ ok: true }, 200, cors);
 }
 
@@ -148,6 +148,6 @@ async function adminDelete(req, env, cors) {
 	if (!requireAdmin(req, env)) return json({ error: "unauthorized" }, 401, cors);
 	const { id } = await req.json().catch(() => ({}));
 	if (!Number.isInteger(id)) return json({ error: "bad_id" }, 400, cors);
-	await env.DB.prepare("DELETE FROM comments WHERE id = ?").bind(id).run();
+	await env.sips_log_comments.prepare("DELETE FROM comments WHERE id = ?").bind(id).run();
 	return json({ ok: true }, 200, cors);
 }
