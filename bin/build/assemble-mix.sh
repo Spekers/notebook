@@ -78,6 +78,13 @@ print(c)
 
 PAGE_TITLE_SED=$(echo "$MIX_TITLE_NOHTML ⁑ $BLOG_NAME" | sed 's/[\/&]/\\&/g')
 
+COMMENTS_HTML=$(cat ./parts/comments.html)
+
+CONTENT=$(MIX_CONTENT="$CONTENT" COMMENTS_HTML="$COMMENTS_HTML" python3 -c '
+import os
+print(os.environ["MIX_CONTENT"].replace("★COMMENTS★", os.environ["COMMENTS_HTML"]))
+')
+
 echo "$CONTENT" |
 sed \
 	-e "s/★PAGE_TITLE★/$PAGE_TITLE_SED/g" \
@@ -86,6 +93,7 @@ sed \
 	-e "s/★TWITTER_CARD_TYPE★/summary/g" \
 	-e "/★EXTRA_TAGS★/{
 		i <link rel=\"stylesheet\" href=\"https://unpkg.com/98.css\"/>
+		i <script src=\"https://challenges.cloudflare.com/turnstile/v0/api.js\" async defer></script>
 	}" \
 	-e "/★PAGE_CONTENT★/{
 		s/★PAGE_CONTENT★//g

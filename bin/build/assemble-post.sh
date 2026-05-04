@@ -52,6 +52,7 @@ sed \
 		s/★PAGE_CONTENT★//g
 		r /dev/stdin
 		r ./parts/return_home.html
+		r ./parts/comments.html
 		a $CHANGELOG_TEMPLATE
 		a </article>
 	}" \
@@ -63,6 +64,7 @@ sed -e "s/★CHANGELOG_CONTENT★/$(echo "$CHANGELOG_ENTRIES" | sed "s#/#\\\\/#g
 sed -i -e "/★EXTRA_TAGS★/{
   a <script defer src='/titleresize.min.js'></script>
 	a <link rel='alternate' type='text/markdown' href='$ENTRY_SLUG.md' title='Markdown version.'/>
+	a <script src='https://challenges.cloudflare.com/turnstile/v0/api.js' async defer></script>
 }" "$OUT_FILE"
 
 if grep -E -q '^@sidenote:' "$ENTRY_PATH"; then

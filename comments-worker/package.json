@@ -1,0 +1,13 @@
+{
+  "name": "sips-log-comments",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:init": "wrangler d1 execute sips-log-comments --file=schema.sql --remote",
+    "db:export": "wrangler d1 export sips-log-comments --output=backup.sql --remote"
+  },
+  "devDependencies": {
+    "wrangler": "^3.90.0"
+  }
+}
