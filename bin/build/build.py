@@ -17,7 +17,7 @@ rule compress-jpg
   command = cp $in $out && jpegoptim --quiet --strip-all $out
 
 rule compress-svgo
-  command = svgo --quiet --multipass --config=svgo.config.js -i $in -o $out
+  command = svgo --quiet --multipass --config=svgo.config.cjs -i $in -o $out
 
 rule make-webp-png
   command = cwebp -quiet -z 9 $in -o $out
