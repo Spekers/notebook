@@ -104,12 +104,14 @@ try:
                 else:
                     build_ninja.write(f"build out/site/{out_file}: copy-file {in_file}\n")
 
-        for js_file in ["sideline", "titleresize", "instantpage"]:
+        for js_file in ["sideline", "titleresize", "instantpage", "comments"]:
             build_ninja.write(f"build out/tmp/{js_file}.min.js: minify-js parts/{js_file}.js\n")
             build_ninja.write(f"build out/site/{js_file}.min.js: copy-file out/tmp/{js_file}.min.js\n")
 
         build_ninja.write("build out/tmp/notebook.min.css: minify-css parts/notebook.css\n")
         build_ninja.write("build out/site/notebook.min.css: copy-file out/tmp/notebook.min.css\n")
+        build_ninja.write("build out/tmp/comments.min.css: minify-css parts/comments.css\n")
+        build_ninja.write("build out/site/comments.min.css: copy-file out/tmp/comments.min.css\n")
 
         for style_file in os.listdir("parts/customstyles/"):
             entry_name = style_file.rsplit(".", 1)[0]

@@ -7,8 +7,9 @@ routes = [
 ]
 
 [vars]
-ALLOWED_ORIGIN = "https://sips-log.com"
-TURNSTILE_SITEKEY = ""
+ALLOWED_ORIGIN = "https://sips-log.com,http://localhost:8000"
+TURNSTILE_SITEKEY = "0x4AAAAAADI8SHa_W_cCIcXl"
+AUTO_APPROVE = "true"
 
 [[d1_databases]]
 binding = "sips_log_comments"

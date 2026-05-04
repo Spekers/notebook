@@ -27,7 +27,8 @@ export default {
 
 function corsHeaders(env, req) {
 	const origin = req.headers.get("Origin") || "";
-	const allow = origin === env.ALLOWED_ORIGIN ? origin : env.ALLOWED_ORIGIN;
+	const allowed = (env.ALLOWED_ORIGIN || "").split(",").map((s) => s.trim()).filter(Boolean);
+	const allow = allowed.includes(origin) ? origin : allowed[0] || "";
 	return {
 		"Access-Control-Allow-Origin": allow,
 		"Access-Control-Allow-Methods": "GET, POST, OPTIONS",
@@ -115,11 +116,12 @@ async function postComment(req, env, cors) {
 		return json({ error: "rate_limited" }, 429, cors);
 	}
 
+	const approved = env.AUTO_APPROVE === "true" ? 1 : 0;
 	await env.sips_log_comments.prepare(
-		"INSERT INTO comments (slug, name, body, created_at, approved, ip_hash) VALUES (?, ?, ?, ?, 0, ?)"
-	).bind(slug, name, body, now, ip_hash).run();
+		"INSERT INTO comments (slug, name, body, created_at, approved, ip_hash) VALUES (?, ?, ?, ?, ?, ?)"
+	).bind(slug, name, body, now, approved, ip_hash).run();
 
-	return json({ ok: true, queued: true }, 200, cors);
+	return json({ ok: true, queued: !approved }, 200, cors);
 }
 
 function requireAdmin(req, env) {
