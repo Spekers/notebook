@@ -11,6 +11,10 @@ export default {
 
 		if (req.method === "OPTIONS") return new Response(null, { headers: cors });
 
+		if (!env.IP_SALT || !env.TURNSTILE_SECRET || !env.ADMIN_TOKEN) {
+			return json({ error: "misconfigured" }, 500, cors);
+		}
+
 		try {
 			if (url.pathname === "/api/comments" && req.method === "GET") return await listComments(req, env, cors);
 			if (url.pathname === "/api/comments" && req.method === "POST") return await postComment(req, env, cors);
@@ -66,7 +70,6 @@ async function hashIp(ip, salt) {
 }
 
 async function verifyTurnstile(token, secret, ip) {
-	if (!secret) return true;
 	if (!token) return false;
 	const form = new FormData();
 	form.append("secret", secret);
@@ -107,7 +110,7 @@ async function postComment(req, env, cors) {
 	const ok = await verifyTurnstile(payload.turnstile, env.TURNSTILE_SECRET, ip);
 	if (!ok) return json({ error: "turnstile_failed" }, 400, cors);
 
-	const ip_hash = await hashIp(ip, env.IP_SALT || "unset");
+	const ip_hash = await hashIp(ip, env.IP_SALT);
 	const now = Date.now();
 
 	const recent = await env.sips_log_comments.prepare(
@@ -126,9 +129,15 @@ async function postComment(req, env, cors) {
 }
 
 function requireAdmin(req, env) {
+	if (!env.ADMIN_TOKEN) return false;
 	const auth = req.headers.get("Authorization") || "";
-	const expected = "Bearer " + (env.ADMIN_TOKEN || "");
-	return env.ADMIN_TOKEN && auth === expected;
+	const expected = "Bearer " + env.ADMIN_TOKEN;
+	const a = new TextEncoder().encode(auth);
+	const b = new TextEncoder().encode(expected);
+	if (a.byteLength !== b.byteLength) return false;
+	let diff = 0;
+	for (let i = 0; i < a.byteLength; i++) diff |= a[i] ^ b[i];
+	return diff === 0;
 }
 
 async function adminPending(req, env, cors) {
