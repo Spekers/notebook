@@ -8,16 +8,16 @@ ninja_rules = """
 builddir = out/
 
 rule compress-optipng
-  command = optipng -quiet -o7 -clobber $in -out $out
+  command = optipng -quiet -o7 -strip all -clobber $in -out $out
 
 rule compress-pngcrush
-  command = pngcrush -s -reduce -brute $in $out
+  command = pngcrush -s -reduce -brute -rem alla -rem text $in $out
 
 rule compress-jpg
   command = cp $in $out && jpegoptim --quiet --strip-all $out
 
 rule compress-svgo
-  command = svgo --quiet --multipass -i $in -o $out
+  command = svgo --quiet --multipass --config=svgo.config.js -i $in -o $out
 
 rule make-webp-png
   command = cwebp -quiet -z 9 $in -o $out
