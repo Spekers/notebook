@@ -14,6 +14,14 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'harmond-semiBoldCondensed';
+    src: url('fonts/fornire-light.otf') format('opentype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
 /* Tufte CSS styles */
 html {
     font-size: 15px;
@@ -32,11 +40,11 @@ body {
 }
 
 h1 {
-    font-family: 'EB Garamond', Palatino, Georgia, serif;
+    font-family: 'harmond-semiBoldCondensed', 'EB Garamond', Palatino, Georgia, serif;
     font-weight: 700;
     margin-top: 4rem;
     margin-bottom: 1.5rem;
-    font-size: 3rem;
+    font-size: 5rem;
     line-height: 1;
     width: 55%;
 }
