@@ -1,2 +1,3 @@
 1bd1b20fd55986b334ba42dbcb0d9bed7e2d08fd7a713000e8041bfafa37e8ec  ./eb-garamond-italic.woff2
 3f8ca84f05bced330495146be20610b04bcccbe7c4f7d03a786804881f694e8f  ./eb-garamond-regular.woff2
+93065d10619a3f2ce51141d6099ece2d3e3a23788a71dbd004763b7e5fc2fa0a  ./fornire-light.otf
