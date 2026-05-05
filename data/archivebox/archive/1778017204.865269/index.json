@@ -1,0 +1,338 @@
+{
+    "archive_path": "archive/1778017204.865269",
+    "base_url": "www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa",
+    "basename": "outsiders-skupina-x-mappa",
+    "bookmarked_date": "2026-05-05 21:40",
+    "canonical": {
+        "archive_org_path": "https://web.archive.org/web/www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa",
+        "dom_path": "output.html",
+        "favicon_path": "favicon.ico",
+        "git_path": "git/",
+        "google_favicon_path": "https://www.google.com/s2/favicons?domain=www.kioskradio.com",
+        "headers_path": "headers.json",
+        "htmltotext_path": "htmltotext.txt",
+        "index_path": "index.html",
+        "media_path": "media/",
+        "mercury_path": "mercury/content.html",
+        "pdf_path": "output.pdf",
+        "readability_path": "readability/content.html",
+        "screenshot_path": "screenshot.png",
+        "singlefile_path": "singlefile.html",
+        "warc_path": "warc/",
+        "wget_path": "www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa.html"
+    },
+    "domain": "www.kioskradio.com",
+    "extension": "",
+    "hash": "B0CT2X4ZSF8JXNZNADFY",
+    "history": {
+        "archive_org": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--head",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://web.archive.org/save/https://www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:41:34.078206+00:00",
+                "index_texts": null,
+                "output": "TimeoutExpired: Command '['curl', '--silent', '--location', '--compressed', '--head', '--max-time', '60', '--user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)', 'https://web.archive.org/save/https://www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa']' timed out after 60 seconds",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865269",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:40:34.072520+00:00",
+                "status": "failed"
+            }
+        ],
+        "dom": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--dump-dom",
+                    "https://www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa"
+                ],
+                "cmd_version": "Google Chrome 147.0.7727.138",
+                "end_ts": "2026-05-05T21:40:26.219758+00:00",
+                "index_texts": null,
+                "output": "output.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865269",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:40:21.887521+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "favicon": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--max-time",
+                    "60",
+                    "--output",
+                    "favicon.ico",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://www.google.com/s2/favicons?domain=www.kioskradio.com"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:40:05.078307+00:00",
+                "index_texts": null,
+                "output": "favicon.ico",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865269",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:40:04.915418+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "git": [],
+        "headers": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--head",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:40:05.783101+00:00",
+                "index_texts": null,
+                "output": "headers.json",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865269",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:40:05.080518+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "htmltotext": [],
+        "media": [
+            {
+                "cmd": [
+                    "yt-dlp",
+                    "--write-description",
+                    "--write-info-json",
+                    "--write-annotations",
+                    "--write-thumbnail",
+                    "--no-call-home",
+                    "--write-sub",
+                    "--write-auto-subs",
+                    "--convert-subs=srt",
+                    "--yes-playlist",
+                    "--continue",
+                    "--no-abort-on-error",
+                    "--ignore-errors",
+                    "--geo-bypass",
+                    "--add-metadata",
+                    "--format=(bv*+ba/b)[filesize<=750m][filesize_approx<=?750m]/(bv*+ba/b)",
+                    "https://www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa"
+                ],
+                "cmd_version": "2026.03.17",
+                "end_ts": "2026-05-05T21:40:34.070374+00:00",
+                "index_texts": [],
+                "output": "media",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865269",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:40:30.883910+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "mercury": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/@postlight/parser/cli.js",
+                    "https://www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa"
+                ],
+                "cmd_version": "1.0.0",
+                "end_ts": "2026-05-05T21:40:30.872105+00:00",
+                "index_texts": null,
+                "output": "mercury",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865269",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:40:30.059078+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "pdf": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--print-to-pdf",
+                    "https://www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa"
+                ],
+                "cmd_version": "Google Chrome 147.0.7727.138",
+                "end_ts": "2026-05-05T21:40:17.547854+00:00",
+                "index_texts": null,
+                "output": "output.pdf",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865269",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:40:13.398720+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "readability": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/readability-extractor/readability-extractor",
+                    "/var/folders/5c/pl67hms52szcj9ppn2gb4gw00000gn/T/tmplxwvuipk",
+                    "https://www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa"
+                ],
+                "cmd_version": "0.0.6",
+                "end_ts": "2026-05-05T21:40:30.055546+00:00",
+                "index_texts": [
+                    "STREAMING NOW:\u00a0Staff Picks (Restream) - Listen Festival w Danilo Plessow @ Kiosk Radio 29.03.2024STREAMING NOW:\u00a0Staff Picks (Restream) - Listen Festival w Danilo Plessow @ Kiosk Radio 29.03.2024STREAMING NOW:\u00a0Staff Picks (Restream) - Listen Festival w Danilo Plessow @ Kiosk Radio 29.03.2024STREAMING NOW:\u00a0Staff Picks (Restream) - Listen Festival w Danilo Plessow @ Kiosk Radio 29.03.2024STREAMING NOW:\u00a0Staff Picks (Restream) - Listen Festival w Danilo Plessow @ Kiosk Radio 29.03.2024STREAMING NOW:\u00a0Staff Picks (Restream) - Listen Festival w Danilo Plessow @ Kiosk Radio 29.03.2024STREAMING NOW:\u00a0Staff Picks (Restream) - Listen Festival w Danilo Plessow @ Kiosk Radio 29.03.2024STREAMING NOW:\u00a0Staff Picks (Restream) - Listen Festival w Danilo Plessow @ Kiosk Radio 29.03.2024STREAMING NOW:\u00a0Staff Picks (Restream) - Listen Festival w Danilo Plessow @ Kiosk Radio 29.03.2024STREAMING NOW:\u00a0Staff Picks (Restream) - Listen Festival w Danilo Plessow @ Kiosk Radio 29.03.2024STREAMING NOW:\u00a0Staff Picks (Restream) - Listen Festival w Danilo Plessow @ Kiosk Radio 29.03.2024STREAMING NOW:\u00a0Staff Picks (Restream) - Listen Festival w Danilo Plessow @ Kiosk Radio 29.03.2024"
+                ],
+                "output": "readability",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865269",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:40:29.516820+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "screenshot": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--screenshot",
+                    "https://www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa"
+                ],
+                "cmd_version": "Google Chrome 147.0.7727.138",
+                "end_ts": "2026-05-05T21:40:21.885794+00:00",
+                "index_texts": null,
+                "output": "screenshot.png",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865269",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:40:17.549185+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "singlefile": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/single-file-cli/single-file-node.js",
+                    "--browser-executable-path=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--browser-args=[\"--headless=new\", \"--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)\", \"--window-size=1440,2000\"]",
+                    "https://www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa",
+                    "singlefile.html"
+                ],
+                "cmd_version": "2.0.83",
+                "end_ts": "2026-05-05T21:40:13.397439+00:00",
+                "index_texts": null,
+                "output": "singlefile.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865269",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:40:05.786328+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "title": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:40:29.515500+00:00",
+                "index_texts": null,
+                "output": "Outsiders: Skupina x mappa | Kiosk Radio",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865269",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:40:29.511066+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "wget": [
+            {
+                "cmd": [
+                    "wget",
+                    "--no-verbose",
+                    "--adjust-extension",
+                    "--convert-links",
+                    "--force-directories",
+                    "--backup-converted",
+                    "--span-hosts",
+                    "--no-parent",
+                    "-e",
+                    "robots=off",
+                    "--timeout=60",
+                    "--restrict-file-names=windows",
+                    "--warc-file=/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865269/warc/1778017226",
+                    "--page-requisites",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) wget/GNU Wget 1.25.0",
+                    "--compression=auto",
+                    "https://www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa"
+                ],
+                "cmd_version": "GNU Wget 1.25.0",
+                "end_ts": "2026-05-05T21:40:29.507968+00:00",
+                "index_texts": null,
+                "output": "www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865269",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:40:26.221692+00:00",
+                "status": "succeeded"
+            }
+        ]
+    },
+    "icons": null,
+    "is_archived": true,
+    "is_static": false,
+    "latest": {
+        "archive_org": "TimeoutExpired: Command '['curl', '--silent', '--location', '--compressed', '--head', '--max-time', '60', '--user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)', 'https://web.archive.org/save/https://www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa']' timed out after 60 seconds",
+        "dom": "output.html",
+        "favicon": "favicon.ico",
+        "git": null,
+        "media": "media",
+        "pdf": "output.pdf",
+        "screenshot": "screenshot.png",
+        "singlefile": "singlefile.html",
+        "title": "Outsiders: Skupina x mappa | Kiosk Radio",
+        "warc": null,
+        "wget": "www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa.html"
+    },
+    "link_dir": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865269",
+    "newest_archive_date": "2026-05-05T21:40:34.072520+00:00",
+    "num_failures": 1,
+    "num_outputs": 11,
+    "oldest_archive_date": "2026-05-05T21:40:04.915418+00:00",
+    "path": "/episode/2024-04-01/outsiders-skupina-x-mappa",
+    "schema": "Link",
+    "scheme": "https",
+    "snapshot_id": "1c1ab386-ef58-4dfe-8f8f-16935823a03d",
+    "sources": [
+        "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/sources/1778017204-import.txt"
+    ],
+    "tags": null,
+    "tags_str": "",
+    "timestamp": "1778017204.865269",
+    "title": "Outsiders: Skupina x mappa | Kiosk Radio",
+    "updated": "2026-05-05T21:40:04.915361+00:00",
+    "updated_date": "2026-05-05 21:40",
+    "url": "https://www.kioskradio.com/episode/2024-04-01/outsiders-skupina-x-mappa"
+}

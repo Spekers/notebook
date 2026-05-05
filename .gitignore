@@ -8,3 +8,8 @@ PLANS.md
 inspiration/
 .DS_Store
 **/.DS_Store
+
+# Large archivebox media (exceeds GitHub 100MB limit)
+data/archivebox/archive/**/media/*.mp4
+data/archivebox/archive/**/media/*.webm
+data/archivebox/archive/**/media/*.mkv

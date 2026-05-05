@@ -1,0 +1,2912 @@
+// Chaos Mode - Interactive Drawing, Comments, and Stickers System
+class ChaosMode {
+    constructor() {
+        this.isActive = false;
+        this.isPencilOpen = false;
+        this.currentTool = null;
+        this.currentColor = localStorage.getItem('bgColor') || '#2D4DFF';
+        this.isDrawing = false;
+        this.canvas = null;
+        this.ctx = null;
+        this.drawingPaths = [];
+        this.currentPath = [];
+        this.selectedSticker = null;
+        
+        // Bind event handlers once
+        this.boundStartDrawing = this.startDrawing.bind(this);
+        this.boundDraw = this.draw.bind(this);
+        this.boundStopDrawing = this.stopDrawing.bind(this);
+        this.textClickHandler = null;
+        this.stickerClickHandler = null;
+        this.chaosOverlay = null;
+        this.chaosViewport = null;
+        this.chaosContainer = null;
+        this.resizeObserver = null;
+        this.mutationObserver = null;
+        this.activePanel = null;
+        this.contentPanel = null;
+        this.elementsLoaded = false;
+        this.scrollableContainer = null;
+        this.scrollHandler = null;
+        this.contentHeight = 0;
+        this.bodyScrollLocked = false;
+        this.bodyScrollY = 0;
+        this.originalBodyStyles = {};
+        this._repositionHandlers = null;
+        this._panelRect = null;
+        this.viewportPositionHandler = null;
+        this.tiles = [];
+        this.hitLayer = null;
+        this.currentTileIdx = undefined;
+        
+        // Drawing optimization
+        this.cachedRect = null;
+        this.cachedScrollTop = 0;
+        this.lastDrawnPoint = null;
+        this.drawingScheduled = false;
+        this.pendingDrawPoint = null;
+
+        // Undo functionality
+        this.undoStack = [];
+
+        this.init();
+    }
+
+	// === Canvas safety limits (cross-browser safe) ===
+	static MAX_BITMAP_DIM = 32767; // conservative cap
+	static BITMAP_MARGIN = 512;    // safety headroom
+
+	getMaxCssHeightForCanvas() {
+		const dpr = window.devicePixelRatio || 1;
+		// ensure bitmap (css * dpr) <= MAX_BITMAP_DIM - margin
+		return Math.max(1, Math.floor((ChaosMode.MAX_BITMAP_DIM - ChaosMode.BITMAP_MARGIN) / dpr));
+	}
+
+	/** Returns clamped CSS height and bitmap height for a given raw content height */
+	getSafeHeights(rawCssHeight) {
+		const dpr = window.devicePixelRatio || 1;
+		const maxCss = this.getMaxCssHeightForCanvas();
+		const cssHeight = Math.min(Math.max(1, Math.floor(rawCssHeight)), maxCss);
+		const bitmapHeight = Math.min(
+			Math.floor(cssHeight * dpr),
+			ChaosMode.MAX_BITMAP_DIM - ChaosMode.BITMAP_MARGIN
+		);
+		return { cssHeight, bitmapHeight, dpr };
+	}
+
+    _getTileIndexForY(yCss) {
+        for (let i = 0; i < this.tiles.length; i++) {
+            const t = this.tiles[i];
+            if (yCss >= t.top && yCss < t.top + t.height) return i;
+        }
+        return this.tiles.length - 1;
+    }
+
+    init() {
+        window.addEventListener('colorChanged', (e) => {
+            this.currentColor = e.detail.color;
+            if (this.ctx) {
+                this.ctx.strokeStyle = this.currentColor;
+            }
+            this.updateAllTextColors();
+        });
+
+        this.setupMobilePanelMonitor();
+    }
+
+    setupMobilePanelMonitor() {
+        const observer = new MutationObserver(() => {
+            if (window.innerWidth < 1024) {
+                this.handleMobilePanelToggle();
+            }
+        });
+
+        const alpineApp = document.querySelector('[x-data]');
+        if (alpineApp) {
+            observer.observe(alpineApp, {
+                attributes: true,
+                attributeFilter: ['x-data', 'x-show', 'x-transition']
+            });
+        }
+
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'openRightSide' && window.innerWidth < 1024) {
+                setTimeout(() => this.handleMobilePanelToggle(), 100);
+            }
+        });
+    }
+
+    /**
+     * Simple collision detection for mobile - push overlapping elements apart
+     * Only runs on mobile, desktop unaffected
+     */
+    adjustMobilePositions(elements) {
+        const isMobile = window.innerWidth < 1024;
+        if (!isMobile || elements.length < 2) return elements;
+
+        const adjusted = [...elements];
+        const viewWidth = this.chaosViewport?.clientWidth || window.innerWidth;
+        const viewHeight = this.contentHeight || window.innerHeight;
+
+        // Multiple passes to ensure all overlaps are resolved
+        const maxPasses = 5;
+        for (let pass = 0; pass < maxPasses; pass++) {
+            let hadCollision = false;
+            
+            // Pairwise check - if elements overlap significantly, nudge them apart
+            for (let i = 0; i < adjusted.length; i++) {
+                for (let j = i + 1; j < adjusted.length; j++) {
+                    const a = adjusted[i];
+                    const b = adjusted[j];
+
+                    // Calculate centers in pixels
+                    const aX = (a.x / 100) * viewWidth;
+                    const aY = (a.y / 100) * viewHeight;
+                    const bX = (b.x / 100) * viewWidth;
+                    const bY = (b.y / 100) * viewHeight;
+
+                    // Estimate element sizes with generous buffer
+                    const aSize = a.size || 100;
+                    const bSize = b.size || 100;
+
+                    // Check if too close (within combined radius)
+                    // Add 70% buffer to prevent elements from touching
+                    const dx = bX - aX;
+                    const dy = bY - aY;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const minDistance = ((aSize + bSize) / 2) * 1.7; // 1.7x spacing buffer
+
+                    if (distance < minDistance && distance > 0) {
+                        hadCollision = true;
+                        
+                        // Push apart along the line between them (more aggressively)
+                        const pushDistance = (minDistance - distance) / 2;
+                        const dirX = dx / distance;
+                        const dirY = dy / distance;
+
+                        // Move both elements (more natural than moving just one)
+                        const newAX = aX - dirX * pushDistance;
+                        const newAY = aY - dirY * pushDistance;
+                        const newBX = bX + dirX * pushDistance;
+                        const newBY = bY + dirY * pushDistance;
+
+                        // Convert back to percentages
+                        a.x = (newAX / viewWidth) * 100;
+                        a.y = (newAY / viewHeight) * 100;
+                        b.x = (newBX / viewWidth) * 100;
+                        b.y = (newBY / viewHeight) * 100;
+
+                        // Keep within safe bounds (avoid header at top, keep centered)
+                        a.x = Math.max(20, Math.min(80, a.x));
+                        a.y = Math.max(22, Math.min(85, a.y)); // Increased top margin to 22%
+                        b.x = Math.max(20, Math.min(80, b.x));
+                        b.y = Math.max(22, Math.min(85, b.y)); // Increased top margin to 22%
+
+                        console.log(`💥 Pass ${pass + 1}: Adjusted overlapping elements (distance: ${distance.toFixed(0)}px < ${minDistance.toFixed(0)}px)`);
+                    }
+                }
+            }
+            
+            // If no collisions in this pass, we're done
+            if (!hadCollision) {
+                console.log(`✅ Collision resolution complete after ${pass + 1} pass(es)`);
+                break;
+            }
+        }
+
+        return adjusted;
+    }
+
+    /**
+     * Check if a position collides with any existing elements
+     * Returns true if collision detected
+     */
+    checkCollision(x, y, width, height, placedElements) {
+        const buffer = 5; // Add 5% buffer around elements
+        
+        for (const element of placedElements) {
+            const el = element;
+            const elLeft = el.x - (el.width / 2);
+            const elRight = el.x + (el.width / 2);
+            const elTop = el.y - (el.height / 2);
+            const elBottom = el.y + (el.height / 2);
+            
+            const newLeft = x - (width / 2) - buffer;
+            const newRight = x + (width / 2) + buffer;
+            const newTop = y - (height / 2) - buffer;
+            const newBottom = y + (height / 2) + buffer;
+            
+            // Check if rectangles overlap
+            const overlaps = !(newRight < elLeft || newLeft > elRight || newBottom < elTop || newTop > elBottom);
+            
+            if (overlaps) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Find a non-colliding position near the desired location
+     */
+    findNonCollidingPosition(desiredX, desiredY, width, height, placedElements, maxAttempts = 50) {
+        // Try the original position first
+        if (!this.checkCollision(desiredX, desiredY, width, height, placedElements)) {
+            return { x: desiredX, y: desiredY };
+        }
+        
+        // Try positions in a spiral pattern around the desired location
+        for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+            const angle = (attempt * 137.5) * (Math.PI / 180); // Golden angle for good distribution
+            const distance = attempt * 3; // Increase distance with each attempt
+            
+            const x = desiredX + (distance * Math.cos(angle));
+            const y = desiredY + (distance * Math.sin(angle));
+            
+            // Keep within bounds (10-90% to avoid edges)
+            if (x < 10 || x > 90 || y < 10 || y > 90) continue;
+            
+            if (!this.checkCollision(x, y, width, height, placedElements)) {
+                console.log(`✅ Found non-colliding position after ${attempt} attempts:`, { original: { x: desiredX, y: desiredY }, final: { x, y } });
+                return { x, y };
+            }
+        }
+        
+        // Fallback: return original position with warning
+        console.warn('⚠️ Could not find non-colliding position after', maxAttempts, 'attempts. Using original position.');
+        return { x: desiredX, y: desiredY };
+    }
+
+    /**
+     * Disperse mobile-placed items across desktop page height with collision detection
+     * Stickers and comments only - sketches are filtered out on desktop
+     */
+    disperseMobileItemsOnDesktop(item, placedElements) {
+        const isMobile = window.innerWidth < 1024;
+        
+        // Treat as mobile-placed if:
+        // 1. Explicitly marked as placed_on_mobile
+        // 2. OR flag is missing/null AND Y position is in viewport range (likely mobile)
+        const isMobilePlaced = item.data.placed_on_mobile || 
+                               (item.data.placed_on_mobile === undefined && item.y <= 100);
+        
+        // Only apply on desktop for mobile-placed items
+        if (isMobile || !isMobilePlaced) {
+            return { x: item.x, y: item.y };
+        }
+
+        // Use item ID to create deterministic but varied placement
+        const id = item.data.id;
+        
+        // Simple hash function to convert ID to a pseudo-random but consistent number
+        const hash = (id * 2654435761) % 2147483648;
+        const normalizedHash = hash / 2147483648; // 0-1
+        
+        // Distribute Y across the full page height (skip top 10% for header, bottom 5% for footer)
+        const mobileY = item.y; // 0-100
+        const sectionSize = 85 / 5; // Divide into 5 sections: 10-27%, 27-44%, 44-61%, 61-78%, 78-95%
+        const section = Math.floor(normalizedHash * 5); // 0-4
+        const baseY = 10 + (section * sectionSize);
+        
+        // Add some variance within the section based on original Y position
+        const variance = (mobileY / 100) * sectionSize;
+        const desiredY = baseY + variance;
+        
+        // Adjust X slightly to avoid clustering
+        const xVariance = (normalizedHash * 10) - 5; // -5 to +5
+        const newX = 50 + xVariance;
+        const desiredX = Math.max(35, Math.min(65, newX));
+        
+        // Estimate element size (approximate)
+        const elementWidth = item.type === 'comment' ? 15 : 8; // Comments wider than stickers
+        const elementHeight = item.type === 'comment' ? 5 : 8;
+        
+        // Find non-colliding position
+        const finalPosition = this.findNonCollidingPosition(
+            desiredX, 
+            desiredY, 
+            elementWidth, 
+            elementHeight, 
+            placedElements
+        );
+        
+        console.log('🌊 Dispersing mobile item with collision detection:', {
+            id,
+            type: item.type,
+            content: item.type === 'comment' ? item.data.comment : 'N/A',
+            original: { x: item.x, y: item.y },
+            desired: { x: desiredX.toFixed(1), y: desiredY.toFixed(1) },
+            final: { x: finalPosition.x.toFixed(1), y: finalPosition.y.toFixed(1) }
+        });
+        
+        return finalPosition;
+    }
+
+    updateAllTextColors() {
+        if (!this.isActive) return;
+        const container = document.querySelector('.chaos-container');
+        if (!container) return;
+        container.querySelectorAll('.chaos-element-text').forEach(el => {
+            el.style.color = this.currentColor;
+        });
+    }
+
+    async openPencil() {
+        this.isPencilOpen = true;
+        this.isActive = true;
+
+        setTimeout(async () => {
+            await this.applyPanelEffects();
+            this.createMobileUndoButton();
+            this.showDesktopUndoButton();
+            setTimeout(() => {
+                this.loadExistingElements();
+            }, 100);
+        }, 150);
+    }
+
+    closePencil() {
+        this.isPencilOpen = false;
+        this.isActive = false;
+        this.currentTool = null;
+        this.elementsLoaded = false;
+
+        this.cleanup();
+        this.removePanelEffects();
+        this.unlockBodyScroll();
+        
+        // Clear undo stack when closing chaos mode
+        this.undoStack = [];
+        this.updateUndoButton();
+        
+        // Hide desktop undo button
+        this.hideDesktopUndoButton();
+        
+        // Remove mobile undo button
+        const mobileUndoBtn = document.getElementById('chaos-undo-mobile');
+        if (mobileUndoBtn) mobileUndoBtn.remove();
+    }
+
+    activate(tool) {
+        if (!this.isPencilOpen) {
+            this.openPencil();
+            setTimeout(() => {
+                this.currentTool = tool;
+                this.setupTool(tool);
+            }, 700);
+            return;
+        }
+
+        if (this.currentTool === tool) {
+            this.cleanupCurrentTool();
+            this.currentTool = null;
+            return;
+        }
+
+        if (this.currentTool) {
+            this.cleanupCurrentTool();
+        }
+
+        this.currentTool = tool;
+        setTimeout(() => this.setupTool(tool), 200);
+    }
+
+    setupTool(tool) {
+        switch (tool) {
+            case 'draw':
+                this.setupDrawingMode();
+                break;
+            case 'text':
+                this.setupTextMode();
+                break;
+            case 'sticker':
+                this.setupStickerMode();
+                break;
+        }
+    }
+
+    cleanupCurrentTool() {
+        switch (this.currentTool) {
+            case 'draw':
+                this.cleanupDrawingMode();
+                break;
+            case 'text':
+                this.cleanupTextMode();
+                break;
+            case 'sticker':
+                this.cleanupStickerMode();
+                break;
+        }
+    }
+
+    cleanup() {
+        this.cleanupDrawingMode();
+        this.cleanupTextMode();
+        this.cleanupStickerMode();
+        
+        // Remove the shared canvas when chaos mode is completely closed
+        if (this.canvas) {
+            this.canvas.remove();
+            this.canvas = null;
+            this.ctx = null;
+        }
+    }
+
+    async applyPanelEffects() {
+        const leftPanel = document.getElementById('leftSideContent') || document.getElementById('leftSideContentMobile');
+        const rightPanel = document.getElementById('rightSide') || document.getElementById('rightSideMobile');
+
+        console.log('🎨 === CHAOS MODE DEBUG START ===');
+        console.log('📍 Panel Detection:', {
+            leftPanel: !!leftPanel,
+            rightPanel: !!rightPanel,
+            leftPanelId: leftPanel?.id,
+            rightPanelId: rightPanel?.id,
+            leftPanelElement: leftPanel,
+            rightPanelElement: rightPanel
+        });
+
+        // Additional debugging for right panel
+        if (rightPanel) {
+            console.log('🔍 Right Panel Details:', {
+                id: rightPanel.id,
+                className: rightPanel.className,
+                style: rightPanel.style.cssText,
+                display: window.getComputedStyle(rightPanel).display,
+                visibility: window.getComputedStyle(rightPanel).visibility,
+                height: window.getComputedStyle(rightPanel).height,
+                scrollHeight: rightPanel.scrollHeight,
+                offsetHeight: rightPanel.offsetHeight,
+                clientHeight: rightPanel.clientHeight,
+                children: Array.from(rightPanel.children).map(child => ({
+                    tagName: child.tagName,
+                    id: child.id,
+                    className: child.className,
+                    display: window.getComputedStyle(child).display
+                }))
+            });
+        } else {
+            console.error('❌ Right panel not found! Available elements:', {
+                rightSide: !!document.getElementById('rightSide'),
+                rightSideMobile: !!document.getElementById('rightSideMobile'),
+                allElementsWithRight: Array.from(document.querySelectorAll('*')).filter(el => el.id && el.id.includes('right')).map(el => el.id)
+            });
+        }
+
+        if (!leftPanel || !rightPanel) {
+            console.error('❌ Panels not found!');
+            return;
+        }
+
+        const isArticlePage = window.location.pathname.includes('/article/');
+        const isMobile = window.innerWidth < 1024;
+
+        console.log('📱 Environment:', {
+            isArticlePage,
+            isMobile,
+            pathname: window.location.pathname,
+            windowWidth: window.innerWidth,
+            windowHeight: window.innerHeight
+        });
+
+        if (isMobile) {
+            await this.applyMobileChaosMode(leftPanel, rightPanel);
+            return;
+        }
+
+        // ===== DESKTOP =====
+        let targetPanel;
+        let contentPanel;
+
+        if (isArticlePage) {
+            targetPanel = rightPanel;
+            contentPanel = leftPanel;
+        } else {
+            targetPanel = leftPanel;
+            contentPanel = rightPanel;
+        }
+
+        console.log('🎯 Panel Assignment:', {
+            targetPanel: targetPanel.id,
+            contentPanel: contentPanel.id,
+            isRightPanel: targetPanel.id.includes('right') || targetPanel.id.includes('Right'),
+            isLeftPanel: targetPanel.id.includes('left') || targetPanel.id.includes('Left')
+        });
+        
+        // Store panel type for debugging
+        this.panelType = targetPanel.id.includes('right') ? 'right' : 'left';
+        console.log('🏷️ Panel Type:', this.panelType);
+        
+        // Debug panel differences
+        console.log('🔍 Panel Comparison Debug:', {
+            targetPanel: {
+                id: targetPanel.id,
+                rect: targetPanel.getBoundingClientRect(),
+                display: window.getComputedStyle(targetPanel).display,
+                visibility: window.getComputedStyle(targetPanel).visibility,
+                height: window.getComputedStyle(targetPanel).height,
+                overflow: window.getComputedStyle(targetPanel).overflow,
+                children: Array.from(targetPanel.children).map(child => ({
+                    tagName: child.tagName,
+                    id: child.id,
+                    className: child.className
+                }))
+            },
+            contentPanel: {
+                id: contentPanel.id,
+                rect: contentPanel.getBoundingClientRect(),
+                display: window.getComputedStyle(contentPanel).display,
+                visibility: window.getComputedStyle(contentPanel).visibility,
+                height: window.getComputedStyle(contentPanel).height,
+                overflow: window.getComputedStyle(contentPanel).overflow,
+                children: Array.from(contentPanel.children).map(child => ({
+                    tagName: child.tagName,
+                    id: child.id,
+                    className: child.className
+                }))
+            }
+        });
+
+        this.activePanel = targetPanel;
+        this.contentPanel = contentPanel;
+        this.lockBodyScroll();
+
+        const getPanelHeight = async (panel) => {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    requestAnimationFrame(() => {
+                        const base = Math.max(panel.scrollHeight, panel.offsetHeight, panel.clientHeight);
+
+                        // Scan descendants but ignore fixed/absolute off-screen monsters
+                        const panelRect = panel.getBoundingClientRect();
+                        let maxBottom = base;
+
+                        panel.querySelectorAll('*').forEach(el => {
+                            const style = getComputedStyle(el);
+                            if (style.position === 'fixed') return; // ignore fixed overlays
+                            const r = el.getBoundingClientRect();
+                            if (r.height <= 0) return;
+                            const relBottom = (r.bottom - panelRect.top) + panel.scrollTop;
+                            if (relBottom > 0) {
+                                maxBottom = Math.max(maxBottom, relBottom);
+                            }
+                        });
+
+                        // Final height is bounded only by document height
+                        const measured = Math.max(base, Math.min(maxBottom, document.body.scrollHeight));
+                        resolve(Math.max(measured, window.innerHeight));
+                    });
+                }, 100);
+            });
+        };
+
+        // Measure both panels and use the maximum to ensure full coverage
+        console.log('🔄 Starting panel height measurements...');
+        const contentPanelHeight = await getPanelHeight(contentPanel);
+        const targetPanelHeight = await getPanelHeight(targetPanel);
+        const rawContentHeight = Math.max(contentPanelHeight, targetPanelHeight, window.innerHeight);
+        const { cssHeight, bitmapHeight, dpr } = this.getSafeHeights(rawContentHeight);
+        const contentHeight = rawContentHeight; // use full raw height for container/hitLayer
+        this.contentHeight = rawContentHeight;
+
+        console.log('📐 Content Height Calculation:', {
+            contentHeight: contentHeight,
+            contentPanelHeight: contentPanelHeight,
+            targetPanelHeight: targetPanelHeight,
+            contentPanelId: contentPanel.id,
+            targetPanelId: targetPanel.id,
+            windowHeight: window.innerHeight,
+            contentPanelExists: !!contentPanel,
+            targetPanelExists: !!targetPanel
+        });
+
+        // Additional debugging if heights are zero
+        if (contentHeight === 0) {
+            console.error('⚠️ ZERO HEIGHT DETECTED!', {
+                contentPanel: {
+                    id: contentPanel.id,
+                    scrollHeight: contentPanel.scrollHeight,
+                    offsetHeight: contentPanel.offsetHeight,
+                    clientHeight: contentPanel.clientHeight,
+                    display: window.getComputedStyle(contentPanel).display,
+                    visibility: window.getComputedStyle(contentPanel).visibility,
+                    children: Array.from(contentPanel.children).length
+                },
+                targetPanel: {
+                    id: targetPanel.id,
+                    scrollHeight: targetPanel.scrollHeight,
+                    offsetHeight: targetPanel.offsetHeight,
+                    clientHeight: targetPanel.clientHeight,
+                    display: window.getComputedStyle(targetPanel).display,
+                    visibility: window.getComputedStyle(targetPanel).visibility,
+                    children: Array.from(targetPanel.children).length
+                }
+            });
+        }
+
+        // Debug overlay layers and z-index issues
+        console.log('🔍 OVERLAY LAYER DEBUG:', {
+            allOverlays: Array.from(document.querySelectorAll('[class*="overlay"], [class*="chaos"], [style*="position: absolute"], [style*="position: fixed"]')).map(el => ({
+                tagName: el.tagName,
+                id: el.id,
+                className: el.className,
+                zIndex: window.getComputedStyle(el).zIndex,
+                position: window.getComputedStyle(el).position,
+                display: window.getComputedStyle(el).display,
+                visibility: window.getComputedStyle(el).visibility,
+                backgroundColor: window.getComputedStyle(el).backgroundColor,
+                rect: el.getBoundingClientRect()
+            })),
+            chaosOverlay: this.chaosOverlay ? {
+                id: this.chaosOverlay.id,
+                className: this.chaosOverlay.className,
+                zIndex: window.getComputedStyle(this.chaosOverlay).zIndex,
+                position: window.getComputedStyle(this.chaosOverlay).position,
+                display: window.getComputedStyle(this.chaosOverlay).display,
+                visibility: window.getComputedStyle(this.chaosOverlay).visibility,
+                backgroundColor: window.getComputedStyle(this.chaosOverlay).backgroundColor,
+                rect: this.chaosOverlay.getBoundingClientRect()
+            } : null,
+            chaosViewport: this.chaosViewport ? {
+                id: this.chaosViewport.id,
+                className: this.chaosViewport.className,
+                zIndex: window.getComputedStyle(this.chaosViewport).zIndex,
+                position: window.getComputedStyle(this.chaosViewport).position,
+                display: window.getComputedStyle(this.chaosViewport).display,
+                visibility: window.getComputedStyle(this.chaosViewport).visibility,
+                backgroundColor: window.getComputedStyle(this.chaosViewport).backgroundColor,
+                rect: this.chaosViewport.getBoundingClientRect()
+            } : null
+        });
+
+        let actualScrollContainer = contentPanel;
+        const hasScroll = contentPanel.scrollHeight > contentPanel.clientHeight;
+        if (!hasScroll) {
+            const scrollableChild = contentPanel.querySelector('[class*="overflow-auto"], [class*="overflow-y-auto"], [class*="overflow-scroll"]');
+            if (scrollableChild) {
+                actualScrollContainer = scrollableChild;
+            }
+        }
+        this.scrollableContainer = actualScrollContainer;
+
+        this.originalLeftOverflow = leftPanel.style.overflow;
+        this.originalRightOverflow = rightPanel.style.overflow;
+        this.originalLeftHeight = leftPanel.style.height;
+        this.originalRightHeight = rightPanel.style.height;
+        this.originalLeftPosition = leftPanel.style.position;
+        this.originalRightPosition = rightPanel.style.position;
+        this.originalLeftTop = leftPanel.style.top;
+        this.originalRightTop = rightPanel.style.top;
+        this.originalTargetChildrenOverflow = [];
+        this.originalTargetChildrenScrollTop = [];
+
+        leftPanel.style.overflow = (targetPanel === leftPanel) ? 'hidden' : 'auto';
+        rightPanel.style.overflow = (targetPanel === rightPanel) ? 'hidden' : 'auto';
+
+        // Store original overflow for scrollable children in target panel
+        // Freeze their scroll position while keeping content visible
+        const targetScrollableChildren = targetPanel.querySelectorAll('[class*="overflow-auto"], [class*="overflow-y-auto"], [class*="overflow-x-auto"]');
+        
+        targetScrollableChildren.forEach((child, index) => {
+            // Store original values
+            this.originalTargetChildrenOverflow[index] = child.style.overflow;
+            this.originalTargetChildrenScrollTop[index] = child.scrollTop;
+            
+            // For target panel, we want content visible but don't want to change scroll
+            // Since chaos viewport is fixed on body, we don't actually need to change overflow here
+            // Just disable scrolling by setting overflow to hidden (not visible)
+            const currentScrollTop = child.scrollTop;
+            child.style.overflow = 'hidden';
+            
+            console.log('🔒 Freezing child scroll:', {
+                index,
+                currentScrollTop,
+                childClass: child.className
+            });
+        });
+
+        // Store current scroll position before changing overflow
+        const targetPanelScrollTop = targetPanel.scrollTop;
+        
+        targetPanel.style.position = 'sticky';
+        targetPanel.style.top = '0';
+        targetPanel.style.height = '100vh';
+        targetPanel.style.overflow = 'hidden';
+        
+        // Only reset scroll if it's NOT the panel with visible content we want to preserve
+        // On article pages, right panel shows article list - don't scroll it to top
+        if (isArticlePage && targetPanel === rightPanel) {
+            // Right panel has content to display - preserve its scroll position
+            console.log('📌 Preserving right panel scroll position:', targetPanelScrollTop);
+            // Note: overflow:hidden removes scrollbar but content should remain at current position
+        } else {
+            // For other cases, reset to top since it's just the chaos panel
+            targetPanel.scrollTop = 0;
+            console.log('🔝 Reset target panel scroll to 0');
+        }
+
+        if (contentPanel && contentPanel !== targetPanel) {
+            contentPanel.style.overflow = 'auto';
+        }
+
+        this.originalReadableOverscroll = contentPanel.style.overscrollBehavior;
+        this.originalReadableWebkitScroll = contentPanel.style.webkitOverflowScrolling;
+        contentPanel.style.overscrollBehavior = 'contain';
+        contentPanel.style.webkitOverflowScrolling = 'touch';
+
+        targetPanel.classList.add('chaos-active-panel');
+
+        // Get panel position for fixed positioning
+        const panelRect = targetPanel.getBoundingClientRect();
+        
+        console.log('🎯 Panel positioning debug:', {
+            targetPanelId: targetPanel.id,
+            isRightPanel: targetPanel.id.includes('right') || targetPanel.id.includes('Right'),
+            panelRect: {
+                top: panelRect.top,
+                left: panelRect.left,
+                width: panelRect.width,
+                height: panelRect.height,
+                bottom: panelRect.bottom,
+                right: panelRect.right
+            },
+            windowScroll: {
+                scrollY: window.scrollY,
+                scrollX: window.scrollX
+            },
+            targetPanelStyles: {
+                position: window.getComputedStyle(targetPanel).position,
+                top: window.getComputedStyle(targetPanel).top,
+                left: window.getComputedStyle(targetPanel).left
+            }
+        });
+        
+        // Viewport matches visible panel; container carries full content height
+        this.chaosViewport = document.createElement('div');
+        this.chaosViewport.className = 'chaos-viewport';
+        this.chaosViewport.style.cssText = `
+            position: fixed;
+            top: ${panelRect.top}px;
+            left: ${panelRect.left}px;
+            width: ${panelRect.width}px;
+            height: ${panelRect.height}px; /* keep to visible panel */
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 999;
+        `;
+
+        this.chaosContainer = document.createElement('div');
+        this.chaosContainer.className = 'chaos-container';
+        this.chaosContainer.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: ${contentHeight}px;
+            pointer-events: none;
+            z-index: 999;
+            will-change: transform;
+            transform: translateY(0);
+        `;
+
+        console.log('🎨 Creating Chaos Viewport:', {
+            position: 'fixed on body',
+            top: panelRect.top,
+            left: panelRect.left,
+            width: panelRect.width,
+            height: panelRect.height,
+            containerHeight: contentHeight,
+            contentPanelId: contentPanel.id
+        });
+
+        this.chaosOverlay = document.createElement('div');
+        this.chaosOverlay.id = 'chaos-overlay';
+        
+        // Check if we're on desktop and using the right panel
+        const isDesktop = window.innerWidth >= 1024;
+        const isRightPanel = targetPanel.id.includes('right') || targetPanel.id.includes('Right');
+        const shouldAvoidDivider = isDesktop && isRightPanel;
+        
+        // Calculate divider width on desktop right panel
+        this.dividerWidth = 0;
+        if (shouldAvoidDivider) {
+            // The vertical title bar is the first child of the right panel
+            const dividerElement = targetPanel.querySelector('[style*="writing-mode"]');
+            if (dividerElement) {
+                this.dividerWidth = dividerElement.offsetWidth;
+            }
+        }
+        
+        this.chaosOverlay.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: ${shouldAvoidDivider ? this.dividerWidth + 'px' : '0'};
+            width: ${shouldAvoidDivider ? 'calc(100% - ' + this.dividerWidth + 'px)' : '100%'};
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(2px) grayscale(100%);
+            -webkit-backdrop-filter: blur(2px) grayscale(100%);
+            z-index: 998;
+            pointer-events: all;
+            touch-action: pan-y;
+        `;
+
+        targetPanel.insertBefore(this.chaosOverlay, targetPanel.firstChild);
+        document.body.appendChild(this.chaosViewport);
+        this.chaosViewport.appendChild(this.chaosContainer);
+
+        console.log('🎭 CHAOS OVERLAY CREATED:', {
+            overlayId: this.chaosOverlay.id,
+            targetPanelId: targetPanel.id,
+            overlayStyles: this.chaosOverlay.style.cssText,
+            overlayRect: this.chaosOverlay.getBoundingClientRect(),
+            targetPanelChildren: Array.from(targetPanel.children).map(child => ({
+                tagName: child.tagName,
+                id: child.id,
+                className: child.className,
+                zIndex: window.getComputedStyle(child).zIndex,
+                backgroundColor: window.getComputedStyle(child).backgroundColor,
+                display: window.getComputedStyle(child).display
+            }))
+        });
+        
+        // Debug: Check target panel content visibility
+        console.log('🔍 Target panel content check:', {
+            targetPanelId: targetPanel.id,
+            childCount: targetPanel.children.length,
+            children: Array.from(targetPanel.children).map(child => ({
+                tagName: child.tagName,
+                id: child.id,
+                className: child.className,
+                display: window.getComputedStyle(child).display,
+                visibility: window.getComputedStyle(child).visibility,
+                opacity: window.getComputedStyle(child).opacity,
+                zIndex: window.getComputedStyle(child).zIndex
+            })),
+            targetPanelDisplay: window.getComputedStyle(targetPanel).display,
+            targetPanelVisibility: window.getComputedStyle(targetPanel).visibility
+        });
+        
+        // Create shared canvas after container is properly in DOM
+        this.createSharedCanvas(contentHeight, contentPanel, panelRect.width);
+
+        this.overlayPointerBlocker = (e) => { e.preventDefault(); e.stopPropagation(); };
+        this.overlayWheelHandler = (e) => {
+            if (!this.scrollableContainer) return;
+            e.preventDefault();
+            this.scrollableContainer.scrollTop += e.deltaY;
+        };
+        this.overlayTouchStartY = 0;
+        this.overlayTouchStartHandler = (e) => {
+            if (!e.touches || e.touches.length === 0) return;
+            this.overlayTouchStartY = e.touches[0].clientY;
+        };
+        this.overlayTouchMoveHandler = (e) => {
+            if (!this.scrollableContainer || !e.touches || e.touches.length === 0) return;
+            const currentY = e.touches[0].clientY;
+            const dy = this.overlayTouchStartY - currentY;
+            if (Math.abs(dy) > 0) {
+                e.preventDefault();
+                this.scrollableContainer.scrollTop += dy;
+                this.overlayTouchStartY = currentY;
+            }
+        };
+        ['click','mousedown','mouseup','pointerdown','pointerup','dblclick','contextmenu'].forEach(evt => {
+            this.chaosOverlay.addEventListener(evt, this.overlayPointerBlocker, { passive: false });
+        });
+        this.chaosOverlay.addEventListener('wheel', this.overlayWheelHandler, { passive: false });
+        this.chaosOverlay.addEventListener('touchstart', this.overlayTouchStartHandler, { passive: false });
+        this.chaosOverlay.addEventListener('touchmove', this.overlayTouchMoveHandler, { passive: false });
+
+        const syncScroll = () => {
+            if (!this.chaosContainer || !this.scrollableContainer) return;
+            const y = this.scrollableContainer.scrollTop || 0;
+            this.chaosContainer.style.transform = `translateY(${-y}px)`;
+        };
+        this.scrollHandler = syncScroll;
+        this.scrollableContainer?.addEventListener('scroll', this.scrollHandler, { passive: true });
+        window.addEventListener('scroll', this.scrollHandler, { passive: true });
+
+        // Update viewport position on resize to keep it aligned with panel
+        const updateViewportPosition = () => {
+            if (!this.chaosViewport || !this.activePanel) return;
+            const rect = this.activePanel.getBoundingClientRect();
+            this.chaosViewport.style.top = `${rect.top}px`;
+            this.chaosViewport.style.left = `${rect.left}px`;
+            this.chaosViewport.style.width = `${rect.width}px`;
+            this.chaosViewport.style.height = `${rect.height}px`;
+        };
+        this.viewportPositionHandler = updateViewportPosition;
+        window.addEventListener('resize', this.viewportPositionHandler, { passive: true });
+        window.addEventListener('scroll', this.viewportPositionHandler, { passive: true });
+
+        // Initial sync - set chaos container position based on current scroll
+        console.log('🔄 Initial scroll sync:', {
+            scrollableContainer: this.scrollableContainer?.id || 'unknown',
+            initialScrollTop: this.scrollableContainer?.scrollTop || 0,
+            targetPanelScrollTop: targetPanel.scrollTop,
+            contentPanelScrollTop: contentPanel.scrollTop
+        });
+        syncScroll();
+
+        const updateHeights = async () => {
+            const contentPanelHeight = await getPanelHeight(contentPanel);
+            const targetPanelHeight = await getPanelHeight(targetPanel);
+            const rawHeight = Math.max(contentPanelHeight, targetPanelHeight);
+            const { cssHeight: _cssH, bitmapHeight: _bmpH, dpr } = this.getSafeHeights(rawHeight);
+            if (!rawHeight || rawHeight < 100) return;
+
+            console.log('🔄 Height Update:', {
+                oldHeight: this.contentHeight,
+                newHeight: rawHeight,
+                contentPanelHeight,
+                targetPanelHeight
+            });
+
+            this.contentHeight = rawHeight;
+
+            if (this.chaosViewport) this.chaosViewport.style.height = this.chaosViewport.style.height; // keep viewport height
+            if (this.chaosContainer) this.chaosContainer.style.height = rawHeight + 'px';
+
+            // Re-tile canvas to accommodate new content height and redraw
+            this.createSharedCanvas(rawHeight, contentPanel, this.activePanel?.clientWidth);
+            this.redrawCanvas();
+            if (this.textOverlay) this.textOverlay.style.height = rawHeight + 'px';
+            if (this.stickerOverlay) this.stickerOverlay.style.height = rawHeight + 'px';
+        };
+
+        this.resizeObserver = new ResizeObserver(() => requestAnimationFrame(updateHeights));
+        this.resizeObserver.observe(contentPanel);
+        if (contentPanel !== targetPanel) this.resizeObserver.observe(targetPanel);
+
+        this.mutationObserver = new MutationObserver(() => requestAnimationFrame(updateHeights));
+        this.mutationObserver.observe(contentPanel, { childList: true, subtree: true, attributes: false });
+        
+        console.log('✅ Desktop Chaos Mode Setup Complete\n');
+    }
+
+    createSharedCanvas(contentHeight, contentPanel, panelWidth) {
+        if (!this.chaosContainer) return;
+
+        // clear old tiles/hit layer
+        this.tiles.forEach(t => t.canvas.remove());
+        this.tiles = [];
+        if (this.hitLayer) { this.hitLayer.remove(); this.hitLayer = null; }
+
+        const leftOffset = this.dividerWidth || 0;
+        const widthAdjustment = leftOffset > 0 ? `calc(100% - ${leftOffset}px)` : '100%';
+        
+        const basePanelWidth =
+            panelWidth ||
+            this.chaosContainer.clientWidth ||
+            this.chaosViewport?.clientWidth ||
+            this.activePanel?.clientWidth || 320;
+        
+        // Adjust container width to account for divider
+        const containerWidth = basePanelWidth - leftOffset;
+
+        // Full-height hit layer for events
+        this.hitLayer = document.createElement('div');
+        this.hitLayer.className = 'chaos-hitlayer';
+        this.hitLayer.style.cssText = `
+            position:absolute;top:0;left:${leftOffset}px;width:${widthAdjustment};height:${contentHeight}px;
+            pointer-events:none; /* turned on per-tool */
+            z-index:10;
+        `;
+        this.chaosContainer.appendChild(this.hitLayer);
+
+        // Build stacked canvas tiles
+        const maxTileCss = this.getMaxCssHeightForCanvas();
+        let remaining = contentHeight;
+        let top = 0;
+
+        while (remaining > 0) {
+            const segCss = Math.min(remaining, maxTileCss);
+            const { bitmapHeight, dpr } = this.getSafeHeights(segCss);
+
+            const c = document.createElement('canvas');
+            c.className = 'chaos-tile';
+            c.style.cssText = `
+                position:absolute;left:${leftOffset}px;top:${top}px;width:${widthAdjustment};height:${segCss}px;
+                pointer-events:none; /* drawing happens via hitLayer */
+                z-index:5;
+                visibility:visible;
+                opacity:1;
+                display:block;
+            `;
+            const safeBitmapWidth = Math.min(
+                Math.floor(containerWidth * dpr),
+                ChaosMode.MAX_BITMAP_DIM - ChaosMode.BITMAP_MARGIN
+            );
+            c.width  = safeBitmapWidth;
+            c.height = bitmapHeight;
+
+            const ctx = c.getContext('2d', { alpha:true });
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+            ctx.strokeStyle = this.currentColor;
+            ctx.lineWidth = (window.innerWidth < 1024) ? 3 : 4;
+
+            this.chaosContainer.appendChild(c);
+            this.tiles.push({ canvas:c, ctx, top, height:segCss, dpr });
+
+            top += segCss;
+            remaining -= segCss;
+        }
+
+        // Maintain legacy fields
+        this.canvas = this.tiles[0]?.canvas || null;
+        this.ctx    = this.tiles[0]?.ctx    || null;
+
+        // Ensure container has full height
+        this.chaosContainer.style.height = contentHeight + 'px';
+        this.contentHeight = contentHeight;
+
+        console.log('✅ Tiled canvases created:', {
+            tiles: this.tiles.map(t => ({ top:t.top, height:t.height, w:t.canvas.width, h:t.canvas.height }))
+        });
+    }
+
+    async applyMobileChaosMode(leftPanel, rightPanel) {
+        console.log('📱 Starting Mobile Chaos Mode');
+        
+        const isArticlePage = window.location.pathname.includes('/article/');
+        let targetPanel, contentPanel;
+
+        // Mobile rule: canvas on LEFT by default, RIGHT on article pages
+        if (isArticlePage) {
+            targetPanel = rightPanel;
+            contentPanel = leftPanel;
+            console.log('📱 Article page: Canvas on RIGHT panel, content scrolls on LEFT');
+        } else {
+            targetPanel = leftPanel;
+            contentPanel = rightPanel;
+            console.log('📱 Non-article page: Canvas on LEFT panel, content scrolls on RIGHT');
+        }
+
+        // Set Alpine state to show the correct panel
+        const alpineApp = document.querySelector('[x-data]');
+        if (alpineApp && alpineApp._x_dataStack && alpineApp._x_dataStack[0]) {
+            const alpineData = alpineApp._x_dataStack[0];
+            if (alpineData.openRightSide !== undefined) {
+                this.originalOpenRightSide = alpineData.openRightSide;
+                // Article page = show right panel, else show left panel
+                alpineData.openRightSide = isArticlePage;
+            }
+        }
+        
+        // Sync localStorage
+        this.originalLocalStorageRightSide = localStorage.getItem('openRightSide');
+        localStorage.setItem('openRightSide', isArticlePage ? 'true' : 'false');
+
+        // Wait for Alpine to update DOM and transitions to complete
+        // Article pages need more time for the right panel slide transition
+        await new Promise(resolve => setTimeout(resolve, isArticlePage ? 350 : 150));
+
+        this.activePanel = targetPanel;
+        this.contentPanel = contentPanel;
+        this.lockBodyScroll();
+
+        // Find scrollable container (for content scroll sync)
+        let actualScrollContainer = contentPanel;
+        if (!(contentPanel.scrollHeight > contentPanel.clientHeight)) {
+            const scrollableChild = contentPanel.querySelector('[class*="overflow-auto"], [class*="overflow-y-auto"], [class*="overflow-scroll"]');
+            if (scrollableChild) actualScrollContainer = scrollableChild;
+        }
+        this.scrollableContainer = actualScrollContainer;
+
+        console.log('📱 Mobile Panel Setup:', {
+            targetPanel: targetPanel.id,
+            contentPanel: contentPanel.id,
+            scrollableContainer: actualScrollContainer.id || 'contentPanel',
+            isArticlePage
+        });
+
+        // Measure both panels to get full content height
+        const getMobilePanelHeight = async (panel) => {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    requestAnimationFrame(() => {
+                        const original = {
+                            overflow: panel.style.overflow,
+                            display: panel.style.display,
+                            visibility: panel.style.visibility,
+                            position: panel.style.position,
+                            top: panel.style.top,
+                            left: panel.style.left,
+                            width: panel.style.width,
+                            height: panel.style.height,
+                            zIndex: panel.style.zIndex
+                        };
+                        
+                        // Temporarily make panel visible to measure
+                        panel.style.overflow = 'auto';
+                        panel.style.display = 'block';
+                        panel.style.visibility = 'visible';
+                        panel.style.position = 'absolute';
+                        panel.style.top = '-9999px';
+                        panel.style.left = '0';
+                        panel.style.width = '100%';
+                        panel.style.height = 'auto';
+                        panel.style.zIndex = '-1';
+
+                        panel.offsetHeight; // Force reflow
+
+                        const base = Math.max(panel.scrollHeight, panel.offsetHeight, panel.clientHeight);
+                        let maxBottom = base;
+                        const panelRect = panel.getBoundingClientRect();
+                        const st = panel.scrollTop;
+                        
+                        // Scan children for max height
+                        panel.querySelectorAll('*').forEach(el => {
+                            const style = getComputedStyle(el);
+                            if (style.position === 'fixed') return;
+                            const r = el.getBoundingClientRect();
+                            if (r.height <= 0) return;
+                            const bottom = (r.bottom - panelRect.top) + st;
+                            if (bottom > 0) maxBottom = Math.max(maxBottom, bottom);
+                        });
+
+                        // Restore original styles
+                        panel.style.overflow = original.overflow;
+                        panel.style.display = original.display;
+                        panel.style.visibility = original.visibility;
+                        panel.style.position = original.position;
+                        panel.style.top = original.top;
+                        panel.style.left = original.left;
+                        panel.style.width = original.width;
+                        panel.style.height = original.height;
+                        panel.style.zIndex = original.zIndex;
+
+                        resolve(Math.max(maxBottom, window.innerHeight));
+                    });
+                }, 50);
+            });
+        };
+
+        // Measure both panels and use the maximum
+        const contentPanelHeight = await getMobilePanelHeight(contentPanel);
+        const targetPanelHeight = await getMobilePanelHeight(targetPanel);
+        const rawContentHeight = Math.max(contentPanelHeight, targetPanelHeight, window.innerHeight);
+        this.contentHeight = rawContentHeight;
+
+        console.log('📐 Mobile Content Height:', {
+            contentHeight: rawContentHeight,
+            contentPanelHeight,
+            targetPanelHeight,
+            windowHeight: window.innerHeight
+        });
+
+        // Create overlay (sits on top of target panel to block interaction and scroll content)
+        // Z-index must be below toolbox (z-[10005]) but above panel content
+        // Leave 18px for the divider bar to remain clickable
+        // Article page: divider is on LEFT of right panel, so shift overlay right
+        // Non-article: divider is on RIGHT of left panel, so reduce width
+        this.chaosOverlay = document.createElement('div');
+        this.chaosOverlay.id = 'chaos-overlay';
+        this.chaosOverlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: ${isArticlePage ? '18px' : '0'};
+            width: calc(100% - 18px);
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(2px) grayscale(100%);
+            -webkit-backdrop-filter: blur(2px) grayscale(100%);
+            z-index: 9998;
+            pointer-events: all;
+            touch-action: pan-y;
+        `;
+
+        // Create viewport (fixed, will be positioned to match target panel)
+        // Z-index must be below toolbox (z-[10005]) but above overlay
+        // Article page: shift viewport right by 18px to account for divider bar
+        this.chaosViewport = document.createElement('div');
+        this.chaosViewport.className = 'chaos-viewport';
+        this.chaosViewport.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: ${isArticlePage ? '18px' : '0'};
+            width: ${isArticlePage ? 'calc(100% - 18px)' : '100%'};
+            height: 100vh;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 9999;
+        `;
+
+        // Create container (holds canvas tiles and elements, full content height)
+        this.chaosContainer = document.createElement('div');
+        this.chaosContainer.className = 'chaos-container';
+        this.chaosContainer.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: ${rawContentHeight}px;
+            pointer-events: none;
+            z-index: 1;
+            will-change: transform;
+            transform: translateY(0);
+        `;
+
+        // Append to DOM
+        document.body.appendChild(this.chaosOverlay);
+        document.body.appendChild(this.chaosViewport);
+        this.chaosViewport.appendChild(this.chaosContainer);
+
+        console.log('📱 DOM elements created:', {
+            overlay: !!this.chaosOverlay,
+            overlayInDOM: document.body.contains(this.chaosOverlay),
+            viewport: !!this.chaosViewport,
+            viewportInDOM: document.body.contains(this.chaosViewport),
+            container: !!this.chaosContainer,
+            overlayStyle: this.chaosOverlay.style.cssText,
+            viewportStyle: this.chaosViewport.style.cssText
+        });
+
+        // Helper function to align viewport/overlay to target panel bounds
+        const alignToPanel = () => {
+            if (!this.activePanel) {
+                console.warn('📱 alignToPanel called but no activePanel!');
+                return;
+            }
+            
+            const rect = this.activePanel.getBoundingClientRect();
+            this._panelRect = rect;
+
+            // Check if panel is actually visible
+            const isVisible = rect.width > 0 && rect.height > 0;
+            const computedStyle = window.getComputedStyle(this.activePanel);
+            const isDisplayed = computedStyle.display !== 'none' && computedStyle.visibility !== 'hidden';
+
+            console.log('📱 Aligning to panel:', {
+                panel: this.activePanel.id,
+                rect: { top: rect.top, left: rect.left, width: rect.width, height: rect.height },
+                isVisible,
+                isDisplayed,
+                display: computedStyle.display,
+                visibility: computedStyle.visibility,
+                position: computedStyle.position
+            });
+
+            // If panel isn't visible yet, retry after a short delay
+            if (!isVisible || !isDisplayed) {
+                console.warn('📱 Panel not visible yet, retrying in 100ms...');
+                setTimeout(alignToPanel, 100);
+                return;
+            }
+
+            // Overlay: match visible panel area (minus 18px for divider bar)
+            // Article page: divider on left, shift overlay right
+            // Non-article: divider on right, reduce width
+            if (this.chaosOverlay) {
+                const isArticlePage = window.location.pathname.includes('/article/');
+                this.chaosOverlay.style.top = `${rect.top}px`;
+                this.chaosOverlay.style.left = `${isArticlePage ? rect.left + 18 : rect.left}px`;
+                this.chaosOverlay.style.width = `${Math.max(0, rect.width - 18)}px`;
+                this.chaosOverlay.style.height = `${rect.height}px`;
+                
+                console.log('📱 Overlay positioned:', {
+                    top: rect.top,
+                    left: rect.left,
+                    width: rect.width,
+                    height: rect.height,
+                    computedStyle: {
+                        display: window.getComputedStyle(this.chaosOverlay).display,
+                        visibility: window.getComputedStyle(this.chaosOverlay).visibility,
+                        zIndex: window.getComputedStyle(this.chaosOverlay).zIndex,
+                        backgroundColor: window.getComputedStyle(this.chaosOverlay).backgroundColor
+                    }
+                });
+            }
+
+            // Viewport: match visible panel area (viewport clips canvas to visible region)
+            // Article page: shift viewport right by 18px to account for divider
+            if (this.chaosViewport) {
+                const isArticlePage = window.location.pathname.includes('/article/');
+                this.chaosViewport.style.top = `${rect.top}px`;
+                this.chaosViewport.style.left = `${isArticlePage ? rect.left + 18 : rect.left}px`;
+                this.chaosViewport.style.width = `${isArticlePage ? Math.max(0, rect.width - 18) : rect.width}px`;
+                this.chaosViewport.style.height = `${rect.height}px`;
+                
+                console.log('📱 Viewport positioned:', {
+                    top: rect.top,
+                    left: rect.left,
+                    width: rect.width,
+                    height: rect.height,
+                    computedStyle: {
+                        display: window.getComputedStyle(this.chaosViewport).display,
+                        visibility: window.getComputedStyle(this.chaosViewport).visibility,
+                        zIndex: window.getComputedStyle(this.chaosViewport).zIndex,
+                        overflow: window.getComputedStyle(this.chaosViewport).overflow
+                    }
+                });
+            }
+
+            // Update canvas tile widths if panel width changed
+            if (this.tiles && this.tiles.length > 0 && this._panelRect) {
+                const dpr = window.devicePixelRatio || 1;
+                const targetBitmapWidth = Math.min(
+                    Math.floor(rect.width * dpr),
+                    ChaosMode.MAX_BITMAP_DIM - ChaosMode.BITMAP_MARGIN
+                );
+                
+                // Check if any tile needs resizing
+                const needsResize = this.tiles.some(t => t.canvas.width !== targetBitmapWidth);
+                if (needsResize) {
+                    console.log('📱 Resizing canvas tiles for panel width:', rect.width);
+                    // Re-create canvas with new width
+                    this.createSharedCanvas(this.contentHeight, this.contentPanel, rect.width);
+                    this.redrawCanvas();
+                }
+            }
+        };
+
+        // Get panel width for initial canvas sizing
+        const panelWidth = targetPanel.clientWidth || window.innerWidth;
+        
+        // Create tiled canvas
+        this.createSharedCanvas(rawContentHeight, contentPanel, panelWidth);
+
+        console.log('📱 Created canvas tiles:', {
+            tileCount: this.tiles.length,
+            panelWidth,
+            contentHeight: rawContentHeight
+        });
+
+        // Setup overlay event handlers (block clicks, pass scroll to content)
+        this.overlayPointerBlocker = (e) => { e.preventDefault(); e.stopPropagation(); };
+        ['click','mousedown','mouseup','pointerdown','pointerup','dblclick','contextmenu'].forEach(evt => {
+            this.chaosOverlay.addEventListener(evt, this.overlayPointerBlocker, { passive: false });
+        });
+
+        // Touch scroll handler (scroll content panel while touching overlay)
+        this.overlayTouchStartY = 0;
+        this.overlayTouchStartHandler = (e) => { 
+            if (e.touches?.length) this.overlayTouchStartY = e.touches[0].clientY; 
+        };
+        this.overlayTouchMoveHandler = (e) => {
+            if (!this.scrollableContainer || !e.touches?.length) return;
+            const dy = this.overlayTouchStartY - e.touches[0].clientY;
+            if (dy !== 0) {
+                e.preventDefault();
+                this.scrollableContainer.scrollTop += dy;
+                this.overlayTouchStartY = e.touches[0].clientY;
+            }
+        };
+        this.chaosOverlay.addEventListener('touchstart', this.overlayTouchStartHandler, { passive: false });
+        this.chaosOverlay.addEventListener('touchmove', this.overlayTouchMoveHandler, { passive: false });
+
+        // Scroll sync (move canvas container with content scroll)
+        const syncScroll = () => {
+            if (!this.scrollableContainer || !this.chaosContainer) return;
+            const y = this.scrollableContainer.scrollTop || 0;
+            this.chaosContainer.style.transform = `translateY(${-y}px)`;
+        };
+        this.scrollHandler = syncScroll;
+        this.scrollableContainer.addEventListener('scroll', this.scrollHandler, { passive: true });
+        syncScroll(); // Initial sync
+
+        // Setup resize/scroll handlers to keep viewport aligned
+        this._repositionHandlers = [
+            ['resize', alignToPanel],
+            ['scroll', alignToPanel],
+            ['orientationchange', alignToPanel]
+        ];
+        this._repositionHandlers.forEach(([evt, fn]) => window.addEventListener(evt, fn, { passive: true }));
+        
+        // Initial alignment - call immediately and also in next frame
+        alignToPanel();
+        requestAnimationFrame(() => alignToPanel());
+
+        // Height update handler (when content changes)
+        const updateHeights = async () => {
+            const contentPanelHeight = await getMobilePanelHeight(contentPanel);
+            const targetPanelHeight = await getMobilePanelHeight(targetPanel);
+            const rawHeight = Math.max(contentPanelHeight, targetPanelHeight, window.innerHeight);
+            
+            if (!rawHeight || rawHeight < 100) return;
+            if (Math.abs(rawHeight - this.contentHeight) < 50) return; // Skip small changes
+
+            console.log('📱 Updating mobile content height:', {
+                oldHeight: this.contentHeight,
+                newHeight: rawHeight
+            });
+
+            this.contentHeight = rawHeight;
+
+            // Update container height
+            if (this.chaosContainer) {
+                this.chaosContainer.style.height = rawHeight + 'px';
+            }
+
+            // Re-tile canvas with new height
+            this.createSharedCanvas(rawHeight, contentPanel, this.activePanel?.clientWidth || panelWidth);
+            this.redrawCanvas();
+
+            // Update overlays if they exist
+            if (this.textOverlay) this.textOverlay.style.height = rawHeight + 'px';
+            if (this.stickerOverlay) this.stickerOverlay.style.height = rawHeight + 'px';
+        };
+
+        // Observe content panel for size/content changes
+        this.resizeObserver = new ResizeObserver(() => requestAnimationFrame(updateHeights));
+        this.resizeObserver.observe(contentPanel);
+
+        this.mutationObserver = new MutationObserver(() => requestAnimationFrame(updateHeights));
+        this.mutationObserver.observe(contentPanel, { childList: true, subtree: true, attributes: false });
+        
+        console.log('✅ Mobile Chaos Mode Setup Complete');
+        console.log('   Target Panel:', targetPanel.id);
+        console.log('   Content Panel:', contentPanel.id);
+        console.log('   Content Height:', rawContentHeight);
+    }
+
+    setupDrawingMode() {
+        // enable events on the full-height layer
+        if (!this.chaosContainer || !this.hitLayer || this.tiles.length === 0) return;
+        this.hitLayer.style.pointerEvents = 'all';
+        // Use a pencil emoji or SVG as cursor
+        const pencilCursor = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='black'><path d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z'/></svg>`;
+        this.hitLayer.style.cursor = `url("${pencilCursor}") 0 24, crosshair`;
+        this.hitLayer.style.touchAction = 'none';
+
+        // remove old listeners
+        this.hitLayer.removeEventListener('pointerdown', this.boundStartDrawing);
+        this.hitLayer.removeEventListener('pointermove', this.boundDraw);
+        this.hitLayer.removeEventListener('pointerup', this.boundStopDrawing);
+        this.hitLayer.removeEventListener('pointercancel', this.boundStopDrawing);
+
+        // add listeners
+        this.hitLayer.addEventListener('pointerdown', this.boundStartDrawing);
+        this.hitLayer.addEventListener('pointermove',  this.boundDraw);
+        this.hitLayer.addEventListener('pointerup',    this.boundStopDrawing);
+        this.hitLayer.addEventListener('pointercancel',this.boundStopDrawing);
+    }
+
+    redrawCanvas() {
+        if (!this.tiles.length) return;
+        const dpr = window.devicePixelRatio || 1;
+
+        // Clear all tiles
+        this.tiles.forEach(t => {
+            t.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            t.ctx.clearRect(0, 0, t.canvas.width / dpr, t.canvas.height / dpr);
+            t.ctx.strokeStyle = this.currentColor;
+            t.ctx.lineWidth = (window.innerWidth < 1024) ? 3 : 4;
+            t.ctx.lineCap = 'round';
+            t.ctx.lineJoin = 'round';
+        });
+
+        // Redraw paths into their tiles with smoothing
+        this.drawingPaths.forEach(path => {
+            if (path.length < 2) return;
+            // Start segment
+            for (let i = 1; i < path.length - 1; i++) {
+                const prev = path[i - 1];
+                const curr = path[i];
+                const next = path[i + 1];
+                const tileIdx = this._getTileIndexForY(curr.y);
+                const tile = this.tiles[tileIdx];
+                if (!tile) continue;
+                const ctx = tile.ctx;
+            // Begin a new subpath for each smoothed segment to avoid long paths accumulating
+            ctx.beginPath();
+            // If the previous point belongs to another tile, start at current point instead
+            const prevTileIdx = this._getTileIndexForY(prev.y);
+            if (prevTileIdx !== tileIdx) {
+                ctx.moveTo(curr.x, curr.y - tile.top);
+            } else {
+                ctx.moveTo(prev.x, prev.y - tile.top);
+            }
+                const midX = (curr.x + next.x) * 0.5;
+                const midY = (curr.y + next.y) * 0.5;
+                ctx.quadraticCurveTo(curr.x, curr.y - tile.top, midX, midY - tile.top);
+                ctx.stroke();
+            }
+            // Draw last straight segment to the final point for completeness
+            const lastIdx = path.length - 1;
+            const a = path[lastIdx - 1];
+            const b = path[lastIdx];
+            const tIdx = this._getTileIndexForY(b.y);
+            const t = this.tiles[tIdx];
+            if (t) {
+                const ctx = t.ctx;
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y - t.top);
+                ctx.lineTo(b.x, b.y - t.top);
+                ctx.stroke();
+            }
+        });
+    }
+
+    startDrawing(e) {
+        e.preventDefault();
+        
+        if (e.pointerId && (this.hitLayer || this.canvas)) {
+            try { (this.hitLayer || this.canvas).setPointerCapture(e.pointerId); } catch {}
+        }
+
+        this.isDrawing = true;
+        this.currentPath = [];
+        
+        // Cache rect and scroll to avoid repeated expensive calls
+        this.cachedRect = (this.chaosViewport || this.activePanel || document.body).getBoundingClientRect();
+        this.cachedScrollTop = this.scrollableContainer ? this.scrollableContainer.scrollTop : 0;
+        
+        const pos = this.getCanvasPosFast(e);
+        this.currentPath.push(pos);
+        this.lastDrawnPoint = pos;
+        
+        // Initialize the path on the appropriate tile
+            const idx = this._getTileIndexForY(pos.y);
+        const tile = this.tiles[idx];
+        if (tile) {
+            const lineWidth = window.innerWidth < 1024 ? 3 : 4;
+            tile.ctx.strokeStyle = this.currentColor;
+            tile.ctx.lineWidth = lineWidth;
+            tile.ctx.lineCap = 'round';
+            tile.ctx.lineJoin = 'round';
+            tile.ctx.beginPath();
+            tile.ctx.moveTo(pos.x, pos.y - tile.top);
+            this.currentTileIdx = idx;
+        }
+    }
+
+    draw(e) {
+        if (!this.isDrawing) return;
+        e.preventDefault();
+
+        const pos = this.getCanvasPosFast(e);
+        const last = this.lastDrawnPoint;
+        
+        // Only save points if mouse moved enough
+        if (last) {
+            const dx = pos.x - last.x;
+            const dy = pos.y - last.y;
+            const dist2 = dx * dx + dy * dy;
+            if (dist2 < 1) return;
+        }
+        
+        // Just collect points - rendering happens on stopDrawing for smoothness
+        this.currentPath.push(pos);
+        this.lastDrawnPoint = pos;
+    }
+    
+    getCanvasPosFast(e) {
+        // Use cached rect to avoid expensive getBoundingClientRect calls
+        return {
+            x: e.clientX - this.cachedRect.left,
+            y: (e.clientY - this.cachedRect.top) + this.cachedScrollTop
+        };
+    }
+
+    stopDrawing(e) {
+        if (!this.isDrawing) return;
+        if (e) e.preventDefault();
+
+        if (e && e.pointerId && (this.hitLayer || this.canvas)) {
+            try {
+                (this.hitLayer || this.canvas).releasePointerCapture(e.pointerId);
+            } catch {}
+        }
+
+        this.isDrawing = false;
+        this.currentTileIdx = undefined;
+        this.lastDrawnPoint = null;
+        this.cachedRect = null;
+        this.drawingScheduled = false;
+        this.pendingDrawPoint = null;
+
+        if (this.currentPath.length > 2) {
+            // Immediately render smooth preview
+            this.renderSmoothPath(this.currentPath);
+            
+            // Then save to server
+            this.drawingPaths.push([...this.currentPath]);
+            this.saveDrawing();
+        }
+        this.currentPath = [];
+    }
+    
+    renderSmoothPath(path) {
+        if (path.length < 2) return;
+        
+        const lineWidth = window.innerWidth < 1024 ? 3 : 4;
+        
+        // Draw smoothed path across tiles
+        for (let i = 1; i < path.length - 1; i++) {
+            const prev = path[i - 1];
+            const curr = path[i];
+            const next = path[i + 1];
+            
+            const idx = this._getTileIndexForY(curr.y);
+            const tile = this.tiles[idx];
+            if (!tile) continue;
+            
+            const ctx = tile.ctx;
+            ctx.strokeStyle = this.currentColor;
+            ctx.lineWidth = lineWidth;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.beginPath();
+            
+            const prevIdx = this._getTileIndexForY(prev.y);
+            if (prevIdx === idx) {
+                ctx.moveTo(prev.x, prev.y - tile.top);
+            } else {
+                ctx.moveTo(curr.x, curr.y - tile.top);
+            }
+            
+            const midX = (curr.x + next.x) * 0.5;
+            const midY = (curr.y + next.y) * 0.5;
+            ctx.quadraticCurveTo(curr.x, curr.y - tile.top, midX, midY - tile.top);
+            ctx.stroke();
+        }
+        
+        // Draw final segment
+        if (path.length >= 2) {
+            const a = path[path.length - 2];
+            const b = path[path.length - 1];
+            const idx = this._getTileIndexForY(b.y);
+            const tile = this.tiles[idx];
+            if (tile) {
+                const ctx = tile.ctx;
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y - tile.top);
+                ctx.lineTo(b.x, b.y - tile.top);
+                ctx.stroke();
+            }
+        }
+    }
+
+    getCanvasPos(e) {
+        const rect = (this.chaosViewport || this.activePanel || document.body).getBoundingClientRect();
+        const scrollTop = this.scrollableContainer ? this.scrollableContainer.scrollTop : 0;
+        return {
+            x: e.clientX - rect.left,
+            y: (e.clientY - rect.top) + scrollTop
+        };
+    }
+
+    async saveDrawing() {
+        const container = this.chaosContainer || document.querySelector('.chaos-container');
+
+        if (this.currentPath.length === 0) {
+            return;
+        }
+
+        // Validate canvas dimensions before attempting to save
+        if (!this.canvas || this.canvas.width === 0 || this.canvas.height === 0) {
+            return;
+        }
+
+        let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+        this.currentPath.forEach(point => {
+            minX = Math.min(minX, point.x);
+            maxX = Math.max(maxX, point.x);
+            minY = Math.min(minY, point.y);
+            maxY = Math.max(maxY, point.y);
+        });
+
+        const padding = 20;
+        minX = Math.max(0, minX - padding);
+        minY = Math.max(0, minY - padding);
+        maxX = Math.min((this.activePanel?.clientWidth || this.hitLayer?.clientWidth || this.chaosContainer?.clientWidth || window.innerWidth), maxX + padding);
+        maxY = Math.min(this.contentHeight, maxY + padding);
+
+        const width = maxX - minX;
+        const height = maxY - minY;
+
+        // Scale coordinates by device pixel ratio
+        const dpr = window.devicePixelRatio || 1;
+        const scaledMinX = minX * dpr;
+        const scaledMinY = minY * dpr;
+        const scaledWidth = width * dpr;
+        const scaledHeight = height * dpr;
+
+        // Build an offscreen canvas of just this stroke from recorded points
+        const off = document.createElement('canvas');
+        off.width  = Math.min(Math.floor(width  * dpr), ChaosMode.MAX_BITMAP_DIM - ChaosMode.BITMAP_MARGIN);
+        off.height = Math.min(Math.floor(height * dpr), ChaosMode.MAX_BITMAP_DIM - ChaosMode.BITMAP_MARGIN);
+        const octx = off.getContext('2d');
+        octx.setTransform(dpr,0,0,dpr,0,0);
+        octx.strokeStyle = this.currentColor;
+        octx.lineWidth = (window.innerWidth < 1024) ? 3 : 4;
+        octx.lineCap = 'round'; octx.lineJoin = 'round';
+        // Draw smoothed path to saved bitmap
+        octx.beginPath();
+        const p0 = this.currentPath[0];
+        octx.moveTo(p0.x - minX, p0.y - minY);
+        for (let i = 1; i < this.currentPath.length - 1; i++) {
+            const p1 = this.currentPath[i];
+            const p2 = this.currentPath[i + 1];
+            const midX = (p1.x + p2.x) * 0.5;
+            const midY = (p1.y + p2.y) * 0.5;
+            octx.quadraticCurveTo(p1.x - minX, p1.y - minY, midX - minX, midY - minY);
+        }
+        // Final straight segment to the last point
+        const last = this.currentPath[this.currentPath.length - 1];
+        if (last) {
+            octx.lineTo(last.x - minX, last.y - minY);
+        }
+        octx.stroke();
+
+        const dataURL = off.toDataURL('image/png');
+
+        const centerX = (minX + maxX) / 2;
+        const centerY = (minY + maxY) / 2;
+
+        // Use viewport width for consistent positioning across mobile/desktop
+        const isMobile = window.innerWidth < 1024;
+        const rect = this.chaosViewport ? this.chaosViewport.getBoundingClientRect() : this.activePanel.getBoundingClientRect();
+        // Mobile: Use viewport height only for natural placement
+        // Desktop: Use full content height for scrollable canvas
+        const containerHeight = isMobile ? window.innerHeight : this.contentHeight;
+        const containerWidth = rect.width;
+        const xPercent = (centerX / containerWidth) * 100;
+        const yPercent = (centerY / containerHeight) * 100;
+
+        console.log('✏️ SaveDrawing position:', {
+            isMobile,
+            center: { x: centerX, y: centerY },
+            containerSize: { width: containerWidth, height: containerHeight },
+            percent: { x: xPercent, y: yPercent }
+        });
+
+        try {
+            const csrfToken = document.querySelector('meta[name="csrf"]')?.content;
+            if (!csrfToken) {
+                return;
+            }
+            
+            // Fire and forget - don't await to avoid blocking
+            fetch('/chaos/sketch', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: JSON.stringify({
+                    sketch: dataURL,
+                    x_position: xPercent,
+                    y_position: yPercent,
+                    page_url: window.location.pathname,
+                    color: this.currentColor,
+                    article_id: this.getArticleId(),
+                    placed_on_mobile: isMobile
+                })
+            }).then(async response => {
+                if (response.ok) {
+                    const data = await response.json();
+                    // Add to undo stack
+                    if (data.id) {
+                        this.undoStack.push({ type: 'sketch', id: data.id });
+                        this.updateUndoButton();
+                    }
+                    this.tiles.forEach(t => t.ctx.clearRect(0, 0, t.canvas.width, t.canvas.height));
+                    this.drawingPaths = [];
+                    await this.loadExistingElements();
+                }
+            }).catch(error => {
+                // Silently fail to avoid blocking UI
+            });
+
+        } catch (error) {
+            // Silently fail to avoid blocking UI
+        }
+    }
+
+    cleanupDrawingMode() {
+        // Disable drawing mode on hit layer
+        if (this.hitLayer) {
+            this.hitLayer.style.cursor = 'default';
+            this.hitLayer.style.pointerEvents = 'none';
+            
+            // Remove drawing event listeners
+            this.hitLayer.removeEventListener('pointerdown', this.boundStartDrawing);
+            this.hitLayer.removeEventListener('pointermove', this.boundDraw);
+            this.hitLayer.removeEventListener('pointerup', this.boundStopDrawing);
+            this.hitLayer.removeEventListener('pointercancel', this.boundStopDrawing);
+        }
+        
+        this.isDrawing = false;
+        this.currentTileIdx = undefined;
+        this.lastDrawnPoint = null;
+        this.cachedRect = null;
+        this.drawingPaths = [];
+    }
+
+    setupTextMode() {
+        if (!this.canvas) {
+            return;
+        }
+
+        // Enable text mode on the hit layer
+        if (!this.hitLayer) return;
+        // Use a T icon SVG as cursor
+        const textCursor = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='black'><path d='M5 4v3h5.5v12h3V7H19V4z'/></svg>`;
+        this.hitLayer.style.cursor = `url("${textCursor}") 12 12, text`;
+        this.hitLayer.style.pointerEvents = 'all';
+        
+        // Remove any existing text click handler
+        if (this.textClickHandler) {
+            this.hitLayer.removeEventListener('click', this.textClickHandler);
+        }
+        
+        // Add text click handler to canvas
+        this.textClickHandler = (e) => {
+            // Only handle text clicks if we're in text mode and not drawing
+            if (this.currentTool === 'text' && !this.isDrawing) {
+                this.placeText(e);
+            }
+        };
+        this.hitLayer.addEventListener('click', this.textClickHandler);
+    }
+
+    placeText(e) {
+        const container = this.chaosContainer || document.querySelector('.chaos-container');
+        if (!container) {
+            return;
+        }
+        
+        const isMobile = window.innerWidth < 1024;
+        const rect = this.chaosViewport ? this.chaosViewport.getBoundingClientRect() : this.activePanel.getBoundingClientRect();
+        const scrollTop = this.scrollableContainer ? this.scrollableContainer.scrollTop : 0;
+
+        // Click position relative to the viewport/panel
+        const clickX = e.clientX - rect.left;
+        const clickY = (e.clientY - rect.top) + scrollTop;
+
+        // Mobile: Use viewport height only for natural placement
+        // Desktop: Use full content height for scrollable canvas
+        const containerHeight = isMobile ? window.innerHeight : this.contentHeight;
+        const containerWidth = rect.width;
+        const xPercent = (clickX / containerWidth) * 100;
+        const yPercent = (clickY / containerHeight) * 100;
+
+        console.log('📝 PlaceText position:', {
+            isMobile,
+            clickPos: { x: e.clientX, y: e.clientY },
+            rect: { left: rect.left, top: rect.top, width: rect.width },
+            clickRelative: { x: clickX, y: clickY },
+            containerHeight,
+            percent: { x: xPercent, y: yPercent }
+        });
+
+        // Variable sizing for desktop - some bigger, some same as before
+        let fontSize, maxWidth;
+        
+        if (isMobile) {
+            fontSize = '16px';
+            maxWidth = '180px';
+        } else {
+            // Desktop: Create variety in comment sizes
+            // Use a random seed based on current time and position for new comments
+            const randomSeed = Date.now() + xPercent + yPercent;
+            const sizeVariant = randomSeed % 3; // 0, 1, or 2
+            
+            switch (sizeVariant) {
+                case 0: // Bigger size
+                    fontSize = '45px';
+                    maxWidth = '500px';
+                    break;
+                case 1: // Medium size (current)
+                    fontSize = '30px';
+                    maxWidth = '400px';
+                    break;
+                case 2: // Smaller size
+                    fontSize = '24px';
+                    maxWidth = '350px';
+                    break;
+            }
+        }
+
+        // Create container for the comment input (matching search bar design)
+        const inputContainer = document.createElement('div');
+        
+        // Calculate available space to the right of click position
+        const minWidth = isMobile ? 180 : 250;
+        const padding = 16; // 8px padding on each side
+        const availableWidth = containerWidth - clickX;
+        const inputWidth = Math.min(maxWidth ? parseInt(maxWidth) : minWidth, availableWidth - padding);
+        
+        // Position input starting at click point, only extending to the right
+        // If there's not enough space, shift it left to fit
+        const leftPosition = clickX + inputWidth + padding > containerWidth 
+            ? containerWidth - inputWidth - padding 
+            : clickX;
+        
+        inputContainer.style.cssText = `
+            position: absolute;
+            left: ${leftPosition}px;
+            top: ${clickY}px;
+            transform: translateY(-50%);
+            background: #E3E3E3;
+            border: 1px solid black;
+            padding: 8px;
+            z-index: 1001;
+            width: ${inputWidth}px;
+            pointer-events: all;
+        `;
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.maxLength = 240;
+        input.placeholder = 'Brain dump...';
+
+        input.style.cssText = `
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid black;
+            font-family: 'Times New Roman', Times, serif;
+            color: ${this.currentColor};
+            font-size: ${fontSize};
+            outline: none;
+            padding: 4px 0;
+        `;
+
+        // Assemble the comment input
+        inputContainer.appendChild(input);
+
+        container.appendChild(inputContainer);
+        input.focus();
+        
+        console.log('📝 Text input created and added to DOM:', {
+            inputValue: input.value,
+            inputPosition: { x: xPercent + '%', y: yPercent + '%' },
+            containerChildren: container.children.length
+        });
+
+        let textSaved = false;
+        const saveText = async () => {
+            if (textSaved) return; // Prevent duplicate saves
+            const text = input.value.trim();
+            if (text) {
+                textSaved = true;
+                console.log('💬 Saving comment:', text);
+                try {
+                    const response = await fetch('/chaos/comment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf"]').content
+                        },
+                        body: JSON.stringify({
+                            comment: text,
+                            x_position: xPercent,
+                            y_position: yPercent,
+                            page_url: window.location.pathname,
+                            color: this.currentColor,
+                            article_id: this.getArticleId(),
+                            placed_on_mobile: isMobile
+                        })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        // Add to undo stack
+                        if (data.id) {
+                            this.undoStack.push({ type: 'comment', id: data.id });
+                            this.updateUndoButton();
+                        }
+                        await this.loadExistingElements();
+                    }
+
+                } catch (error) {
+                    console.error('Failed to save comment:', error);
+                }
+            }
+            inputContainer.remove();
+        };
+
+        input.addEventListener('blur', saveText);
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') saveText();
+        });
+    }
+
+    cleanupTextMode() {
+        // Remove text click handler from canvas
+        if (this.textClickHandler && this.hitLayer) {
+            this.hitLayer.removeEventListener('click', this.textClickHandler);
+        }
+        this.textClickHandler = null;
+        
+        // Reset canvas cursor and pointer events
+        if (this.hitLayer) {
+            this.hitLayer.style.cursor = 'default';
+            this.hitLayer.style.pointerEvents = 'none';
+        }
+    }
+
+    setupStickerMode() {
+        if (!this.canvas) {
+            return;
+        }
+
+        this.showStickerSelector(() => {
+        // Enable sticker mode on the hit layer
+        if (!this.hitLayer) return;
+        this.hitLayer.style.cursor = 'pointer';
+        this.hitLayer.style.pointerEvents = 'all';
+            
+            // Remove any existing sticker click handler
+            if (this.stickerClickHandler) {
+                this.hitLayer.removeEventListener('click', this.stickerClickHandler);
+            }
+            
+            // Add sticker click handler to canvas
+            this.stickerClickHandler = (e) => {
+                // Only handle sticker clicks if we're in sticker mode and not drawing
+                if (this.currentTool === 'sticker' && !this.isDrawing) {
+                    this.placeSticker(e);
+                }
+            };
+            this.hitLayer.addEventListener('click', this.stickerClickHandler);
+        });
+    }
+
+    showStickerSelector(onSelect) {
+        const stickers = ['bike.png', 'basketball.png', 'bread.png', 'carabiner.png', 'cds.png', 'deck.png', 'dog-food.png', 'erewhon.png', 'football-helmet.png', 'i-do-it-all-over-again.png', 'ipod.png', 'long-lawn-chairs.png', 'prayer-candle.png', 'shell.png', 'silence-and-secrecy.png'];
+
+        const selector = document.createElement('div');
+        selector.id = 'sticker-selector';
+        selector.style.cssText = `
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #E3E3E3;
+            padding: 8px;
+            border-radius: 0;
+            border: 1px solid black;
+            z-index: 10006;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            max-height: 80vh;
+            overflow-y: auto;
+        `;
+
+        stickers.forEach(sticker => {
+            const img = document.createElement('img');
+            img.src = `/assets/images/stickers/${sticker}`;
+            img.style.cssText = `
+                width: 80px;
+                height: 80px;
+                object-fit: contain;
+                cursor: pointer;
+                padding: 8px;
+                border: 1px solid black;
+                border-radius: 0;
+                background: #E3E3E3;
+                transition: background 0.2s;
+            `;
+            img.onmouseover = () => img.style.background = 'rgba(255, 255, 255, 0.5)';
+            img.onmouseout = () => img.style.background = '#E3E3E3';
+            img.onclick = () => {
+                this.selectedSticker = sticker;
+                selector.remove();
+                if (onSelect) onSelect();
+            };
+            selector.appendChild(img);
+        });
+
+        document.body.appendChild(selector);
+    }
+
+    async placeSticker(e) {
+        if (!this.selectedSticker) return;
+
+        const container = this.chaosContainer || document.querySelector('.chaos-container');
+        const isMobile = window.innerWidth < 1024;
+        const rect = this.chaosViewport ? this.chaosViewport.getBoundingClientRect() : this.activePanel.getBoundingClientRect();
+        const scrollTop = this.scrollableContainer ? this.scrollableContainer.scrollTop : 0;
+
+        // Click position relative to the viewport/panel
+        const clickX = e.clientX - rect.left;
+        const clickY = (e.clientY - rect.top) + scrollTop;
+
+        // Mobile: Use viewport height only for natural placement
+        // Desktop: Use full content height for scrollable canvas
+        const containerHeight = isMobile ? window.innerHeight : this.contentHeight;
+        const containerWidth = rect.width;
+        const xPercent = (clickX / containerWidth) * 100;
+        const yPercent = (clickY / containerHeight) * 100;
+
+        console.log('🎨 PlaceSticker position:', {
+            isMobile,
+            clickPos: { x: e.clientX, y: e.clientY },
+            rect: { left: rect.left, top: rect.top, width: rect.width },
+            clickRelative: { x: clickX, y: clickY },
+            containerHeight,
+            percent: { x: xPercent, y: yPercent }
+        });
+
+        try {
+            const response = await fetch('/chaos/sticker', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf"]').content
+                },
+                body: JSON.stringify({
+                    sticker: this.selectedSticker,
+                    x_position: xPercent,
+                    y_position: yPercent,
+                    page_url: window.location.pathname,
+                    article_id: this.getArticleId(),
+                    placed_on_mobile: isMobile
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                // Add to undo stack
+                if (data.id) {
+                    this.undoStack.push({ type: 'sticker', id: data.id });
+                    this.updateUndoButton();
+                }
+                await this.loadExistingElements();
+            }
+
+            this.selectedSticker = null;
+
+        } catch (error) {
+            console.error('Failed to place sticker:', error);
+        }
+    }
+
+    cleanupStickerMode() {
+        // Remove sticker click handler from canvas
+        if (this.stickerClickHandler && this.hitLayer) {
+            this.hitLayer.removeEventListener('click', this.stickerClickHandler);
+        }
+
+        const selector = document.getElementById('sticker-selector');
+        if (selector) selector.remove();
+
+        this.selectedSticker = null;
+        this.stickerClickHandler = null;
+        
+        // Reset canvas cursor and pointer events
+        if (this.hitLayer) {
+            this.hitLayer.style.cursor = 'default';
+            this.hitLayer.style.pointerEvents = 'none';
+        }
+    }
+
+    removePanelEffects() {
+        const isMobile = window.innerWidth < 1024;
+
+        if (isMobile) {
+            if (this.chaosOverlay) {
+                try {
+                    ['click','mousedown','mouseup','pointerdown','pointerup','dblclick','contextmenu'].forEach(evt => {
+                        this.chaosOverlay.removeEventListener(evt, this.overlayPointerBlocker);
+                    });
+                    this.chaosOverlay.removeEventListener('touchstart', this.overlayTouchStartHandler);
+                    this.chaosOverlay.removeEventListener('touchmove', this.overlayTouchMoveHandler);
+                } catch (_) { }
+                this.chaosOverlay.remove();
+                this.chaosOverlay = null;
+            }
+
+            if (this.chaosContainer) { this.chaosContainer.remove(); this.chaosContainer = null; }
+            if (this.chaosViewport) {
+                // Mobile viewport is also on body
+                if (document.body.contains(this.chaosViewport)) {
+                    this.chaosViewport.remove();
+                }
+                this.chaosViewport = null;
+            }
+
+            if (this.activePanel) this.activePanel.classList.remove('chaos-active-panel');
+
+            if (this.resizeObserver) { this.resizeObserver.disconnect(); this.resizeObserver = null; }
+            if (this.mutationObserver) { this.mutationObserver.disconnect(); this.mutationObserver = null; }
+
+            if (this.scrollHandler && this.scrollableContainer) {
+                this.scrollableContainer.removeEventListener('scroll', this.scrollHandler);
+            }
+            this.scrollHandler = null;
+
+            if (this._repositionHandlers) {
+                this._repositionHandlers.forEach(([evt, fn]) => window.removeEventListener(evt, fn));
+                this._repositionHandlers = null;
+            }
+
+            if (this.originalOpenRightSide !== undefined) {
+                const alpineApp = document.querySelector('[x-data]');
+                if (alpineApp && alpineApp._x_dataStack && alpineApp._x_dataStack[0]) {
+                    const alpineData = alpineApp._x_dataStack[0];
+                    alpineData.openRightSide = this.originalOpenRightSide;
+                }
+            }
+
+            if (this.originalLocalStorageRightSide !== undefined) {
+                localStorage.setItem('openRightSide', this.originalLocalStorageRightSide);
+            }
+
+            this.activePanel = null;
+            this.contentPanel = null;
+            this.scrollableContainer = null;
+
+            this.unlockBodyScroll();
+            return;
+        }
+
+        // Desktop cleanup
+        const leftPanel = document.getElementById('leftSideContent') || document.getElementById('leftSideContentMobile');
+        const rightPanel = document.getElementById('rightSide') || document.getElementById('rightSideMobile');
+
+        if (leftPanel) {
+            leftPanel.style.overflow = this.originalLeftOverflow || '';
+            leftPanel.style.height = this.originalLeftHeight || '';
+            if (this.originalLeftPosition !== undefined) leftPanel.style.position = this.originalLeftPosition;
+            if (this.originalLeftTop !== undefined) leftPanel.style.top = this.originalLeftTop;
+        }
+        if (rightPanel) {
+            rightPanel.style.overflow = this.originalRightOverflow || '';
+            rightPanel.style.height = this.originalRightHeight || '';
+            if (this.originalRightPosition !== undefined) rightPanel.style.position = this.originalRightPosition;
+            if (this.originalRightTop !== undefined) rightPanel.style.top = this.originalRightTop;
+        }
+
+        if (this.originalTargetChildrenOverflow && this.activePanel) {
+            const targetScrollableChildren = this.activePanel.querySelectorAll('[class*="overflow-auto"], [class*="overflow-y-auto"], [class*="overflow-x-auto"]');
+            targetScrollableChildren?.forEach((child, index) => {
+                if (this.originalTargetChildrenOverflow[index] !== undefined) {
+                    child.style.overflow = this.originalTargetChildrenOverflow[index];
+                }
+                // Restore scroll position
+                if (this.originalTargetChildrenScrollTop && this.originalTargetChildrenScrollTop[index] !== undefined) {
+                    child.scrollTop = this.originalTargetChildrenScrollTop[index];
+                }
+            });
+        }
+
+        if (this.contentPanel) {
+            if (this.originalReadableOverscroll !== undefined) this.contentPanel.style.overscrollBehavior = this.originalReadableOverscroll;
+            if (this.originalReadableWebkitScroll !== undefined) this.contentPanel.style.webkitOverflowScrolling = this.originalReadableWebkitScroll;
+        }
+
+        if (this.chaosOverlay) {
+            try {
+                ['click','mousedown','mouseup','pointerdown','pointerup','dblclick','contextmenu'].forEach(evt => {
+                    this.chaosOverlay.removeEventListener(evt, this.overlayPointerBlocker);
+                });
+                this.chaosOverlay.removeEventListener('wheel', this.overlayWheelHandler);
+                this.chaosOverlay.removeEventListener('touchstart', this.overlayTouchStartHandler);
+                this.chaosOverlay.removeEventListener('touchmove', this.overlayTouchMoveHandler);
+            } catch (_) { }
+            this.chaosOverlay.remove();
+            this.chaosOverlay = null;
+        }
+
+        if (this.chaosContainer) { this.chaosContainer.remove(); this.chaosContainer = null; }
+        if (this.chaosViewport) {
+            // Remove from body for desktop (was appended to body)
+            if (document.body.contains(this.chaosViewport)) {
+                this.chaosViewport.remove();
+            }
+            this.chaosViewport = null;
+        }
+
+        if (this.resizeObserver) { this.resizeObserver.disconnect(); this.resizeObserver = null; }
+        if (this.mutationObserver) { this.mutationObserver.disconnect(); this.mutationObserver = null; }
+
+        if (this.scrollHandler && this.scrollableContainer) {
+            this.scrollableContainer.removeEventListener('scroll', this.scrollHandler);
+            window.removeEventListener('scroll', this.scrollHandler);
+        }
+        this.scrollHandler = null;
+
+        if (this.viewportPositionHandler) {
+            window.removeEventListener('resize', this.viewportPositionHandler);
+            window.removeEventListener('scroll', this.viewportPositionHandler);
+            this.viewportPositionHandler = null;
+        }
+
+        this.activePanel = null;
+        this.contentPanel = null;
+        this.scrollableContainer = null;
+
+        document.querySelectorAll('.chaos-active-panel').forEach(el => {
+            el.classList.remove('chaos-active-panel');
+        });
+    }
+
+    lockBodyScroll() {
+        if (this.bodyScrollLocked) return;
+        this.bodyScrollY = window.scrollY || window.pageYOffset || 0;
+        const body = document.body;
+        const html = document.documentElement;
+        this.originalBodyStyles = {
+            position: body.style.position,
+            top: body.style.top,
+            width: body.style.width,
+            overflow: body.style.overflow,
+        };
+        body.style.position = 'fixed';
+        body.style.top = `-${this.bodyScrollY}px`;
+        body.style.width = '100%';
+        body.style.overflow = 'hidden';
+        html.style.overscrollBehaviorY = 'none';
+        this.bodyScrollLocked = true;
+    }
+
+    unlockBodyScroll() {
+        if (!this.bodyScrollLocked) return;
+        const body = document.body;
+        const html = document.documentElement;
+        body.style.position = this.originalBodyStyles.position || '';
+        body.style.top = this.originalBodyStyles.top || '';
+        body.style.width = this.originalBodyStyles.width || '';
+        body.style.overflow = this.originalBodyStyles.overflow || '';
+        html.style.overscrollBehaviorY = '';
+        window.scrollTo(0, this.bodyScrollY || 0);
+        this.bodyScrollLocked = false;
+    }
+
+
+    async loadExistingElements() {
+        const pageUrl = window.location.pathname;
+        const container = this.chaosContainer || document.querySelector('.chaos-container');
+        const isMobile = window.innerWidth < 1024;
+
+        console.log('🔄 Loading existing elements:', {
+            pageUrl,
+            isMobile,
+            container: !!container,
+            containerId: container?.id || 'none',
+            containerWidth: container?.clientWidth || 0,
+            viewportWidth: this.chaosViewport?.clientWidth || 0,
+            activePanelWidth: this.activePanel?.clientWidth || 0,
+            contentHeight: this.contentHeight,
+            isArticlePage: window.location.pathname.includes('/article/')
+        });
+
+        if (container) {
+            console.log('🔍 Container details:', {
+                containerRect: container.getBoundingClientRect(),
+                containerStyle: {
+                    position: window.getComputedStyle(container).position,
+                    top: window.getComputedStyle(container).top,
+                    left: window.getComputedStyle(container).left,
+                    width: window.getComputedStyle(container).width,
+                    height: window.getComputedStyle(container).height,
+                    display: window.getComputedStyle(container).display,
+                    visibility: window.getComputedStyle(container).visibility,
+                    zIndex: window.getComputedStyle(container).zIndex
+                },
+                containerParent: container.parentElement?.tagName,
+                containerParentId: container.parentElement?.id || 'none',
+                containerChildren: container.children.length
+            });
+        }
+
+        if (!container) {
+            console.error('No chaos container found for loading elements!');
+            console.error('Available chaos containers:', document.querySelectorAll('.chaos-container').length);
+            console.error('Available chaos viewports:', document.querySelectorAll('.chaos-viewport').length);
+            return;
+        }
+
+        try {
+            const isMobile = window.innerWidth < 1024;
+            const elementsToPlace = [];
+
+            console.log('📍 Loading elements for page:', {
+                pageUrl,
+                currentPath: window.location.pathname,
+                isMobile
+            });
+
+            const commentsRes = await fetch(`/chaos/comments?page_url=${encodeURIComponent(pageUrl)}`);
+            console.log('💬 Loading comments:', {
+                pageUrl,
+                responseOk: commentsRes.ok,
+                status: commentsRes.status
+            });
+            
+            if (commentsRes.ok) {
+                const commentsData = await commentsRes.json();
+                console.log('💬 Comments data:', commentsData);
+                
+                // Debug: Check if fresh start test two is in the data
+                const testTwo = commentsData?.comments?.find(c => c.comment?.includes('fresh start test two'));
+                if (testTwo) {
+                    console.log('✅ Found "fresh start test two" in API response:', testTwo);
+                } else {
+                    console.log('❌ "fresh start test two" NOT in API response for this page');
+                }
+                
+                if (commentsData?.comments) {
+                    console.log(`💬 Loading ${commentsData.comments.length} comments`);
+                    
+                    commentsData.comments.forEach((comment, index) => {
+                        // Skip comments with empty content
+                        if (!comment.comment || comment.comment.trim() === '') {
+                            console.warn('⚠️ Skipping comment with empty content:', comment);
+                            return;
+                        }
+                        
+                        // MOBILE: Only show mobile-placed comments
+                        if (isMobile && !comment.placed_on_mobile) {
+                            console.log(`⏭️ Skipping desktop comment on mobile: ${comment.comment}`);
+                            return;
+                        }
+                        
+                        // DEBUG: Track tttt comment
+                        if (comment.comment === 'tttt') {
+                            console.log('🔍 Found tttt comment:', {
+                                id: comment.id,
+                                x_position: comment.x_position,
+                                y_position: comment.y_position,
+                                isMobile,
+                                placed_on_mobile: comment.placed_on_mobile
+                            });
+                        }
+
+                        elementsToPlace.push({
+                            type: 'comment',
+                            data: comment,
+                            x: comment.x_position,
+                            y: comment.y_position,
+                            size: isMobile ? 90 : 150,
+                            index
+                        });
+                        
+                        // DEBUG: Track tttt comment being added
+                        if (comment.comment === 'tttt') {
+                            console.log('✅ Added tttt to elementsToPlace:', { x: comment.x_position, y: comment.y_position });
+                        }
+                    });
+                }
+            } else {
+                console.error('❌ Failed to load comments:', commentsRes.status);
+            }
+
+            const sketchesRes = await fetch(`/chaos/sketches?page_url=${encodeURIComponent(pageUrl)}`);
+            console.log('📥 Loading sketches:', {
+                pageUrl,
+                responseOk: sketchesRes.ok,
+                status: sketchesRes.status
+            });
+            
+            if (sketchesRes.ok) {
+                const sketchesData = await sketchesRes.json();
+                console.log('📥 Sketches data:', sketchesData);
+
+                if (sketchesData?.sketches) {
+                    console.log(`📥 Loading ${sketchesData.sketches.length} sketches`);
+                    
+                    sketchesData.sketches.forEach((sketch, index) => {
+                        // Skip sketches with invalid data (not base64 data URLs)
+                        if (!sketch.sketch || !sketch.sketch.startsWith('data:image/')) {
+                            console.warn(`⚠️ Skipping sketch ${index + 1} - invalid data format:`, sketch.sketch?.substring(0, 50));
+                            return;
+                        }
+                        
+                        // MOBILE: Only show mobile-placed sketches
+                        if (isMobile && !sketch.placed_on_mobile) {
+                            console.log(`⏭️ Skipping desktop sketch on mobile`);
+                            return;
+                        }
+                        
+                        // DESKTOP: Don't show mobile-placed sketches (they can look disconnected)
+                        if (!isMobile && sketch.placed_on_mobile) {
+                            console.log(`⏭️ Skipping mobile sketch on desktop (drawings don't transfer well)`);
+                            return;
+                        }
+
+                        elementsToPlace.push({
+                            type: 'sketch',
+                            data: sketch,
+                            x: sketch.x_position,
+                            y: sketch.y_position,
+                            size: isMobile ? 105 : 200,
+                            index
+                        });
+                    });
+                }
+            } else {
+                console.error('❌ Failed to load sketches:', sketchesRes.status);
+            }
+
+            const stickersRes = await fetch(`/chaos/stickers?page_url=${encodeURIComponent(pageUrl)}`);
+            if (stickersRes.ok) {
+                const stickersData = await stickersRes.json();
+                console.log('🔍 Stickers API response:', stickersData);
+
+                if (stickersData?.stickers) {
+                    console.log('📊 Stickers data:', {
+                        count: stickersData.stickers.length
+                    });
+                    
+                    stickersData.stickers.forEach((sticker, index) => {
+                        // Skip stickers with empty or invalid names
+                        if (!sticker.sticker || sticker.sticker.trim() === '') {
+                            console.warn('⚠️ Skipping sticker with empty name:', sticker);
+                            return;
+                        }
+                        
+                        // MOBILE: Only show mobile-placed stickers
+                        if (isMobile && !sticker.placed_on_mobile) {
+                            console.log(`⏭️ Skipping desktop sticker on mobile`);
+                            return;
+                        }
+
+                        elementsToPlace.push({
+                            type: 'sticker',
+                            data: sticker,
+                            x: sticker.x_position,
+                            y: sticker.y_position,
+                            size: isMobile ? 65 : 150,
+                            index
+                        });
+                    });
+                }
+            }
+
+            // Apply dispersion for mobile items on desktop with collision detection
+            const placedElements = []; // Track placed elements for collision detection
+            const finalElements = elementsToPlace.map(item => {
+                // Estimate size for collision tracking
+                const elementWidth = item.type === 'comment' ? 15 : (item.type === 'sticker' ? 8 : 10);
+                const elementHeight = item.type === 'comment' ? 5 : (item.type === 'sticker' ? 8 : 10);
+                
+                const dispersed = this.disperseMobileItemsOnDesktop(item, placedElements);
+                const wasDispersed = dispersed.x !== item.x || dispersed.y !== item.y;
+                
+                // Add this element to the placed elements array for future collision checks
+                placedElements.push({
+                    x: dispersed.x,
+                    y: dispersed.y,
+                    width: elementWidth,
+                    height: elementHeight,
+                    type: item.type
+                });
+                
+                if (wasDispersed) {
+                    console.log('✨ Dispersed item:', {
+                        type: item.type,
+                        id: item.data.id,
+                        original: { x: item.x, y: item.y },
+                        dispersed: { x: dispersed.x, y: dispersed.y }
+                    });
+                }
+                return {
+                    ...item,
+                    x: dispersed.x,
+                    y: dispersed.y
+                };
+            });
+
+            // Clean up existing elements right before rendering new ones (prevents flash)
+            const toolOverlays = container.querySelectorAll('.chaos-tool-overlay');
+            console.log('🧹 Cleaning up tool overlays:', {
+                totalOverlays: toolOverlays.length,
+                overlays: Array.from(toolOverlays).map(el => ({
+                    id: el.id,
+                    tagName: el.tagName,
+                    className: el.className
+                }))
+            });
+            
+            toolOverlays.forEach(el => {
+                if (!el.id || el.id !== 'chaos-canvas') {
+                    console.log('🧹 Removing overlay:', el.id || 'no-id', el.tagName);
+                    el.remove();
+                } else {
+                    console.log('🧹 Keeping canvas overlay:', el.id);
+                }
+            });
+            container.querySelectorAll('.chaos-element, .chaos-element-text').forEach(el => el.remove());
+
+            // Render all elements
+            finalElements.forEach(item => {
+                if (item.type === 'comment') {
+                    const comment = item.data;
+                    
+                    const el = document.createElement('div');
+                    el.className = 'chaos-element-text';
+                    el.textContent = comment.comment;
+
+                    // Variable sizing for desktop - some bigger, some same as before
+                    let fontSize, maxWidth;
+                    
+                    if (isMobile) {
+                        fontSize = '16px';
+                        maxWidth = '180px';
+                    } else {
+                        // Desktop: Create variety in comment sizes
+                        // Use comment ID or content hash to determine size consistently
+                        const commentHash = this.hashString(comment.comment + (comment.id || ''));
+                        const sizeVariant = commentHash % 3; // 0, 1, or 2
+                        
+                        switch (sizeVariant) {
+                            case 0: // Bigger size
+                                fontSize = '45px';
+                                maxWidth = '500px';
+                                break;
+                            case 1: // Medium size (current)
+                                fontSize = '30px';
+                                maxWidth = '400px';
+                                break;
+                            case 2: // Smaller size
+                                fontSize = '24px';
+                                maxWidth = '350px';
+                                break;
+                        }
+                    }
+
+                    el.style.cssText = `
+                        position: absolute;
+                        left: ${item.x}%;
+                        top: ${item.y}%;
+                        transform: translate(-50%, -50%);
+                        font-family: 'Times New Roman', Times, serif;
+                        color: ${comment.color};
+                        font-size: ${fontSize};
+                        pointer-events: none;
+                        z-index: 2;
+                        max-width: ${maxWidth};
+                        word-wrap: break-word;
+                        line-height: 1.2;
+                    `;
+                    
+                    // DEBUG: Track tttt being rendered
+                    if (comment.comment === 'tttt') {
+                        console.log('🎨 Rendering tttt comment:', {
+                            position: { x: item.x + '%', y: item.y + '%' },
+                            color: comment.color,
+                            fontSize
+                        });
+                    }
+                    
+                    container.appendChild(el);
+                }
+                else if (item.type === 'sketch') {
+                    const sketch = item.data;
+                    const img = document.createElement('img');
+                    img.className = 'chaos-element';
+                    img.src = sketch.sketch;
+
+                    // Moderate sizing - visible but not overwhelming
+                    const maxWidth = isMobile ? '150px' : '400px';
+
+                    img.style.cssText = `
+                        position: absolute;
+                        left: ${item.x}%;
+                        top: ${item.y}%;
+                        transform: translate(-50%, -50%);
+                        width: auto;
+                        max-width: ${maxWidth};
+                        height: auto;
+                        pointer-events: none;
+                        z-index: 4;
+                        opacity: 1;
+                    `;
+                    
+                    container.appendChild(img);
+                    
+                    // Handle image loading
+                    img.onload = () => {
+                        const dpr = window.devicePixelRatio || 1;
+                        const targetWidthCss = Math.max(1, Math.round(img.naturalWidth / dpr));
+                        img.style.width = targetWidthCss + 'px';
+                        img.style.height = 'auto';
+                    };
+                }
+                else if (item.type === 'sticker') {
+                    const sticker = item.data;
+                    const img = document.createElement('img');
+                    img.className = 'chaos-element';
+                    img.src = `/assets/images/stickers/${sticker.sticker}`;
+                    
+                    // Moderate sizing - noticeable but not dominating
+                    const stickerSize = isMobile ? '65px' : '150px';
+
+                    img.style.cssText = `
+                        position: absolute;
+                        left: ${item.x}%;
+                        top: ${item.y}%;
+                        transform: translate(-50%, -50%);
+                        width: ${stickerSize};
+                        height: auto;
+                        pointer-events: none;
+                        z-index: 3;
+                    `;
+                    container.appendChild(img);
+                }
+            });
+
+            this.elementsLoaded = true;
+            console.log('✅ Elements loaded successfully');
+        } catch (error) {
+            console.error('❌ Failed to load chaos elements:', error);
+        }
+    }
+
+    getArticleId() {
+        const match = window.location.pathname.match(/\/article\/(\d+)/);
+        return match ? match[1] : null;
+    }
+
+    /**
+     * Simple hash function to create consistent but varied values
+     * Used for determining comment sizes and other deterministic variations
+     */
+    hashString(str) {
+        let hash = 0;
+        if (str.length === 0) return hash;
+        for (let i = 0; i < str.length; i++) {
+            const char = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; // Convert to 32bit integer
+        }
+        return Math.abs(hash);
+    }
+
+    handleMobilePanelToggle() {
+        const isMobile = window.innerWidth < 1024;
+        if (!isMobile || !this.isActive) return;
+
+        const isArticlePage = window.location.pathname.includes('/article/');
+        const alpineApp = document.querySelector('[x-data]');
+
+        if (alpineApp && alpineApp._x_dataStack && alpineApp._x_dataStack[0]) {
+            const alpineData = alpineApp._x_dataStack[0];
+
+            console.log('📱 Mobile panel toggle detected:', {
+                isArticlePage,
+                openRightSide: alpineData.openRightSide,
+                shouldCloseOnArticle: isArticlePage && alpineData.openRightSide === false,
+                shouldCloseOnNonArticle: !isArticlePage && alpineData.openRightSide === true
+            });
+
+            // Article page: canvas is on right panel, so close if user switches to left
+            if (isArticlePage && alpineData.openRightSide === false) {
+                console.log('📱 Closing chaos mode: user switched away from right panel on article page');
+                this.closePencil();
+            }
+            
+            // Non-article page: canvas is on left panel, so close if user switches to right
+            if (!isArticlePage && alpineData.openRightSide === true) {
+                console.log('📱 Closing chaos mode: user switched away from left panel on non-article page');
+                this.closePencil();
+            }
+        }
+    }
+
+    ensureConsistentPositioning() {
+        if (!this.isActive) return;
+        if (this.elementsLoaded) this.loadExistingElements();
+    }
+
+    async undo() {
+        if (this.undoStack.length === 0) return;
+        
+        const item = this.undoStack.pop();
+        
+        try {
+            const csrfToken = document.querySelector('meta[name="csrf"]')?.content;
+            if (!csrfToken) {
+                console.error('No CSRF token found');
+                return;
+            }
+
+            const endpoint = `/chaos/${item.type}/${item.id}`;
+            const response = await fetch(endpoint, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
+
+            if (response.ok) {
+                console.log(`↶ Undid ${item.type} #${item.id}`);
+                // Reload elements to reflect the deletion
+                await this.loadExistingElements();
+                this.updateUndoButton();
+            } else {
+                console.error('Failed to undo:', response.status);
+                // Put the item back if deletion failed
+                this.undoStack.push(item);
+                this.updateUndoButton();
+            }
+        } catch (error) {
+            console.error('Failed to undo:', error);
+            // Put the item back if deletion failed
+            this.undoStack.push(item);
+            this.updateUndoButton();
+        }
+    }
+
+    showDesktopUndoButton() {
+        const isMobile = window.innerWidth < 1024;
+        if (isMobile) return;
+        
+        const undoBtn = document.getElementById('chaos-undo-desktop');
+        if (undoBtn) {
+            undoBtn.style.display = 'block';
+            this.updateUndoButton();
+        }
+    }
+
+    hideDesktopUndoButton() {
+        const undoBtn = document.getElementById('chaos-undo-desktop');
+        if (undoBtn) {
+            undoBtn.style.display = 'none';
+        }
+    }
+
+    createMobileUndoButton() {
+        const isMobile = window.innerWidth < 1024;
+        if (!isMobile) return;
+        
+        // Don't create if already exists
+        if (document.getElementById('chaos-undo-mobile')) return;
+        
+        const undoBtn = document.createElement('div');
+        undoBtn.id = 'chaos-undo-mobile';
+        undoBtn.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #E3E3E3;
+            border: 2px solid #000;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10003;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        `;
+        
+        undoBtn.innerHTML = `
+            <svg style="width: 28px; height: 28px;" fill="#000" viewBox="0 0 24 24">
+                <path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/>
+            </svg>
+        `;
+        
+        undoBtn.addEventListener('click', () => {
+            if (window.chaosMode) window.chaosMode.undo();
+        });
+        
+        document.body.appendChild(undoBtn);
+        this.updateUndoButton();
+    }
+
+    updateUndoButton() {
+        const undoButtonDesktop = document.getElementById('chaos-undo-desktop');
+        const undoButtonMobile = document.getElementById('chaos-undo-mobile');
+        
+        const hasItems = this.undoStack.length > 0;
+        
+        if (undoButtonDesktop) {
+            undoButtonDesktop.style.opacity = hasItems ? '1' : '0.3';
+            undoButtonDesktop.style.pointerEvents = hasItems ? 'auto' : 'none';
+            undoButtonDesktop.style.cursor = hasItems ? 'pointer' : 'default';
+        }
+        
+        if (undoButtonMobile) {
+            undoButtonMobile.style.display = hasItems && this.isActive ? 'flex' : 'none';
+        }
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+        window.chaosMode = new ChaosMode();
+    });
+} else {
+    window.chaosMode = new ChaosMode();
+}

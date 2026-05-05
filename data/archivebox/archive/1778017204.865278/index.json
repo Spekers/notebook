@@ -1,0 +1,338 @@
+{
+    "archive_path": "archive/1778017204.865278",
+    "base_url": "1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka",
+    "basename": "the-taste-report-brian-leeds-aka",
+    "bookmarked_date": "2026-05-05 21:40",
+    "canonical": {
+        "archive_org_path": "https://web.archive.org/web/1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka",
+        "dom_path": "output.html",
+        "favicon_path": "favicon.ico",
+        "git_path": "git/",
+        "google_favicon_path": "https://www.google.com/s2/favicons?domain=1234kyle5678.substack.com",
+        "headers_path": "headers.json",
+        "htmltotext_path": "htmltotext.txt",
+        "index_path": "index.html",
+        "media_path": "media/",
+        "mercury_path": "mercury/content.html",
+        "pdf_path": "output.pdf",
+        "readability_path": "readability/content.html",
+        "screenshot_path": "screenshot.png",
+        "singlefile_path": "singlefile.html",
+        "warc_path": "warc/",
+        "wget_path": "1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka.html"
+    },
+    "domain": "1234kyle5678.substack.com",
+    "extension": "",
+    "hash": "10Y2X3CBFP5BWZ8PD1TV",
+    "history": {
+        "archive_org": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--head",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://web.archive.org/save/https://1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:56:32.771820+00:00",
+                "index_texts": null,
+                "output": "TimeoutExpired: Command '['curl', '--silent', '--location', '--compressed', '--head', '--max-time', '60', '--user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)', 'https://web.archive.org/save/https://1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka']' timed out after 60 seconds",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865278",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:55:32.765924+00:00",
+                "status": "failed"
+            }
+        ],
+        "dom": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--dump-dom",
+                    "https://1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka"
+                ],
+                "cmd_version": "Google Chrome 147.0.7727.138",
+                "end_ts": "2026-05-05T21:55:20.130841+00:00",
+                "index_texts": null,
+                "output": "output.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865278",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:55:16.335392+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "favicon": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--max-time",
+                    "60",
+                    "--output",
+                    "favicon.ico",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://www.google.com/s2/favicons?domain=1234kyle5678.substack.com"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:54:49.851656+00:00",
+                "index_texts": null,
+                "output": "favicon.ico",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865278",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:54:49.703752+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "git": [],
+        "headers": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--head",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:54:50.074413+00:00",
+                "index_texts": null,
+                "output": "headers.json",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865278",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:54:49.853780+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "htmltotext": [],
+        "media": [
+            {
+                "cmd": [
+                    "yt-dlp",
+                    "--write-description",
+                    "--write-info-json",
+                    "--write-annotations",
+                    "--write-thumbnail",
+                    "--no-call-home",
+                    "--write-sub",
+                    "--write-auto-subs",
+                    "--convert-subs=srt",
+                    "--yes-playlist",
+                    "--continue",
+                    "--no-abort-on-error",
+                    "--ignore-errors",
+                    "--geo-bypass",
+                    "--add-metadata",
+                    "--format=(bv*+ba/b)[filesize<=750m][filesize_approx<=?750m]/(bv*+ba/b)",
+                    "https://1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka"
+                ],
+                "cmd_version": "2026.03.17",
+                "end_ts": "2026-05-05T21:55:32.764252+00:00",
+                "index_texts": [],
+                "output": "ArchiveError: Failed to save media",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865278",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:55:32.235207+00:00",
+                "status": "failed"
+            }
+        ],
+        "mercury": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/@postlight/parser/cli.js",
+                    "https://1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka"
+                ],
+                "cmd_version": "1.0.0",
+                "end_ts": "2026-05-05T21:55:32.220796+00:00",
+                "index_texts": null,
+                "output": "mercury",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865278",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:55:31.500305+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "pdf": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--print-to-pdf",
+                    "https://1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka"
+                ],
+                "cmd_version": "Google Chrome 147.0.7727.138",
+                "end_ts": "2026-05-05T21:55:12.103785+00:00",
+                "index_texts": null,
+                "output": "output.pdf",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865278",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:55:07.131665+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "readability": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/readability-extractor/readability-extractor",
+                    "/var/folders/5c/pl67hms52szcj9ppn2gb4gw00000gn/T/tmpar3bi9cv",
+                    "https://1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka"
+                ],
+                "cmd_version": "0.0.6",
+                "end_ts": "2026-05-05T21:55:31.498898+00:00",
+                "index_texts": [
+                    "Welcome to The Taste Report\u2122, an interview series exploring and explaining taste from people who have supremely good taste.When I heard that Brian Leeds \u2014 aka Huerco S. aka Loidis aka the man behind West Mineral Ltd. \u2014 was coming back to Barcelona, I knew we had to make an interview happen.For the uninitiated, Brian is one of the most interesting musicians working now. His vision of ambient as Huerco S. has redefined the genre, becoming a critically acclaimed project that has claimed spots on the top ambient records of all time and the best albums of the 2010s and the 2020s. His work as Huerco S. is about layering sounds and creating a tension that always seems to be awaiting something. While most ambient music is about slow movement and patience, in glacial broad strokes, works like For Those of You Who Have Never (And Also Those Who Have) and Plonk lean more toward the experimental, into textural soundscapes that feel beyond this time. The effect is less utopic, like that of Alice Coltrane\u2019s spiritualism or Laurie Spiegel\u2019s divinity, but more rough (American) realism like that of Oneohtrix Point Never\u2019s Replica or Tim Hecker\u2019s Ravedeath, 1972, works that feels like night sounds from a future where everything has fallen apart. These works function on multiple levels, with surface level \u201cmelodies\u201d that are literally underscored by unseen worlds beneath, as if a god encountering the world they created only to be greeted with the sounds of celebration and condemnation of their existence.His work as Loidis takes a different approach and is in many ways is the equal and opposite of Huerco S.: this work is what The Lot calls \u201cminimal-emo-tech,\u201d grooves that move with heavy elements of cyclicality and repetition inspired by very 2000s-era techno minimalism. His most recent album under the moniker, One Day, came out last year and easily swept up the scene \u2014 and went so far as being named RA\u2019s top album of the year. The same sonic philosophies of Huerco S. are still present \u2014 the layering, the beyondness \u2014 but these works function more as toying with specific sounds that then evolve into something that one \u201ccan dance to.\u201d It recalls that of Ricardo Villalobos or Isol\u00e9e in their prime, artists who shaped a very specific aughts sound of big music for clubs based around rhthyms that looped and looped and looped and looped into hypnotism, the feeling that one is simultaneously losing themself within themself as they lose themself on a dance floor or with another. In that sense, there\u2019s a time travelling here too, from the past to the present and into the future, a show of both recycling and evolution, proof of the import of that specific aughts moment \u2014 and that it\u2019s perhaps time to dig back into the more subtle amidst these maximalist, overwhelming times, when you can have everything but still feel like nothing. Why not indulge in music that constructs dancescapes with as little as possible?I emailed Brian in May, in anticipation of his July 4 show. He was down to chat and, while we tried to attempt connecting in person, we ultimately went with email as that was easiest given his travels and schedule. His answers came in hours before last Friday\u2019s show under the Huerco S. title. Doors for the show opened at 8P, with Howodd Bensonmum opening at 8:30P, and Brian on at 9:30P. Brian walked out with head ducked, as if retrieving something, wearing a half-buttoned white shirt and baseball hat, drinking a beer as he adjusted setup. The lights faded to a dull red before entering a deep black, his face just barely visible in the glowing red and white lights of his tools and laptop.KRF: How would you define your taste? From music to personal style, I'm curious how you'd define your overarching point of view.BL: dedicated to swag, trying my best to be earnest and trying to tone down the inner hater. keep it sexy \ud83d\udcafThe night felt like wrestling, like experiencing multiple shows happening at once, that there was a surface of beauty as a constant churn of something underneath picked at you to be concerned. There were abstract xylophone strokes that were evocative of something more traditional like jazz that was barely keeping up with a firm underlying buzz, a chirping and clicking, glassy whispers that chased away any feelings of relaxing melodies.As in 2022\u2019s Plonk, a heavy bottomed bass wandered throughout the live show, that the lightness of clouds was always broken by plunging ice. There were moments that felt like birds designed by Casio singing over an earthquake. You were soaring over the sea as someone\u2019s air conditioner rattled, reminding that it\u2019s two years overdue for a repair \u2014 and that this heatwave isn\u2019t helping its unstable condition. \u201cDragged underwater as music plays in reverse\u201d was a note I made. \u201cLike being in the wall between two music genres\u201d was another, like one room was blasting breakbeat while the other had Gigi Masin.KRF: How does your taste come through in your creative output? To me, in your mixes, there is a deep understanding of what this looks like, of the variety and textures you're attracted to, which is perhaps how we get projects like Loidis, Huerco S., Pendant, and more.BL: i'm not so sure it's really even a conscious decision at this point, just what comes naturally or what i find interesting and attractive sonically and the result is me trying to thread the proverbial needle.It wasn\u2019t lost on me that the show took place on Independence Day \u2014 and certainly not lost on him either. The duality of two sounds competing for one, of a top \u201cpretty\u201d layer meet with a grumbling base beneath, offered the sensation that the music was tearing itself apart, that this was the soundtrack of a breakdown.It also wasn\u2019t lost on me that Brian is from Kansas and that he has spoken at length about being from the Midwest. \u201cI was really into scene music, a lot of screamo and hardcore,\u201d he told RA in 2022. \u201cPop-punk, grindcore, metal, metalcore type stuff. Cybergrind. Literally programming metal music on a computer.\u201d Cybergrind: what a concept, what a space that we all live within.KRF: What is the role of influence on your work (and, by extension, taste)? As another American of a similar age group, who also lived in Kansas (Leavenworth let's gooo) and other non-metropolitan areas in the country, how things like chant and King of the Hill shaped your approach \u2014 and or if your approach/output is a reaction/response to this context.BL: being influenced by outside things is unavoidable. i think a lot of the music i make is deeply referential and always an extension of my taste in music, art, whatever. growing up in kansas had a huge effect on me and my perspective in discovering things and gave me a hunger/drive. not so sure KOTH has influenced my music haha but definitely on humor. for me it's one of the greatest pieces of american art, a true commentary, much more than a sitcom.I think a lot about how in the movie Looper the future of America was at its geographical center, that Kansas City had become what\u2019s next. Like in the movie, there is a lot of anxiety about \u201cwhat\u2019s going to happen\u201d in the present and how that will dictate the future \u2014 and that it\u2019s the future that is trying to warn us of something while also trying to take something from us. It\u2019s only in the reconciliation of this tension to ultimately stay present that resolves the issue./That in a way is the sound of Huerco S.: a pop song \u2014 Perhaps a Travis Scott song? \u2014 playing as happily as ever all while a war breaks, as the infrastructure of bass threatens to collapse the light, fluffy musical product that so many smile and stream to \u201cescape,\u201d a product of abandonment used as a sedative to reality. And yet: the bombs continue. You can escape but the bass will come pounding down on your door. Is that the future or the past coming to warn you of something?KRF: To me, your recent work is deep conversation with specific European house/techno sounds of the 2000s, specifically the late 2000s, of what we'd call minimal, microhouse, etc. What does it mean to, in many ways, to carry the torch forward of a style that some would argue is \"making a comeback\"?BL: for me i've been more attracted to the early aughts but i guess there's some later 00s in there too. i try not to think about any narrative as such, just the music i've always enjoyed and for me it's just a return to a sound i was trying to make when i first started the huerco s. project way back. right time right place, and people want to latch on and label it something.Everything dissolves. There was the feeling of anxiety and ugliness but also deep calm, deep beauty: serenity within the madness. There was a gauziness to this approach, that he was live sketching all night, drawing pictures with synthetics that were unseen in the darkness and the smoke. It was hard to see them but they were there, if you stopped to lock into the groove (or lack thereof). There was a juiciness to much of the sounds which felt at odds with the durability of many of the sounds. Like a beautiful gelatin covered in paper clips. Whipped cream and glass. A pavlova covered in tar.What would the soundtrack of these times be? When we look back, it won\u2019t be anything with words. It won\u2019t be the major pop tune but instead music that spoke to our psyche, that meditated on \u2014 and beyond \u2014 the breakdown. Perhaps that was Brian\u2019s message that night, something he may have been whispering to the few Americans that were in the audience and to anyone else who has been paying attention to the whole of the Millennial and Gen Z lifetime, of this millennium being stained by cross-cultural decay. What does it mean to be alive now? What does it mean to die now? Is harmony even possible anymore? If not in our lived reality, then why should we have harmony in what we listen to?"
+                ],
+                "output": "readability",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865278",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:55:30.999369+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "screenshot": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--screenshot",
+                    "https://1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka"
+                ],
+                "cmd_version": "Google Chrome 147.0.7727.138",
+                "end_ts": "2026-05-05T21:55:16.334217+00:00",
+                "index_texts": null,
+                "output": "screenshot.png",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865278",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:55:12.104998+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "singlefile": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/single-file-cli/single-file-node.js",
+                    "--browser-executable-path=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--browser-args=[\"--headless=new\", \"--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)\", \"--window-size=1440,2000\"]",
+                    "https://1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka",
+                    "singlefile.html"
+                ],
+                "cmd_version": "2.0.83",
+                "end_ts": "2026-05-05T21:55:07.130177+00:00",
+                "index_texts": null,
+                "output": "singlefile.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865278",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:54:50.076581+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "title": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:55:30.998794+00:00",
+                "index_texts": null,
+                "output": "The Taste Report\u2122: Brian Leeds (aka Huerco S. aka Loidis)",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865278",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:55:30.994599+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "wget": [
+            {
+                "cmd": [
+                    "wget",
+                    "--no-verbose",
+                    "--adjust-extension",
+                    "--convert-links",
+                    "--force-directories",
+                    "--backup-converted",
+                    "--span-hosts",
+                    "--no-parent",
+                    "-e",
+                    "robots=off",
+                    "--timeout=60",
+                    "--restrict-file-names=windows",
+                    "--warc-file=/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865278/warc/1778018120",
+                    "--page-requisites",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) wget/GNU Wget 1.25.0",
+                    "--compression=auto",
+                    "https://1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka"
+                ],
+                "cmd_version": "GNU Wget 1.25.0",
+                "end_ts": "2026-05-05T21:55:30.993457+00:00",
+                "index_texts": null,
+                "output": "1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865278",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:55:20.132054+00:00",
+                "status": "succeeded"
+            }
+        ]
+    },
+    "icons": null,
+    "is_archived": true,
+    "is_static": false,
+    "latest": {
+        "archive_org": "TimeoutExpired: Command '['curl', '--silent', '--location', '--compressed', '--head', '--max-time', '60', '--user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)', 'https://web.archive.org/save/https://1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka']' timed out after 60 seconds",
+        "dom": "output.html",
+        "favicon": "favicon.ico",
+        "git": null,
+        "media": "ArchiveError: Failed to save media",
+        "pdf": "output.pdf",
+        "screenshot": "screenshot.png",
+        "singlefile": "singlefile.html",
+        "title": "The Taste Report\u2122: Brian Leeds (aka Huerco S. aka Loidis)",
+        "warc": null,
+        "wget": "1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka.html"
+    },
+    "link_dir": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865278",
+    "newest_archive_date": "2026-05-05T21:55:32.765924+00:00",
+    "num_failures": 2,
+    "num_outputs": 10,
+    "oldest_archive_date": "2026-05-05T21:54:49.703752+00:00",
+    "path": "/p/the-taste-report-brian-leeds-aka",
+    "schema": "Link",
+    "scheme": "https",
+    "snapshot_id": "663ecc70-047d-4d3a-a782-bf66e47da137",
+    "sources": [
+        "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/sources/1778017204-import.txt"
+    ],
+    "tags": null,
+    "tags_str": "",
+    "timestamp": "1778017204.865278",
+    "title": "The Taste Report\u2122: Brian Leeds (aka Huerco S. aka Loidis)",
+    "updated": "2026-05-05T21:54:49.703651+00:00",
+    "updated_date": "2026-05-05 21:54",
+    "url": "https://1234kyle5678.substack.com/p/the-taste-report-brian-leeds-aka"
+}

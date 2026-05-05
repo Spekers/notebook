@@ -1,0 +1,155 @@
+/**
+ * Custom Analytics Event Tracker
+ * 
+ * This script automatically tracks:
+ * - Form submissions
+ * - CTA/button clicks
+ * - Custom events
+ */
+
+(function() {
+    'use strict';
+
+    // Track custom event via AJAX
+    function trackEvent(eventType, eventName, eventData = {}) {
+        const csrfToken = document.querySelector('meta[name="csrf"]')?.content || '';
+        
+        fetch('/api/analytics/track', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+            },
+            body: JSON.stringify({
+                event_type: eventType,
+                event_name: eventName,
+                event_data: eventData,
+            }),
+        }).catch(error => {
+            console.debug('Analytics tracking error:', error);
+        });
+    }
+
+    // Also track with Umami if available
+    function trackWithUmami(eventName, eventData = {}) {
+        if (typeof umami !== 'undefined' && typeof umami.track === 'function') {
+            umami.track(eventName, eventData);
+        }
+    }
+
+    // Track form submissions
+    document.addEventListener('submit', function(e) {
+        const form = e.target;
+        
+        // Get form identifier
+        const formName = form.getAttribute('data-analytics-name') 
+            || form.getAttribute('name') 
+            || form.getAttribute('id')
+            || 'unnamed-form';
+
+        // Track the event
+        trackEvent('form_submission', formName, {
+            action: form.action,
+            method: form.method,
+        });
+
+        trackWithUmami('form_submission', { form: formName });
+    });
+
+    // Track CTA/button clicks
+    document.addEventListener('click', function(e) {
+        const element = e.target.closest('[data-analytics-track]');
+        
+        if (element) {
+            const eventName = element.getAttribute('data-analytics-track');
+            const eventType = element.getAttribute('data-analytics-type') || 'cta_click';
+            const targetUrl = element.getAttribute('href') || element.getAttribute('data-url') || '';
+
+            trackEvent(eventType, eventName, {
+                target_url: targetUrl,
+                element_text: element.textContent.trim(),
+            });
+
+            trackWithUmami(eventType, { 
+                name: eventName,
+                url: targetUrl 
+            });
+        }
+    });
+
+    // Track search queries
+    const searchForms = document.querySelectorAll('form[role="search"], form.search-form');
+    searchForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const searchInput = form.querySelector('input[type="search"], input[name="q"], input[name="query"], input[name="search"]');
+            
+            if (searchInput && searchInput.value) {
+                const query = searchInput.value.trim();
+                
+                if (query) {
+                    trackEvent('search', query, {
+                        source: 'on-site',
+                    });
+
+                    trackWithUmami('search', { query });
+                }
+            }
+        });
+    });
+
+    // Expose global function for custom tracking
+    window.trackAnalytics = function(eventType, eventName, eventData = {}) {
+        trackEvent(eventType, eventName, eventData);
+        trackWithUmami(eventName, eventData);
+    };
+
+    // Track page visibility (time on page)
+    let pageVisibleTime = 0;
+    let lastVisibilityChange = Date.now();
+    let isVisible = !document.hidden;
+
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            // Page is hidden, accumulate visible time
+            if (isVisible) {
+                pageVisibleTime += Date.now() - lastVisibilityChange;
+            }
+            isVisible = false;
+        } else {
+            // Page is visible again
+            isVisible = true;
+            lastVisibilityChange = Date.now();
+        }
+    });
+
+    // Track time on page when user leaves
+    window.addEventListener('beforeunload', function() {
+        if (isVisible) {
+            pageVisibleTime += Date.now() - lastVisibilityChange;
+        }
+
+        // Send time on page (in seconds)
+        const timeOnPageSeconds = Math.round(pageVisibleTime / 1000);
+        
+        if (timeOnPageSeconds > 0) {
+            // Use sendBeacon for reliable delivery
+            // Note: sendBeacon doesn't support custom headers, so we include CSRF token in FormData
+            const data = new FormData();
+            const csrfToken = document.querySelector('meta[name="csrf"]')?.content || '';
+            if (csrfToken) {
+                data.append('_token', csrfToken);
+            }
+            data.append('event_type', 'page_view');
+            data.append('event_name', 'time_on_page');
+            data.append('event_data', JSON.stringify({ 
+                seconds: timeOnPageSeconds,
+                url: window.location.pathname
+            }));
+
+            navigator.sendBeacon('/api/analytics/track', data);
+        }
+    });
+
+    console.debug('Custom analytics tracker initialized');
+})();
+

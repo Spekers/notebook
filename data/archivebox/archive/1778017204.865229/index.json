@@ -1,0 +1,338 @@
+{
+    "archive_path": "archive/1778017204.865229",
+    "base_url": "pilotmagazine.uk/article/big-techs-fight-for-our-attention",
+    "basename": "big-techs-fight-for-our-attention",
+    "bookmarked_date": "2026-05-05 21:40",
+    "canonical": {
+        "archive_org_path": "https://web.archive.org/web/pilotmagazine.uk/article/big-techs-fight-for-our-attention",
+        "dom_path": "output.html",
+        "favicon_path": "favicon.ico",
+        "git_path": "git/",
+        "google_favicon_path": "https://www.google.com/s2/favicons?domain=pilotmagazine.uk",
+        "headers_path": "headers.json",
+        "htmltotext_path": "htmltotext.txt",
+        "index_path": "index.html",
+        "media_path": "media/",
+        "mercury_path": "mercury/content.html",
+        "pdf_path": "output.pdf",
+        "readability_path": "readability/content.html",
+        "screenshot_path": "screenshot.png",
+        "singlefile_path": "singlefile.html",
+        "warc_path": "warc/",
+        "wget_path": "pilotmagazine.uk/article/big-techs-fight-for-our-attention.html"
+    },
+    "domain": "pilotmagazine.uk",
+    "extension": "",
+    "hash": "10ZY5G7AYKRDHSTRMGYP",
+    "history": {
+        "archive_org": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--head",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://web.archive.org/save/https://pilotmagazine.uk/article/big-techs-fight-for-our-attention"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:49:13.303073+00:00",
+                "index_texts": null,
+                "output": "TimeoutExpired: Command '['curl', '--silent', '--location', '--compressed', '--head', '--max-time', '60', '--user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)', 'https://web.archive.org/save/https://pilotmagazine.uk/article/big-techs-fight-for-our-attention']' timed out after 60 seconds",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865229",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:48:13.298834+00:00",
+                "status": "failed"
+            }
+        ],
+        "dom": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--dump-dom",
+                    "https://pilotmagazine.uk/article/big-techs-fight-for-our-attention"
+                ],
+                "cmd_version": "Google Chrome 147.0.7727.138",
+                "end_ts": "2026-05-05T21:47:27.058165+00:00",
+                "index_texts": null,
+                "output": "output.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865229",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:47:20.932717+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "favicon": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--max-time",
+                    "60",
+                    "--output",
+                    "favicon.ico",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://www.google.com/s2/favicons?domain=pilotmagazine.uk"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:46:58.005817+00:00",
+                "index_texts": null,
+                "output": "favicon.ico",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865229",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:46:57.844507+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "git": [],
+        "headers": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--head",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://pilotmagazine.uk/article/big-techs-fight-for-our-attention"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:46:58.612380+00:00",
+                "index_texts": null,
+                "output": "headers.json",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865229",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:46:58.008860+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "htmltotext": [],
+        "media": [
+            {
+                "cmd": [
+                    "yt-dlp",
+                    "--write-description",
+                    "--write-info-json",
+                    "--write-annotations",
+                    "--write-thumbnail",
+                    "--no-call-home",
+                    "--write-sub",
+                    "--write-auto-subs",
+                    "--convert-subs=srt",
+                    "--yes-playlist",
+                    "--continue",
+                    "--no-abort-on-error",
+                    "--ignore-errors",
+                    "--geo-bypass",
+                    "--add-metadata",
+                    "--format=(bv*+ba/b)[filesize<=750m][filesize_approx<=?750m]/(bv*+ba/b)",
+                    "https://pilotmagazine.uk/article/big-techs-fight-for-our-attention"
+                ],
+                "cmd_version": "2026.03.17",
+                "end_ts": "2026-05-05T21:48:13.297107+00:00",
+                "index_texts": [],
+                "output": "media",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865229",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:48:11.580826+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "mercury": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/@postlight/parser/cli.js",
+                    "https://pilotmagazine.uk/article/big-techs-fight-for-our-attention"
+                ],
+                "cmd_version": "1.0.0",
+                "end_ts": "2026-05-05T21:48:11.564235+00:00",
+                "index_texts": null,
+                "output": "mercury",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865229",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:48:09.379026+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "pdf": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--print-to-pdf",
+                    "https://pilotmagazine.uk/article/big-techs-fight-for-our-attention"
+                ],
+                "cmd_version": "Google Chrome 147.0.7727.138",
+                "end_ts": "2026-05-05T21:47:14.124949+00:00",
+                "index_texts": null,
+                "output": "output.pdf",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865229",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:47:06.933473+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "readability": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/readability-extractor/readability-extractor",
+                    "/var/folders/5c/pl67hms52szcj9ppn2gb4gw00000gn/T/tmp5urnbnng",
+                    "https://pilotmagazine.uk/article/big-techs-fight-for-our-attention"
+                ],
+                "cmd_version": "0.0.6",
+                "end_ts": "2026-05-05T21:48:09.377595+00:00",
+                "index_texts": [
+                    "When did streaming on the Underground become a thing? These days every carriage will have at least a few commuters transfixed by Friends or Mad Men or Love is Blind, thanks to the miracle of offline playback and Transport for London\u2019s gradual 4G rollout. For all its grime and chaos, there was something endearing about the tube\u2019s holdout against the ultra-connectivity of the surface world, which oozes into every space we inhabit and promises something better. At work, in the gym, in the bathroom, and now while travelling 85 feet deep into the earth, we fulfil our modern function to consume content and produce data.\u00a0Sleep, the CEO of Netflix once joked, is their toughest competition.Except it\u2019s not a joke. Those who own the platforms that we tap, swipe, and stare at are deadly serious about capturing our attention, as frequently and for as long as possible.\u00a0Photo by Suze CruttwellSilicon Valley software designers have described how social media is hardwired to be addictive: recommendation algorithms, the nudge of notifications, the slot-machine high of the infinite scroll. In a world where the amount of information available to us has increased to near infinity and the cost of transmitting it has reduced to near zero, tech platforms are locked into an aggressive race to churn out content and \u201ccapture eyeballs\u201d\u2014competing not just with rival companies but also our own intentions, what we actually want to look at. Most weekday nights I end up doomscrolling during the time I wanted to read before bed (and then, inevitably, during the time I wanted to be asleep).This business model has profound social impacts. Former Google exec turned tech philosopher James Williams argues that the main risk is not that our attention is \u201coccupied or used up\u201d as though it were a finite resource, but that we \u201close control over our attentional processes\u201d. It\u2019s like shopping in a big Aldi\u2014the problem is not how many items you\u2019ve bought but the dizzying pace the cashiers chuck it at you. It\u2019s not the content itself, but what feels like the constantly accelerating speed of it all.\u00a0 Trends, microtrends, the 24-hour global news cycle, clickbait media, a million podcasts, meme of the week, white boy of the month, AI slop, it girls, and shitposts. Your stats waiting to be improved on Strava, your soulmate waiting to be found on Hinge, and all the people on Instagram who seem to be having a better time than you. Keeping up?Our attention is extracted so relentlessly that we risk forgetting how to turn it inwards.In our jobs and our leisure time, the tide of information that passes through our heads each day leaves little energy for the mind to attend to itself, to wander freely. We need space to maintain our sense of interiority, the inner room where we interpret the world and arrange it like furniture, according to our values, desires, and anxieties, in private patterns only we understand. It\u2019s where we decide what matters to us and resolve to turn thought into action. Controlling our attention is therefore a political struggle. \u201cBig Brother isn't watching,\u201d In the 2002 novel Lullaby, Chuck Palahniuk writes, \u201che's singing and dancing and making sure your attention is always filled. With the world always filling you, and your imagination atrophied, no-one has to worry about what's in your mind.\u201dWe have an innate need for recognition and connection, and digital media can trigger something resembling these feelings. But this imitation leaves us unfulfilled. Studies have shown that virtual communication can trick our brains\u2014think about the weird exhaustion of seeing your face in work video calls, and how quickly we got bored of Covid Zoom quizzes. Technology allows us to speak instantly to someone who could be anywhere in the world, and have our friends and family at the touch of a button, but these online interactions cannot reproduce the richness and depth of in-person contact. They don\u2019t require the careful navigation of body language, eye contact, non-verbal cues, and empathy which amount to emotionally satisfying encounters.A screen doesn\u2019t satisfy our need to feel seen. This is one reason we are facing a new social epidemic of loneliness. A survey by the charity Eden Project Communities found 16-24 year olds in the United Kingdom were three times more likely to say they feel lonely than 65-74 year olds, making Gen Z the \u201cloneliest generation\u201d, despite being the most \u201cconnected\u201d. Alongside social factors like the decimation of youth services in the 2010s, technology has played an inescapable role in this phenomenon. The automation of high street services, pressures of social media performativity, and general skyrocketing of screen time have all negatively impacted young people\u2019s social skills and confidence.Photo by Suze CruttwellWe\u2019ve been conditioned to neutralise boredom through muscle memory. Stood on a platform or waiting for a coffee, we reach for our phones when a moment of stillness lingers a little too long. Boredom grounds us in the passage of time and makes us aware of the passing seconds, which is why the weird timelessness of the infinite scroll is the perfect refuge. When the flow of stimulation runs dry, our attention turns inward and we become awkwardly self-conscious. It\u2019s not so much boredom itself which drives us to a screen in these situations but the fear of boredom, of being stuck in a room with only ourselves for company.What if instead of running from it, we stuck around to see what it brings? \u201cBoredom is the dream bird that hatches the egg of experience,\u201d wrote Walter Benjamin in 1936. \u201cRustling in the leaves drives him away.\u201d Dig into the flat feeling of boredom and we might find solitude, a deeper self-understanding, and the mind\u2019s innate ability to conjure the whole world.This is not an argument for spending our already limited free time watching paint dry. It\u2019s a call to consider what free time means in our current attention economy. In a world of endless, coercive distractions, we should see the arrival of boredom\u2014where nothing is holding our attention\u2014as a kind of freedom in itself.\u00a0Every time we deny the conditioned reflex to scroll, stream or swipe, we open the door to generative inner space. This doesn\u2019t require some monastic physical isolation\u2014just as loneliness can be most profound in the company of others, solitude is a mental state we can cultivate inside the white noise of modern life. In this solitude, where the mind can think both for itself and with itself, we exercise\u00a0 our own judgement and switch off the autopilot of ideology."
+                ],
+                "output": "readability",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865229",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:48:08.812639+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "screenshot": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--screenshot",
+                    "https://pilotmagazine.uk/article/big-techs-fight-for-our-attention"
+                ],
+                "cmd_version": "Google Chrome 147.0.7727.138",
+                "end_ts": "2026-05-05T21:47:20.931337+00:00",
+                "index_texts": null,
+                "output": "screenshot.png",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865229",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:47:14.126174+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "singlefile": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/single-file-cli/single-file-node.js",
+                    "--browser-executable-path=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--browser-args=[\"--headless=new\", \"--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)\", \"--window-size=1440,2000\"]",
+                    "https://pilotmagazine.uk/article/big-techs-fight-for-our-attention",
+                    "singlefile.html"
+                ],
+                "cmd_version": "2.0.83",
+                "end_ts": "2026-05-05T21:47:06.932402+00:00",
+                "index_texts": null,
+                "output": "singlefile.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865229",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:46:58.613846+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "title": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://pilotmagazine.uk/article/big-techs-fight-for-our-attention"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:48:08.811855+00:00",
+                "index_texts": null,
+                "output": "Big Tech\u2019s Fight for Our Attention Is Making Us Lonely: Why Embracing Solitude Could Be the Solution | PILOT Magazine",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865229",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:48:08.804221+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "wget": [
+            {
+                "cmd": [
+                    "wget",
+                    "--no-verbose",
+                    "--adjust-extension",
+                    "--convert-links",
+                    "--force-directories",
+                    "--backup-converted",
+                    "--span-hosts",
+                    "--no-parent",
+                    "-e",
+                    "robots=off",
+                    "--timeout=60",
+                    "--restrict-file-names=windows",
+                    "--warc-file=/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865229/warc/1778017647",
+                    "--page-requisites",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) wget/GNU Wget 1.25.0",
+                    "--compression=auto",
+                    "https://pilotmagazine.uk/article/big-techs-fight-for-our-attention"
+                ],
+                "cmd_version": "GNU Wget 1.25.0",
+                "end_ts": "2026-05-05T21:48:08.802129+00:00",
+                "index_texts": null,
+                "output": "pilotmagazine.uk/article/big-techs-fight-for-our-attention.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865229",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:47:27.059447+00:00",
+                "status": "succeeded"
+            }
+        ]
+    },
+    "icons": null,
+    "is_archived": true,
+    "is_static": false,
+    "latest": {
+        "archive_org": "TimeoutExpired: Command '['curl', '--silent', '--location', '--compressed', '--head', '--max-time', '60', '--user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)', 'https://web.archive.org/save/https://pilotmagazine.uk/article/big-techs-fight-for-our-attention']' timed out after 60 seconds",
+        "dom": "output.html",
+        "favicon": "favicon.ico",
+        "git": null,
+        "media": "media",
+        "pdf": "output.pdf",
+        "screenshot": "screenshot.png",
+        "singlefile": "singlefile.html",
+        "title": "Big Tech\u2019s Fight for Our Attention Is Making Us Lonely: Why Embracing Solitude Could Be the Solution | PILOT Magazine",
+        "warc": null,
+        "wget": "pilotmagazine.uk/article/big-techs-fight-for-our-attention.html"
+    },
+    "link_dir": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865229",
+    "newest_archive_date": "2026-05-05T21:48:13.298834+00:00",
+    "num_failures": 1,
+    "num_outputs": 11,
+    "oldest_archive_date": "2026-05-05T21:46:57.844507+00:00",
+    "path": "/article/big-techs-fight-for-our-attention",
+    "schema": "Link",
+    "scheme": "https",
+    "snapshot_id": "d18301eb-fcba-440d-86ee-515d5e8695ed",
+    "sources": [
+        "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/sources/1778017204-import.txt"
+    ],
+    "tags": null,
+    "tags_str": "",
+    "timestamp": "1778017204.865229",
+    "title": "Big Tech\u2019s Fight for Our Attention Is Making Us Lonely: Why Embracing Solitude Could Be the Solution | PILOT Magazine",
+    "updated": "2026-05-05T21:46:57.844440+00:00",
+    "updated_date": "2026-05-05 21:46",
+    "url": "https://pilotmagazine.uk/article/big-techs-fight-for-our-attention"
+}

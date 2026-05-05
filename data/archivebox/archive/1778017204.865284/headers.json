@@ -1,0 +1,14 @@
+{
+    "Status-Code": 200,
+    "Date": "Tue, 05 May 2026 21:50:53 GMT",
+    "Server": "Apache",
+    "Upgrade": "h2,h2c",
+    "Connection": "Upgrade, Keep-Alive",
+    "Last-Modified": "Sun, 18 Aug 2019 21:24:00 GMT",
+    "Accept-Ranges": "bytes",
+    "Vary": "Accept-Encoding",
+    "Content-Encoding": "gzip",
+    "Content-Length": "2484",
+    "Keep-Alive": "timeout=5, max=75",
+    "Content-Type": "text/html"
+}

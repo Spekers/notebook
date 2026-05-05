@@ -1,0 +1,343 @@
+{
+    "archive_path": "archive/1778017204.865248",
+    "base_url": "theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean",
+    "basename": "vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean",
+    "bookmarked_date": "2026-05-05 21:40",
+    "canonical": {
+        "archive_org_path": "https://web.archive.org/web/theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean",
+        "dom_path": "output.html",
+        "favicon_path": "favicon.ico",
+        "git_path": "git/",
+        "google_favicon_path": "https://www.google.com/s2/favicons?domain=theface.com",
+        "headers_path": "headers.json",
+        "htmltotext_path": "htmltotext.txt",
+        "index_path": "index.html",
+        "media_path": "media/",
+        "mercury_path": "mercury/content.html",
+        "pdf_path": "output.pdf",
+        "readability_path": "readability/content.html",
+        "screenshot_path": "screenshot.png",
+        "singlefile_path": "singlefile.html",
+        "warc_path": "warc/",
+        "wget_path": "theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean.html"
+    },
+    "domain": "theface.com",
+    "extension": "",
+    "hash": "A1G0PNT02K4EMEBD5WQG",
+    "history": {
+        "archive_org": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--head",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://web.archive.org/save/https://theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:46:57.765657+00:00",
+                "index_texts": null,
+                "output": "TimeoutExpired: Command '['curl', '--silent', '--location', '--compressed', '--head', '--max-time', '60', '--user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)', 'https://web.archive.org/save/https://theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean']' timed out after 60 seconds",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865248",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:45:57.760002+00:00",
+                "status": "failed"
+            }
+        ],
+        "dom": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--dump-dom",
+                    "https://theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean"
+                ],
+                "cmd_version": "Google Chrome 147.0.7727.138",
+                "end_ts": "2026-05-05T21:45:35.072531+00:00",
+                "index_texts": null,
+                "output": "output.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865248",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:45:30.906901+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "favicon": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--max-time",
+                    "60",
+                    "--output",
+                    "favicon.ico",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://www.google.com/s2/favicons?domain=theface.com"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:45:05.063194+00:00",
+                "index_texts": null,
+                "output": "favicon.ico",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865248",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:45:04.913392+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "git": [],
+        "headers": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--head",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:45:05.190450+00:00",
+                "index_texts": null,
+                "output": "headers.json",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865248",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:45:05.067418+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "htmltotext": [],
+        "media": [
+            {
+                "cmd": [
+                    "yt-dlp",
+                    "--write-description",
+                    "--write-info-json",
+                    "--write-annotations",
+                    "--write-thumbnail",
+                    "--no-call-home",
+                    "--write-sub",
+                    "--write-auto-subs",
+                    "--convert-subs=srt",
+                    "--yes-playlist",
+                    "--continue",
+                    "--no-abort-on-error",
+                    "--ignore-errors",
+                    "--geo-bypass",
+                    "--add-metadata",
+                    "--format=(bv*+ba/b)[filesize<=750m][filesize_approx<=?750m]/(bv*+ba/b)",
+                    "https://theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean"
+                ],
+                "cmd_version": "2026.03.17",
+                "end_ts": "2026-05-05T21:45:57.752715+00:00",
+                "index_texts": [
+                    "Taken from Like A Good Old Friend\nhttps://plz.ffm.to/likeagoodoldfriend\n\nI See You Sometimes\nFeaturing Jeshi\n\nVideo by Richard Phillip Smith and Noah Burke\n\n2021 PLZ Make It Ruins\n\nFollow\nhttps://www.instagram.com/vegynvegyn/\nhttps://www.facebook.com/vegyn\nhttps://twitter.com/vegynvegyn\nhttps://plz.world/",
+                    "Mixed by Vegyn\n\nBuy the PLZ Locked Grooves 12\" vinyl and merch here: https://plz.world/store\nNet proceeds will be donated to the ACLU and Liberty UK\n\nLocked Groove: (plural locked grooves)\n\u201cA circular groove on a vinyl record, in which the stylus remains until raised out of it. Each Locked Groove is 1.8 seconds or one bar of music at 133.333 bpm.\u201d\n\nMIX TRACKLIST: \n1. CLAIRO - JASPER\n2. CHANNEL TRES - LOCKED IN\n3. FOUR TET - IF YOU SPIN YOUR LOVE AROUND\n4. BLOOD ORANGE - MORRIS\n5. DUVAL TIMOTHY - PENNY SWEET\n6. MATTHEW TAVARES - I KNOW MYSELF\n7. DIJON - PEACKCOCK!\n8. KENNY BEATS - DONTOVERTHINKSHIT\n9. OVERMONO - 5 MORE YEARS LOOP\n10. KING KRULE - MOONNN\n11. MICA LEVI - \u2621 \u2742 \u2695\n12. BUDDY ROSS - FUTURE\n13. OLI XL - PUPPET\n14. SHYGIRL - SHY TAG\n15. OCTO OCTA - MY HEART\n16. ARCA - UWU\n17. MURA MASA - REASSURANCE LOOP\n18. 100 GECS - ONE BAR TO RULE THEM ALL\n19. MK. GEE - LL6 +50C\n20. ZSELA - LIZA\n21. RAVEENA - HEARTBEAT BLIP\n22. ROMIL HEMNANI - ROPE\n23. OBJECT BLUE - PRINT SPRINT\n24. KELSEY LU - ONLY\n25. SKRILLEX - ITALIAN SUSHI\n26. DANIEL AGED - 3 PICTURES\n27. ERIS DREW - THE BEAT THAT NEVER DIES\n28. OTTO - MR. BILBERRY BADGER'S RINGTONE\n29. PORCHES - :*)\n30. ARTHUR - REST_LESS\n31. HAIM - I KNOW ALONE\n32. DOMINIC FIKE - CHEESY WINE\n33. LAUREN AUDER - THORN\n34. YAWNING PORTAL - LOVELY POISON IN A JADE WINE CUP\n35. FLOATING POINTS - RECOURTING\n36. LORAINE JAMES - SOOTH\n37. TN_490 - PLUS FOUR RUNNER\n38. VEGYN - CIRCLE\n39. JOHN GLACIER - SHINY SOUNDS\n40. KELVIN KRASH - GUARDIAN ANGEL\n\nAbout ACLU:\nThe American Civil Liberties Union is a non-profit organization established in 1920. The ACLU works in the courts, legislatures and communities to defend and preserve the individual rights and liberties guaranteed to all people in the USA by the Constitution and laws of the United States.\nhttps://www.aclu.org/\n\nAbout Liberty (UK):\nLiberty is an advocacy group and membership organisation based in the United Kingdom. Formed in 1934 the organisation campaigns to challenge injustice, protect civil liberties and promote human rights \u2013 through the courts, in Parliament and in the wider community.\nhttps://www.libertyhumanrights.org.uk/",
+                    "The LA-via-London producer reveals how a depressive episode, like-minded musicians and an ominous tarot card inspired his EP, Like a Good Old Friend.",
+                    "WEBVTT\nKind: captions\nLanguage: en\n\n00:00:02.090 --> 00:00:14.910 align:start position:0%\n \n[Music]\n\n00:00:14.910 --> 00:00:14.920 align:start position:0%\n \n \n\n00:00:14.920 --> 00:00:28.830 align:start position:0%\n \noh\n\n00:00:28.830 --> 00:00:28.840 align:start position:0%\n \n \n\n00:00:28.840 --> 00:00:35.370 align:start position:0%\n \nit\n\n00:00:35.370 --> 00:00:35.380 align:start position:0%\n \n \n\n00:00:35.380 --> 00:00:42.830 align:start position:0%\n \n[Music]\n\n00:00:42.830 --> 00:00:42.840 align:start position:0%\n \n \n\n00:00:42.840 --> 00:00:56.830 align:start position:0%\n \nforeign\n\n00:00:56.830 --> 00:00:56.840 align:start position:0%\n \n \n\n00:00:56.840 --> 00:00:59.520 align:start position:0%\n \nso\n\n00:00:59.520 --> 00:00:59.530 align:start position:0%\nso\n \n\n00:00:59.530 --> 00:01:10.830 align:start position:0%\nso\n[Music]\n\n00:01:10.830 --> 00:01:10.840 align:start position:0%\n \n \n\n00:01:10.840 --> 00:01:22.370 align:start position:0%\n \nso\n\n00:01:22.370 --> 00:01:22.380 align:start position:0%\n \n \n\n00:01:22.380 --> 00:01:29.570 align:start position:0%\n \n[Music]\n\n00:01:29.570 --> 00:01:29.580 align:start position:0%\n \n \n\n00:01:29.580 --> 00:01:38.830 align:start position:0%\n \n[Music]\n\n00:01:38.830 --> 00:01:38.840 align:start position:0%\n \n \n\n00:01:38.840 --> 00:01:41.780 align:start position:0%\n \nso\n\n00:01:41.780 --> 00:01:41.790 align:start position:0%\nso\n \n\n00:01:41.790 --> 00:01:52.830 align:start position:0%\nso\n[Music]\n\n00:01:52.830 --> 00:01:52.840 align:start position:0%\n \n \n\n00:01:52.840 --> 00:02:20.930 align:start position:0%\n \nso\n\n00:02:20.930 --> 00:02:20.940 align:start position:0%\n \n \n\n00:02:20.940 --> 00:02:48.830 align:start position:0%\n \n[Music]\n\n00:02:48.830 --> 00:02:48.840 align:start position:0%\n \n \n\n00:02:48.840 --> 00:02:52.540 align:start position:0%\n \nshot\n\n00:02:52.540 --> 00:02:52.550 align:start position:0%\n \n \n\n00:02:52.550 --> 00:03:16.830 align:start position:0%\n \n[Music]\n\n00:03:16.830 --> 00:03:16.840 align:start position:0%\n[Music]\n \n\n00:03:16.840 --> 00:03:21.320 align:start position:0%\n[Music]\nso\n\n00:03:21.320 --> 00:03:21.330 align:start position:0%\n \n \n\n00:03:21.330 --> 00:03:30.830 align:start position:0%\n \n[Music]\n\n00:03:30.830 --> 00:03:30.840 align:start position:0%\n[Music]\n \n\n00:03:30.840 --> 00:03:31.970 align:start position:0%\n[Music]\nso\n\n00:03:31.970 --> 00:03:31.980 align:start position:0%\nso\n \n\n00:03:31.980 --> 00:03:44.830 align:start position:0%\nso\n[Music]\n\n00:03:44.830 --> 00:03:44.840 align:start position:0%\n \n \n\n00:03:44.840 --> 00:03:57.350 align:start position:0%\n \nhey\n\n00:03:57.350 --> 00:03:57.360 align:start position:0%\n \n \n\n00:03:57.360 --> 00:04:12.830 align:start position:0%\n \n[Music]\n\n00:04:12.830 --> 00:04:12.840 align:start position:0%\n[Music]\n \n\n00:04:12.840 --> 00:04:17.440 align:start position:0%\n[Music]\nso\n\n00:04:17.440 --> 00:04:17.450 align:start position:0%\n \n \n\n00:04:17.450 --> 00:04:40.830 align:start position:0%\n \n[Music]\n\n00:04:40.830 --> 00:04:40.840 align:start position:0%\n \n \n\n00:04:40.840 --> 00:04:41.990 align:start position:0%\n \nhey\n\n00:04:41.990 --> 00:04:42.000 align:start position:0%\nhey\n \n\n00:04:42.000 --> 00:05:06.000 align:start position:0%\nhey\n[Music]\n\n00:05:06.000 --> 00:05:06.010 align:start position:0%\n \n \n\n00:05:06.010 --> 00:05:08.830 align:start position:0%\n \n[Music]\n\n00:05:08.830 --> 00:05:08.840 align:start position:0%\n[Music]\n \n\n00:05:08.840 --> 00:05:13.160 align:start position:0%\n[Music]\nsounds\n\n00:05:13.160 --> 00:05:13.170 align:start position:0%\n \n \n\n00:05:13.170 --> 00:05:22.830 align:start position:0%\n \n[Music]\n\n00:05:22.830 --> 00:05:22.840 align:start position:0%\n \n \n\n00:05:22.840 --> 00:05:27.540 align:start position:0%\n \nokay\n\n00:05:27.540 --> 00:05:27.550 align:start position:0%\n \n \n\n00:05:27.550 --> 00:05:29.110 align:start position:0%\n \n[Music]\n\n00:05:29.110 --> 00:05:29.120 align:start position:0%\n[Music]\n \n\n00:05:29.120 --> 00:05:39.120 align:start position:0%\n[Music]\nand<00:05:36.840><c> then</c>\n\n00:05:39.120 --> 00:05:39.130 align:start position:0%\nand then\n \n\n00:05:39.130 --> 00:05:57.660 align:start position:0%\nand then\n[Music]\n\n00:05:57.660 --> 00:05:57.670 align:start position:0%\n \n \n\n00:05:57.670 --> 00:06:05.870 align:start position:0%\n \n[Music]\n\n00:06:05.870 --> 00:06:05.880 align:start position:0%\n \n \n\n00:06:05.880 --> 00:06:15.510 align:start position:0%\n \n[Music]\n\n00:06:15.510 --> 00:06:15.520 align:start position:0%\n \n \n\n00:06:15.520 --> 00:06:46.830 align:start position:0%\n \n[Music]\n\n00:06:46.830 --> 00:06:46.840 align:start position:0%\n \n \n\n00:06:46.840 --> 00:06:57.520 align:start position:0%\n \nso\n\n00:06:57.520 --> 00:06:57.530 align:start position:0%\n \n \n\n00:06:57.530 --> 00:07:14.830 align:start position:0%\n \n[Music]\n\n00:07:14.830 --> 00:07:14.840 align:start position:0%\n[Music]\n \n\n00:07:14.840 --> 00:07:21.720 align:start position:0%\n[Music]\nhey\n\n00:07:21.720 --> 00:07:21.730 align:start position:0%\n \n \n\n00:07:21.730 --> 00:07:57.830 align:start position:0%\n \n[Music]\n\n00:07:57.830 --> 00:07:57.840 align:start position:0%\n \n \n\n00:07:57.840 --> 00:08:14.680 align:start position:0%\n \nforeign\n\n00:08:14.680 --> 00:08:14.690 align:start position:0%\n \n \n\n00:08:14.690 --> 00:08:19.870 align:start position:0%\n \n[Music]\n\n00:08:19.870 --> 00:08:19.880 align:start position:0%\n \n \n\n00:08:19.880 --> 00:08:52.829 align:start position:0%\n \n[Music]\n\n00:08:52.829 --> 00:08:52.839 align:start position:0%\n \n \n\n00:08:52.839 --> 00:08:57.510 align:start position:0%\n \nso\n\n00:08:57.510 --> 00:08:57.520 align:start position:0%\n \n \n\n00:08:57.520 --> 00:09:06.829 align:start position:0%\n \n[Music]\n\n00:09:06.829 --> 00:09:06.839 align:start position:0%\n \n \n\n00:09:06.839 --> 00:09:08.720 align:start position:0%\n \nhey\n\n00:09:08.720 --> 00:09:08.730 align:start position:0%\nhey\n \n\n00:09:08.730 --> 00:09:21.350 align:start position:0%\nhey\n[Music]\n\n00:09:21.350 --> 00:09:21.360 align:start position:0%\n \n \n\n00:09:21.360 --> 00:09:23.440 align:start position:0%\n \nyou"
+                ],
+                "output": "ArchiveError: Failed to save media",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865248",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:45:39.249748+00:00",
+                "status": "failed"
+            }
+        ],
+        "mercury": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/@postlight/parser/cli.js",
+                    "https://theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean"
+                ],
+                "cmd_version": "1.0.0",
+                "end_ts": "2026-05-05T21:45:39.234521+00:00",
+                "index_texts": null,
+                "output": "mercury",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865248",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:45:38.510919+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "pdf": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--print-to-pdf",
+                    "https://theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean"
+                ],
+                "cmd_version": "Google Chrome 147.0.7727.138",
+                "end_ts": "2026-05-05T21:45:26.471282+00:00",
+                "index_texts": null,
+                "output": "output.pdf",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865248",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:45:21.763800+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "readability": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/readability-extractor/readability-extractor",
+                    "/var/folders/5c/pl67hms52szcj9ppn2gb4gw00000gn/T/tmpiox9mjy3",
+                    "https://theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean"
+                ],
+                "cmd_version": "0.0.6",
+                "end_ts": "2026-05-05T21:45:38.509442+00:00",
+                "index_texts": [
+                    "With its formidable image of a\u00a0burning tower, a\u00a0bolt of lightning and two people tumbling to their death, the Tower is one of the most powerful tarot cards of the Major Arcana. In a\u00a0reading, it\u00e2\u20ac\u2122s associated with danger, crisis and earth-shattering change \u00e2\u20ac\u201c often interpreted as an indication towards the crumbling of society or a\u00a0time of momentous upheaval. It\u00e2\u20ac\u2122s a\u00a0card that kept cropping up for Joe Thornalley last year. \n\u00e2\u20ac\u0153Within the Rider-Waite tarot deck, which is the tarot deck I\u00a0use, there are very few objectively negative cards,\u00e2\u20ac\ufffd explains the 27-year-old producer known as Vegyn over Zoom, from his home in Los Angeles. \u00e2\u20ac\u2039\u00e2\u20ac\u0153If you use the soft deck it\u00e2\u20ac\u2122s more ambiguous; even Death can be more about rebirth. But the Tower is a\u00a0bad card \u00e2\u20ac\u201c it\u00e2\u20ac\u2122s The Bad One \u00e2\u20ac\u201c and it just kept on coming for me.\u00e2\u20ac\ufffd\nConnecting with the right tarot deck is a\u00a0key part of the practice. Thornalley found his current one by chance, on the street in LA. \u00e2\u20ac\u2039\u00e2\u20ac\u0153I had very little idea of the importance of \u00e2\u20ac\u2039\u00e2\u20ac\u02dcfinding\u00e2\u20ac\u2122 a\u00a0deck at that point,\u00e2\u20ac\ufffd he says. \u00e2\u20ac\u2039\u00e2\u20ac\u0153My partner was extremely cautious when I\u00a0mentioned it in passing \u00e2\u20ac\u201c I\u00a0initially offered them to her, but she refused and taught me of their importance instead. I\u00a0was very much a\u00a0sceptic prior.\u00e2\u20ac\ufffd\n        \n\n                        \n            The Tower card is depicted on the cover art for Thornalley\u00e2\u20ac\u2122s new EP, Like a Good Old Friend. \u00e2\u20ac\u2039\u00e2\u20ac\u0153It just felt like a good flag-bearer for this project; end of society, collapsing of infrastructure, that kind of thing,\u00e2\u20ac\ufffd he offers. \u00e2\u20ac\u2039\u00e2\u20ac\u0153For me, it\u00e2\u20ac\u2122s not about using tarot cards as divination tools, that\u00e2\u20ac\u2122s never really what they were meant to be \u00e2\u20ac\u201c they\u00e2\u20ac\u2122re playing cards. But there is something to be said for anything that encourages periods of self-reflection.\u00e2\u20ac\ufffd \nIn 2019, Thornalley experienced a period of depression that became the catalyst for crafting Like a Good Old Friend. \u00e2\u20ac\u2039\u00e2\u20ac\u0153A friend let me stay at their house and they happened to have a piano,\u00e2\u20ac\ufffd he recalls. \u00e2\u20ac\u2039\u00e2\u20ac\u0153I was like \u00e2\u20ac\u2039\u00e2\u20ac\u02dccool, OK, I\u00e2\u20ac\u2122m just gonna try and figure this thing out.\u00e2\u20ac\u2122\u00e2\u20ac\ufffd His keys form the backbone of the new EP. \u00e2\u20ac\u2039\u00e2\u20ac\u0153My chords are definitely weird, but to me they\u00e2\u20ac\u2122re not weird. I\u00e2\u20ac\u2122m really just playing with shapes and trying to lean into the emotive quality of the music,\u00e2\u20ac\ufffd he explains. He began writing the material that year, also releasing Text While Driving If You Want To Meet God! \u00e2\u20ac\u201c a collection of 71 brief musical sketches \u00e2\u20ac\u201c as well as his dazzling debut album, Only Diamonds Cut Diamonds.\nWith live shows and tours on hold due to the coronavirus pandemic, in November 2020, Thornalley \u00e2\u20ac\u201c who has dual citizenship between the UK and USA \u00e2\u20ac\u201c made the move from London to LA, a city which was familiar to him following frequent trips over the years. Like London, LA is currently in lockdown, but the warmer climate makes for a slightly more desirable lifestyle. \u00e2\u20ac\u2039\u00e2\u20ac\u0153At least when it\u00e2\u20ac\u2122s sunny it\u00e2\u20ac\u2122s kind of easy to get out and go for a hike,\u00e2\u20ac\ufffd he says. \u00e2\u20ac\u2039\u00e2\u20ac\u0153I can spend more time outdoors and I have a car. It\u00e2\u20ac\u2122s much easier for me to isolate out here.\u00e2\u20ac\ufffd\nIn 2020, a handful of Vegyn singles emerged, including the grungy dirge of The Promise in May and the woozy electronica of There\u00e2\u20ac\u2122s Nothing Left 2 Make You Stay in September. In December, he released a 40-track vinyl charity compilation called Locked Grooves via his own PLZ Make It Ruins label. The \u00e2\u20ac\u2039\u00e2\u20ac\u0153locked groove\u00e2\u20ac\ufffd is the silent loop placed at the end of a vinyl to stop the stylus from drifting onto the paper label area. Consisting of one bar of music, locked grooves are often used creatively by artists in the form of continuous loops, and the compilation featured fleeting contributions from the likes of Arca, Blood Orange, 100 Gecs and Mica Levi.\n        \n\n                        \n            Since the release of his debut EP (and first PLZ release), All Bad Things Have Ended \u00e2\u20ac\u201c Your Lunch Included in 2014, Thornalley has been building his off-kilter soundworld \u00e2\u20ac\u201c where smoked-out hip-hop, obscure field recordings, incandescent synths and effects-laden guitars collide, and where bleeps influenced by retro computer games sometimes create a comforting sense of familiarity. \nAs the origin story goes, in 2013 Thornalley passed a USB drive of his tunes to James Blake at former East London club institution Plastic People, which Blake then played on BBC Radio 1 in 2014. Thornalley spent the next few years DJing, running his label and forming vital connections, while also fatefully crossing paths with Frank Ocean one night at the same venue. He ended up contributing production to both of Ocean\u00e2\u20ac\u2122s 2016 albums Endless and Blonde, as well as co-hosting episodes of the Blonded Radio show for Apple Music\u00e2\u20ac\u2122s Beats 1 radio alongside Ocean and producer Roof Access. \nAside from working with Ocean, Thornalley \u00e2\u20ac\u201c who is also a professional graphic designer \u00e2\u20ac\u201c has collaborated with various artists including Travis Scott, the Dean Blunt-helmed project Babyfather and boundary-pushing rapper JPEGMAFIA, for who he is also currently designing artwork. \u00e2\u20ac\u2039\u00e2\u20ac\u0153Working with JPEG is always funny,\u00e2\u20ac\ufffd he smiles. \u00e2\u20ac\u2039\u00e2\u20ac\u0153We have a very similar language so it\u00e2\u20ac\u2122s easy for me to work on.\u00e2\u20ac\ufffd\n\u00e2\u20ac\u0153A lot of the success of my music has come from collaboration,\u00e2\u20ac\ufffd adds Thornalley, who is also quick to point out his privilege. Thornalley\u00e2\u20ac\u2122s father is an acclaimed pop producer and songwriter, and his mum is a graphic designer. \u00e2\u20ac\u2039\u00e2\u20ac\u0153I grew up in a middle-class family in north-west London, and I had all of these opportunities afforded to me,\u00e2\u20ac\ufffd he says. \n        \n\n                        \n            Like A Good Old Friend features a clutch of collaborators. The EP\u00e2\u20ac\u2122s pulsating lead track I See You Sometimes, which gathers pace to harness the driving euphoria of club music, features a distorted verse from East London rapper Jeshi. Canadian composer and Hollywood soundtrack maestro Owen Pallett provided strings on the title track, which is also suffused with dizzying lap steel by Daniel Aged, the LA musician who made moonlit R&B with his twin brother Andrew as the duo inc. no world. The track So Much Time \u00e2\u20ac\u201c So Little Time is a moody, beatless trip that forgoes drums for haunting nugaze guitars from Mac Wetha and Matthew Tavares, which also features vocals from Thornalley and London rapper John Glacier, who has a collaborative mixtape with Thornalley in the pipeline.\nAnother integral presence on the EP is the London multidisciplinary artist Duval Timothy, who contributed to the ambient deep house bubblebath of B4 the Computer Crash and the heady, strings-laced gem Mushroom Abolitionist. You\u00e2\u20ac\u2122ll also hear Timothy chatting via a voice recording embedded in the final track, which bears the self-deprecating title, Sometimes I Feel Like I\u00e2\u20ac\u2122m Ruining Songs.\nFrom All Bad Things Have Ended \u00e2\u20ac\u201c Your Lunch Included, to the impulsively named tracks on Text Me While Driving\u00e2\u20ac\u00a6 (Yo This is the Next Tune Yah Get Me; Once a Smoker \u00e2\u20ac\u201c Always a Smoker), tongue-in-cheek presentation has been part of the Vegyn project since the start. Despite all the meticulous detail in his music, it suggests that Thornalley is trying to not let overthinking stifle his creativity. \n\u00e2\u20ac\u0153 I had such a habit [when I was] growing up of trying to rationalise, pigeonhole or try and understand everything and sometimes it\u00e2\u20ac\u2122s just not important,\u00e2\u20ac\ufffd he explains. \u00e2\u20ac\u2039\u00e2\u20ac\u0153Sometimes it\u00e2\u20ac\u2122s all just about self-awareness; that\u00e2\u20ac\u2122s the key.\n\u00e2\u20ac\u0153I make a lot of music and I try not to be too precious about it. I\u00e2\u20ac\u2122m renouncing my in-built fear of releasing something that maybe isn\u00e2\u20ac\u2122t exactly how it would be in my dream world. It\u00e2\u20ac\u2122s finished when you say it\u00e2\u20ac\u2122s done. It\u00e2\u20ac\u2122s better to let people enjoy the music than let it sit and rot in the digital peat-bog, the oxygen-less vacuum that is my hard drive. Rather let it be out in the real world, for sure.\u00e2\u20ac\ufffd\n        \n            \n                Vegyn\u00e2\u20ac\u2122s favourite musicians right now"
+                ],
+                "output": "readability",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865248",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:45:37.994262+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "screenshot": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--screenshot",
+                    "https://theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean"
+                ],
+                "cmd_version": "Google Chrome 147.0.7727.138",
+                "end_ts": "2026-05-05T21:45:30.905687+00:00",
+                "index_texts": null,
+                "output": "screenshot.png",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865248",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:45:26.472440+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "singlefile": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/single-file-cli/single-file-node.js",
+                    "--browser-executable-path=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--browser-args=[\"--headless=new\", \"--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)\", \"--window-size=1440,2000\"]",
+                    "https://theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean",
+                    "singlefile.html"
+                ],
+                "cmd_version": "2.0.83",
+                "end_ts": "2026-05-05T21:45:21.762621+00:00",
+                "index_texts": null,
+                "output": "singlefile.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865248",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:45:05.193419+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "title": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-05T21:45:37.993719+00:00",
+                "index_texts": null,
+                "output": "Vegyn\u2019s happy melancholia - The Face",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865248",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:45:37.989023+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "wget": [
+            {
+                "cmd": [
+                    "wget",
+                    "--no-verbose",
+                    "--adjust-extension",
+                    "--convert-links",
+                    "--force-directories",
+                    "--backup-converted",
+                    "--span-hosts",
+                    "--no-parent",
+                    "-e",
+                    "robots=off",
+                    "--timeout=60",
+                    "--restrict-file-names=windows",
+                    "--warc-file=/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865248/warc/1778017535",
+                    "--page-requisites",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) wget/GNU Wget 1.25.0",
+                    "--compression=auto",
+                    "https://theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean"
+                ],
+                "cmd_version": "GNU Wget 1.25.0",
+                "end_ts": "2026-05-05T21:45:37.987792+00:00",
+                "index_texts": null,
+                "output": "theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865248",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-05T21:45:35.077482+00:00",
+                "status": "succeeded"
+            }
+        ]
+    },
+    "icons": null,
+    "is_archived": true,
+    "is_static": false,
+    "latest": {
+        "archive_org": "TimeoutExpired: Command '['curl', '--silent', '--location', '--compressed', '--head', '--max-time', '60', '--user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)', 'https://web.archive.org/save/https://theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean']' timed out after 60 seconds",
+        "dom": "output.html",
+        "favicon": "favicon.ico",
+        "git": null,
+        "media": "ArchiveError: Failed to save media",
+        "pdf": "output.pdf",
+        "screenshot": "screenshot.png",
+        "singlefile": "singlefile.html",
+        "title": "Vegyn\u2019s happy melancholia - The Face",
+        "warc": null,
+        "wget": "theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean.html"
+    },
+    "link_dir": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778017204.865248",
+    "newest_archive_date": "2026-05-05T21:45:57.760002+00:00",
+    "num_failures": 2,
+    "num_outputs": 10,
+    "oldest_archive_date": "2026-05-05T21:45:04.913392+00:00",
+    "path": "/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean",
+    "schema": "Link",
+    "scheme": "https",
+    "snapshot_id": "54a9ff80-3905-4ceb-bc7d-1ce89b8bf8f0",
+    "sources": [
+        "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/sources/1778017204-import.txt"
+    ],
+    "tags": null,
+    "tags_str": "",
+    "timestamp": "1778017204.865248",
+    "title": "Vegyn\u2019s happy melancholia - The Face",
+    "updated": "2026-05-05T21:45:04.913308+00:00",
+    "updated_date": "2026-05-05 21:45",
+    "url": "https://theface.com/music/vegyn-joe-thornalley-producer-like-a-good-old-friend-plz-make-it-ruins-frank-ocean"
+}

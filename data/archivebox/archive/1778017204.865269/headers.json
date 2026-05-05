@@ -1,0 +1,16 @@
+{
+    "Status-Code": 200,
+    "Age": "0",
+    "Cache-Control": "public, max-age=0, must-revalidate",
+    "Content-Length": "23906",
+    "Content-Type": "text/html; charset=utf-8",
+    "Date": "Tue, 05 May 2026 21:40:05 GMT",
+    "Etag": "\"os57kmjv06idv\"",
+    "Server": "Vercel",
+    "Strict-Transport-Security": "max-age=63072000",
+    "X-Matched-Path": "/episode/[date]/[slug]",
+    "X-Nextjs-Prerender": "1",
+    "X-Powered-By": "Next.js",
+    "X-Vercel-Cache": "MISS",
+    "X-Vercel-Id": "fra1::iad1::9n6ww-1778017205205-6e42d43c313a"
+}

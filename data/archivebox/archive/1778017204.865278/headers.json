@@ -1,0 +1,23 @@
+{
+    "Status-Code": 200,
+    "Date": "Tue, 05 May 2026 21:54:50 GMT",
+    "Content-Type": "text/html; charset=utf-8",
+    "Connection": "keep-alive",
+    "CF-Ray": "9f72fc6658756aa0-GVA",
+    "CF-Cache-Status": "HIT",
+    "Cache-Control": "no-cache",
+    "Set-Cookie": "ab_experiment_sampled=%22false%22; Max-Age=31536000; Domain=substack.com; Path=/; Expires=Wed, 05 May 2027 21:54:50 GMT; HttpOnly; Secure; SameSite=Lax, ab_testing_id=%222b9db958-5359-469a-b9f6-2e6451d7836f%22; Max-Age=31536000; Domain=substack.com; Path=/; Expires=Wed, 05 May 2027 21:54:50 GMT; HttpOnly; Secure; SameSite=Lax, __cf_bm=fLhJ4Sz5AczfJxWOA8I8WJ2I6KmU45bWbx1CTIAl2Ks-1778018089.9759653-1.0.1.1-WLsl4FDDM9x76ywZc6egsYL8duF.3HnI0E3Ovi4AtpnUTentkDD3R59ItPsC7X4jhBTVxzMDzgTUslR6AehD.d2GVLMdVSy500krJaPyGxBsDtA.vrK6W2kdYqETG2kr; HttpOnly; Secure; Path=/; Domain=substack.com; Expires=Tue, 05 May 2026 22:24:50 GMT",
+    "Link": "<https://substackcdn.com>; rel=preconnect",
+    "Server": "cloudflare",
+    "x-sub": "1234kyle5678",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+    "Vary": "Accept-Encoding",
+    "content-security-policy": "frame-ancestors 'self' https://*.substack.com https://substack.com",
+    "x-cluster": "substack",
+    "x-deploy": "c46009c8a8",
+    "x-powered-by": "Express",
+    "x-served-by": "Substack",
+    "x-service": "web",
+    "Content-Encoding": "gzip",
+    "alt-svc": "h3=\":443\"; ma=86400"
+}
