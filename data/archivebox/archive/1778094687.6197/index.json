@@ -1,0 +1,338 @@
+{
+    "archive_path": "archive/1778094687.6197",
+    "base_url": "pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at",
+    "basename": "big-squeeze-soul-offers-a-party-you-can-actually-dance-at",
+    "bookmarked_date": "2026-05-06 19:11",
+    "canonical": {
+        "archive_org_path": "https://web.archive.org/web/pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at",
+        "dom_path": "output.html",
+        "favicon_path": "favicon.ico",
+        "git_path": "git/",
+        "google_favicon_path": "https://www.google.com/s2/favicons?domain=pilotmagazine.uk",
+        "headers_path": "headers.json",
+        "htmltotext_path": "htmltotext.txt",
+        "index_path": "index.html",
+        "media_path": "media/",
+        "mercury_path": "mercury/content.html",
+        "pdf_path": "output.pdf",
+        "readability_path": "readability/content.html",
+        "screenshot_path": "screenshot.png",
+        "singlefile_path": "singlefile.html",
+        "warc_path": "warc/",
+        "wget_path": "pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at.html"
+    },
+    "domain": "pilotmagazine.uk",
+    "extension": "",
+    "hash": "D4QKPBE76WPFK3G8Q7FK",
+    "history": {
+        "archive_org": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--head",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://web.archive.org/save/https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-06T19:13:25.320614+00:00",
+                "index_texts": null,
+                "output": "https://web.archive.org/web/20260506191309/https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-06T19:13:05.211003+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "dom": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--dump-dom",
+                    "https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at"
+                ],
+                "cmd_version": "Google Chrome 147.0.7727.139",
+                "end_ts": "2026-05-06T19:11:57.171494+00:00",
+                "index_texts": null,
+                "output": "output.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-06T19:11:51.389929+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "favicon": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--max-time",
+                    "60",
+                    "--output",
+                    "favicon.ico",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://www.google.com/s2/favicons?domain=pilotmagazine.uk"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-06T19:11:27.902303+00:00",
+                "index_texts": null,
+                "output": "favicon.ico",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-06T19:11:27.732549+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "git": [],
+        "headers": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--head",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-06T19:11:28.445442+00:00",
+                "index_texts": null,
+                "output": "headers.json",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-06T19:11:27.905866+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "htmltotext": [],
+        "media": [
+            {
+                "cmd": [
+                    "yt-dlp",
+                    "--write-description",
+                    "--write-info-json",
+                    "--write-annotations",
+                    "--write-thumbnail",
+                    "--no-call-home",
+                    "--write-sub",
+                    "--write-auto-subs",
+                    "--convert-subs=srt",
+                    "--yes-playlist",
+                    "--continue",
+                    "--no-abort-on-error",
+                    "--ignore-errors",
+                    "--geo-bypass",
+                    "--add-metadata",
+                    "--format=(bv*+ba/b)[filesize<=750m][filesize_approx<=?750m]/(bv*+ba/b)",
+                    "https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at"
+                ],
+                "cmd_version": "2026.03.17",
+                "end_ts": "2026-05-06T19:13:05.209170+00:00",
+                "index_texts": [],
+                "output": "media",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-06T19:13:01.604748+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "mercury": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/@postlight/parser/cli.js",
+                    "https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at"
+                ],
+                "cmd_version": "1.0.0",
+                "end_ts": "2026-05-06T19:13:01.588450+00:00",
+                "index_texts": null,
+                "output": "mercury",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-06T19:12:58.847215+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "pdf": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--print-to-pdf",
+                    "https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at"
+                ],
+                "cmd_version": "Google Chrome 147.0.7727.139",
+                "end_ts": "2026-05-06T19:11:44.651229+00:00",
+                "index_texts": null,
+                "output": "output.pdf",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-06T19:11:38.197233+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "readability": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/readability-extractor/readability-extractor",
+                    "/var/folders/5c/pl67hms52szcj9ppn2gb4gw00000gn/T/tmpwd3ppfet",
+                    "https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at"
+                ],
+                "cmd_version": "0.0.6",
+                "end_ts": "2026-05-06T19:12:58.841671+00:00",
+                "index_texts": [
+                    "I\u2019ve often fallen for the nostalgia in family friends recounting disco nights of the past. The thing of anticipating who you\u2019ll bump into, half-remembered crushes, the relief of earworms blasted through sound systems\u2026but most importantly was that tangible feeling of community through these conversations. Parties that bonded friendships many of my elders maintained to this day. Dancefloors were described as essential for breaking a long week of work ahead, and missing nights was almost treasonous.\u00a0I know much of this sentiment still remains with my agemates, but now more than ever it feels like conversations on going out start with, \u201cI can\u2019t, I\u2019m working,\u201d \u201cthe ticket is too much,\u201d or \u201cI think we\u2019ll stay in,\u201d answers confronting the reality of our often monotonous (but necessary) wake-work routines. If you can afford entrance fees, a 4 a.m. night bus is less appealing when there's coffee to serve, hungover by 10 a.m. Our generation more than ever has comforts like digital conversations, food, love and entertainment achievable from our phones. In turn, is there less incentive to go out and participate in community?\u00a0Though surround-sound hosting sweaty bodies on dancefloors is fairly new in our timeline of human history, embodying rhythm in physical spaces remains paramount across cultures. When languages clash, movement can be trusted to translate whole conversations. How many times have we shared looks with strangers over a song, held hands with them, or passed a nod across the dancefloor, establishing a deep momentary understanding with someone we\u2019ll never see again? That\u2019s something invaluable.Thinking about how important space and time to dance is, I wanted to speak to the guys behind one of London\u2019s well-loved dance nights, Big Squeeze Soul. With Tyler and Archie behind the decks, Big Squeeze offers \u201crare Soul, Latin, Brasilia, Jazz Funk, Boogie, Rare Groove n more (from the heart).\u201d On their dancefloors you\u2019ll see, best friends in sync, soul heads spinning in baggies, and dancers with two left feet all invited to enjoy an expanse of music. Whether you\u2019re attending to grow your musical knowledge or to shake out a week of work, their vinyl-only sets reflect a curiosity, intentionally selected tracks with as much consideration for the space it\u2019s received in.\u00a0Before selling out the capacity of venues like the infamous Scala (ex-cinema, Kings Cross), Big Squeeze started after a night of sneaking friends into Tyler\u2019s flat for an organically formed boogie. With a broken toilet by morning, it didn\u2019t take long for the guys to move to a local venue\u2019s basement to accommodate their growing number of attendees. They now boast hosting dancefloors as far as Japan, and have earned ritualistic attendance across their home city. I was interested to hear what motivates and interests them to offer dance nights, putting people first.\u00a0Finn Carlow BIG SQUEEZE .jpg 210.58 KBFirstly, (just to be nosey) what was the first song you both listened to today?T: One we played on the Radio (The BoAt Pod), Stan Tracey\u2019s (Jazz Suite Inspired by Dylan Thomas's) \"Under Milk Wood\", it\u2019s this really atmospheric spoken word jazz album.A: On the Beach by Neil Young, a good album to start the day to.\u00a0How did you guys meet & birth Big Squeeze?A: We met at university doing fine art.T: I loved going to the studio. I\u2019d have a little speaker and play music, gradually we started to make conversation (about music), which led to us hanging out. One night everyone piled back into my flat after studios closed. We had to sneak everyone in\u2026we had this really funny house party where everything broke. The toilet broke, the one toilet in the flat.A: I remember flicking through Tyler\u2019s records like \u201cyes, yes, yes.\u201d We got chatting about going out to dance to that sort of stuff and realised we can\u2019t, nowhere in London had a regular night to dance to that expanse of records. So we kept doing house parties.T: Enough people said we should do the parties somewhere else, so we got a basement in Leytonstone [called] Luna Lounge. It just snowballed from there. We literally moved our house party and all our friends to this basement.Finn Carlow  BIG SQUEEZE SCALA L.jpg 11.09 MBHas music always been such an important part of your life?T: Yeah, we were always buying records, before we even knew each other. From 12, I\u2019d take babysitting money to go buy records.A: My dad\u2019s got a broad CD and record collection; he\u2019s passionate about sound in the house. Growing up, every holiday he\u2019d make a mixtape to soundtrack the holiday. He'd burn two or three CDs, even if it was for a little road trip. I think I had a musical grounding from that.T: Similar to Archie, my family had house parties a lot. I had a musical education from hearing stuff people would play at them. No curation, just people throwing records on.A: Also hearing stories from our parents about crazy nights they\u2019d go to. My mum and dad had the records from those nights and I\u2019d play them thinking why can\u2019t we dance to that nowadays?\u00a0Why are you so passionate about bringing people together to experience music and dance?T: If you can bring people into a physical setting, people interact with people they normally wouldn\u2019t,\u00a0A: And having something to look forward to is really important, especially in London when everything\u2019s so fast-paced.T: People work hard, no one has any free time so providing space to bump into people like, \u201cI don\u2019t know when i\u2019m gonna see you, but i hope i\u2019m gonna see you at Big Squeeze,\u201d connecting people is a real thing of currency.Sebastian Garraway BIG SQUEEZE HIGHB.JPG 3.57 MBYou guys play rare music/deep cuts, how do you feel about bringing this music to new ears?T: A lot of the music we love is by artists who were overlooked. There's that thing of crate digging like a post-colonial hang-up with DJs co-opting music as their own. It's important to keep honouring the people who make this music, putting them first because we want to be a party that\u2019s about people coming together to share that music.A: Exactly, coming together and listening to good tunes. I love the buzz we get when we play a record, like\u2026this record is getting played in this venue in London to this many people, and if the artist could see the joy and energy in the room\u2026none of this would be possible without these incredible musicians.What are some of your favourite things about running Big Squeeze?T: One thing is the people I\u2019ve met through doing this, watching other people make new friends, too.A: There are so many great things, dancing, literally dancing\u2026T: Literally, like how cathartic it is to dance, when do people get a chance to dance?A: Getting sweaty dancing. Creating space for that to happen is really important.T: One time I had someone say this is the first party in London they\u2019ve come to and felt comfortable enough to properly dance, which is so affirming to hear.Sebastian Garraway BIG SQUEZE BW.jpg 5.05 MBWhat can we learn from dancefloors of the past?T: People talk about parties back in the day with these hallmark statements like the dancefloor was a paradise,\u00a0A: \u201cForget what\u2019s on the outside.\u201dT: Yeah\u2026which is a bit disingenuous. An element of that is true, but like acid house documentaries with quotes like, \u201cit was just one love.\u201dA: More like one giant pill. In the documentary Come As You Are everyone was saying how people dance with each other, not against each other. In clubs nowadays everyone's checking out how other people are dancing rather than dancing as one. When everyone\u2019s dancing in one beat, in one groove, once you feel that, it really changes the night.T: House parties really laid out the blueprint for me. Dancefloors can still be problematic, but they\u2019re active spaces where you\u2019re working things out, with the right people behind it, there\u2019s a good intention.Finn Carlow BIG SQUEEZE.JPG 196.56 KBFrom people choosing to stay in, cost and accessibility, do you feel that nights out are in danger?A: It\u2019s worrying\u2026\u00a0T: There\u2019s a load of systemic and political reasons clubs are shutting down. The cost of living is so high now it\u2019s in danger of becoming exclusive, which is just the furthest thing from what it should be. We have a principle that we want to make Big Squeeze accessible to people.A: I\u2019m scared about losing spaces. There's a lack of good venues for people to go dancing in. There\u2019ll always be parties, people always find ways around it, you can't stop people from dancing can you.For anyone who's never been to one of your nights before, what would you want them to know before coming?T: Clubbing can be heightened and intense, but you can let go of that at Big Squeeze. Have a dance, and come with an open mind.A: Yeah, and keep your ears open!As a treat for anyone who made it to the end, can you recommend anything to listen to, watch or general advice? \u00a0A: The documentary, Come As You Are, (45mins, exploring the cultural and social impact of the legendary Loft era in NYC): it\u2019s about the dancers, just the dancers.T: My dental hygienist said don\u2019t scrub your teeth too hard, it\u2019s bad for your enamel.A: There you go\u2026Big Squeeze play Scala on Feb.7, tickets via Dice.Screenshot 2026-02-04 at 00.36.53.png 1.69 MB"
+                ],
+                "output": "readability",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-06T19:12:57.202097+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "screenshot": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--screenshot",
+                    "https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at"
+                ],
+                "cmd_version": "Google Chrome 147.0.7727.139",
+                "end_ts": "2026-05-06T19:11:51.388671+00:00",
+                "index_texts": null,
+                "output": "screenshot.png",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-06T19:11:44.652315+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "singlefile": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/single-file-cli/single-file-node.js",
+                    "--browser-executable-path=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--browser-args=[\"--headless=new\", \"--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)\", \"--window-size=1440,2000\"]",
+                    "https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at",
+                    "singlefile.html"
+                ],
+                "cmd_version": "2.0.83",
+                "end_ts": "2026-05-06T19:11:38.195872+00:00",
+                "index_texts": null,
+                "output": "singlefile.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-06T19:11:28.448466+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "title": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-06T19:12:57.200929+00:00",
+                "index_texts": null,
+                "output": "Big Squeeze Soul Offers a Party You Can Actually Dance At | PILOT Magazine",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-06T19:12:57.186223+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "wget": [
+            {
+                "cmd": [
+                    "wget",
+                    "--no-verbose",
+                    "--adjust-extension",
+                    "--convert-links",
+                    "--force-directories",
+                    "--backup-converted",
+                    "--span-hosts",
+                    "--no-parent",
+                    "-e",
+                    "robots=off",
+                    "--timeout=60",
+                    "--restrict-file-names=windows",
+                    "--warc-file=/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197/warc/1778094717",
+                    "--page-requisites",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) wget/GNU Wget 1.25.0",
+                    "--compression=auto",
+                    "https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at"
+                ],
+                "cmd_version": "GNU Wget 1.25.0",
+                "end_ts": "2026-05-06T19:12:57.181199+00:00",
+                "index_texts": null,
+                "output": "TimeoutExpired: Command '['wget', '--no-verbose', '--adjust-extension', '--convert-links', '--force-directories', '--backup-converted', '--span-hosts', '--no-parent', '-e', 'robots=off', '--timeout=60', '--restrict-file-names=windows', '--warc-file=/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197/warc/1778094717', '--page-requisites', '--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) wget/GNU Wget 1.25.0', '--compression=auto', 'https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at']' timed out after 60 seconds",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-06T19:11:57.173076+00:00",
+                "status": "failed"
+            }
+        ]
+    },
+    "icons": null,
+    "is_archived": true,
+    "is_static": false,
+    "latest": {
+        "archive_org": "https://web.archive.org/web/20260506191309/https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at",
+        "dom": "output.html",
+        "favicon": "favicon.ico",
+        "git": null,
+        "media": "media",
+        "pdf": "output.pdf",
+        "screenshot": "screenshot.png",
+        "singlefile": "singlefile.html",
+        "title": "Big Squeeze Soul Offers a Party You Can Actually Dance At | PILOT Magazine",
+        "warc": null,
+        "wget": "TimeoutExpired: Command '['wget', '--no-verbose', '--adjust-extension', '--convert-links', '--force-directories', '--backup-converted', '--span-hosts', '--no-parent', '-e', 'robots=off', '--timeout=60', '--restrict-file-names=windows', '--warc-file=/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197/warc/1778094717', '--page-requisites', '--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) wget/GNU Wget 1.25.0', '--compression=auto', 'https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at']' timed out after 60 seconds"
+    },
+    "link_dir": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778094687.6197",
+    "newest_archive_date": "2026-05-06T19:13:05.211003+00:00",
+    "num_failures": 1,
+    "num_outputs": 11,
+    "oldest_archive_date": "2026-05-06T19:11:27.732549+00:00",
+    "path": "/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at",
+    "schema": "Link",
+    "scheme": "https",
+    "snapshot_id": "61ed8111-de44-42f6-9f5f-02c148cb9803",
+    "sources": [
+        "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/sources/1778094687-import.txt"
+    ],
+    "tags": null,
+    "tags_str": "",
+    "timestamp": "1778094687.6197",
+    "title": "Big Squeeze Soul Offers a Party You Can Actually Dance At | PILOT Magazine",
+    "updated": "2026-05-06T19:11:27.732468+00:00",
+    "updated_date": "2026-05-06 19:11",
+    "url": "https://pilotmagazine.uk/article/big-squeeze-soul-offers-a-party-you-can-actually-dance-at"
+}
