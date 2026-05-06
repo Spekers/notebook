@@ -462,6 +462,18 @@ label.margin-toggle:not(.sidenote-number) {
 	height: auto;
 	border: 1px solid #000;
 }
+canvas.home-shimmer {
+	aspect-ratio: 1 / 1;
+	cursor: crosshair;
+	touch-action: none;
+	background: #e0d7df;
+	image-rendering: pixelated;
+	image-rendering: crisp-edges;
+}
+canvas.home-shimmer.is-static {
+	background: linear-gradient(135deg, #e0d7df 0%, #cfc6cc 50%, #e0d7df 100%);
+	cursor: default;
+}
 @media (max-width: 700px) {
 	.home-grid { grid-template-columns: 1fr; }
 }
