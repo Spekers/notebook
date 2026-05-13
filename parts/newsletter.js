@@ -31,10 +31,6 @@
 					bad_email: "That doesn't look like a valid email address.",
 				};
 				status.textContent = map[data.error] || "Something went wrong.";
-			} else if (data.already) {
-				status.textContent = "You're already subscribed — thanks!";
-				form.reset();
-				if (window.turnstile) window.turnstile.reset();
 			} else {
 				status.textContent = "Check your inbox for a confirmation link.";
 				form.reset();
