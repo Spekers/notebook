@@ -6,7 +6,8 @@ source ./bin/build/vars.sh
 
 LATEST_ENTRY="$1"
 LATEST_MIX="$2"
-OUT_FILE="$3"
+LATEST_LETTER="$3"
+OUT_FILE="${!#}"
 
 LATEST_SLUG=$(basename "$LATEST_ENTRY" | cut -d- -f2- | rev | cut -d. -f2- | rev)
 LATEST_TITLE_HTML=$(./bin/build/get-entry-title.sh --html "$LATEST_ENTRY")
@@ -16,9 +17,20 @@ LATEST_MIX_SLUG=$(basename "$LATEST_MIX" | cut -d- -f2- | rev | cut -d. -f2- | r
 LATEST_MIX_TITLE_HTML=$(./bin/build/get-entry-title.sh --html "$LATEST_MIX")
 LATEST_MIX_TS=$(basename "$LATEST_MIX" | cut -d- -f1)
 
+if [ -n "$LATEST_LETTER" ] && [ "$LATEST_LETTER" != "$OUT_FILE" ]; then
+	LATEST_LETTER_SLUG=$(basename "$LATEST_LETTER" | cut -d- -f2- | rev | cut -d. -f2- | rev)
+	LATEST_LETTER_TITLE_HTML=$(./bin/build/get-entry-title.sh --html "$LATEST_LETTER")
+	LATEST_LETTER_TS=$(basename "$LATEST_LETTER" | cut -d- -f1)
+else
+	LATEST_LETTER_SLUG=""
+	LATEST_LETTER_TITLE_HTML=""
+	LATEST_LETTER_TS=""
+fi
+
 # Escape sed-replacement special chars (& \ /) and newlines in title
 esc_title=$(printf '%s' "$LATEST_TITLE_HTML" | sed -e 's/[\/&]/\\&/g')
 esc_mix_title=$(printf '%s' "$LATEST_MIX_TITLE_HTML" | sed -e 's/[\/&]/\\&/g')
+esc_letter_title=$(printf '%s' "$LATEST_LETTER_TITLE_HTML" | sed -e 's/[\/&]/\\&/g')
 
 sed \
 	-e "s/★PAGE_TITLE★/$BLOG_NAME/g" \
@@ -40,4 +52,7 @@ sed \
 	-e "s/★LATEST_JOURNAL_TITLE★/$esc_title/g" \
 	-e "s/★LATEST_MIX_TS★/$LATEST_MIX_TS/g" \
 	-e "s/★LATEST_MIX_SLUG★/$LATEST_MIX_SLUG/g" \
-	-e "s/★LATEST_MIX_TITLE★/$esc_mix_title/g" > "$OUT_FILE"
+	-e "s/★LATEST_MIX_TITLE★/$esc_mix_title/g" \
+	-e "s/★LATEST_LETTER_TS★/$LATEST_LETTER_TS/g" \
+	-e "s/★LATEST_LETTER_SLUG★/$LATEST_LETTER_SLUG/g" \
+	-e "s/★LATEST_LETTER_TITLE★/$esc_letter_title/g" > "$OUT_FILE"

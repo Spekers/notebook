@@ -72,6 +72,12 @@ rule assemble-mix
 
 rule assemble-mixes
   command = ./bin/build/assemble-mixes.sh $in $out
+
+rule assemble-newsletter
+  command = ./bin/build/assemble-newsletter.sh $in $out
+
+rule assemble-newsletters
+  command = ./bin/build/assemble-newsletters.sh $in $out
 """
 
 fifo_name = 'build.ninja'
@@ -104,7 +110,7 @@ try:
                 else:
                     build_ninja.write(f"build out/site/{out_file}: copy-file {in_file}\n")
 
-        for js_file in ["sideline", "titleresize", "instantpage", "comments", "shimmer"]:
+        for js_file in ["sideline", "titleresize", "instantpage", "comments", "shimmer", "newsletter"]:
             build_ninja.write(f"build out/tmp/{js_file}.min.js: minify-js parts/{js_file}.js\n")
             build_ninja.write(f"build out/site/{js_file}.min.js: copy-file out/tmp/{js_file}.min.js\n")
 
@@ -112,6 +118,8 @@ try:
         build_ninja.write("build out/site/notebook.min.css: copy-file out/tmp/notebook.min.css\n")
         build_ninja.write("build out/tmp/comments.min.css: minify-css parts/comments.css\n")
         build_ninja.write("build out/site/comments.min.css: copy-file out/tmp/comments.min.css\n")
+        build_ninja.write("build out/tmp/newsletter.min.css: minify-css parts/newsletter.css\n")
+        build_ninja.write("build out/site/newsletter.min.css: copy-file out/tmp/newsletter.min.css\n")
 
         for style_file in os.listdir("parts/customstyles/"):
             entry_name = style_file.rsplit(".", 1)[0]
@@ -145,9 +153,27 @@ try:
             build_ninja.write("build out/tmp/mixes/index.min.html: minify-html out/tmp/mixes/index.html\n")
             build_ninja.write("build out/site/mixes/index.html: copy-file out/tmp/mixes/index.min.html\n")
 
+        letter_files = sorted(os.listdir("newsletters"), reverse=True) if os.path.isdir("newsletters") else []
+        letter_files = [l for l in letter_files if l.endswith(".md")]
+        for letter in letter_files:
+            letter_slug = letter.split("-", 1)[1].split(".")[0]
+            build_ninja.write(f"build out/tmp/newsletters/{letter_slug}/index.html: assemble-newsletter newsletters/{letter} | bin/build/assemble-newsletter.sh bin/build/strip-front-matter.sh bin/build/vars.sh parts/template.html parts/newsletter.html\n")
+            build_ninja.write(f"build out/tmp/newsletters/{letter_slug}/index.min.html: minify-html out/tmp/newsletters/{letter_slug}/index.html\n")
+            build_ninja.write(f"build out/site/newsletters/{letter_slug}/index.html: copy-file out/tmp/newsletters/{letter_slug}/index.min.html\n")
+            build_ninja.write(f"build out/site/newsletters/{letter_slug}/{letter_slug}.md: make-markdown-file newsletters/{letter}\n")
+
+        if letter_files:
+            build_ninja.write(f"build out/tmp/newsletters/index.html: assemble-newsletters newsletters/{' newsletters/'.join(letter_files)} | bin/build/assemble-newsletters.sh bin/build/vars.sh parts/template.html parts/newsletters.html\n")
+            build_ninja.write("build out/tmp/newsletters/index.min.html: minify-html out/tmp/newsletters/index.html\n")
+            build_ninja.write("build out/site/newsletters/index.html: copy-file out/tmp/newsletters/index.min.html\n")
+
         latest_entry = entry_files[0]
         latest_mix = mix_files[0]
-        build_ninja.write(f"build out/tmp/index.html: assemble-home entries/{latest_entry} mixes/{latest_mix} | bin/build/assemble-home.sh bin/build/get-entry-title.sh bin/build/vars.sh parts/template.html parts/index.html\n")
+        latest_letter = letter_files[0] if letter_files else ""
+        home_inputs = f"entries/{latest_entry} mixes/{latest_mix}"
+        if latest_letter:
+            home_inputs += f" newsletters/{latest_letter}"
+        build_ninja.write(f"build out/tmp/index.html: assemble-home {home_inputs} | bin/build/assemble-home.sh bin/build/get-entry-title.sh bin/build/vars.sh parts/template.html parts/index.html\n")
         build_ninja.write("build out/tmp/index.min.html: minify-html out/tmp/index.html\n")
         build_ninja.write("build out/site/index.html: copy-file out/tmp/index.min.html\n")
 
