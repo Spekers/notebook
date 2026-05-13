@@ -94,13 +94,15 @@ p.subtitle {
 	margin-bottom: 3.5rem;
 }
 
-#postlist {
+#postlist,
+#mixlist {
     list-style-type: none;
     padding-left: 0;
     width: 100%;
 }
 
-#postlist > li {
+#postlist > li,
+#mixlist > li {
     line-height: 1.2rem;
     margin: 0.6rem 0;
 }
