@@ -26,6 +26,10 @@ Images are automatically compressed with [`pngcrush`](https://pmt.sourceforge.io
 
 Posts have a comment form at the bottom of the page. Comments are handled by a small [Cloudflare Worker](/comments-worker/) backed by a [D1](https://developers.cloudflare.com/d1/) SQLite database, served from `comments.sips-log.com`. Submissions are gated by [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/) (a privacy-respecting CAPTCHA), rate-limited per salted IP hash, and held for manual approval before they appear publicly. Names and bodies are length-capped and rendered with `textContent` on the client, so HTML in a comment is shown as plain text rather than executed. Only the comment text, a display name, a timestamp, and a salted hash of the submitter's IP are stored — no email, no account.
 
+## Newsletter
+
+Letters live as markdown files in [/newsletters/](/newsletters/), rendered at `/newsletters/<slug>/` and listed at `/newsletters/`. Subscriptions are handled by the same [Cloudflare Worker](/comments-worker/) and D1 database used for comments, with a `subscribers` table holding the email, a random unsubscribe token, timestamps, and the same salted IP hash used elsewhere. Letters are sent via [Resend](https://resend.com/).
+
 ## Link Prefetching
 
 [Instantpage](https://instant.page/) is used to prefetch links on hover, making loading extremely fast (on supported browsers).
@@ -56,7 +60,6 @@ In the future, I'd like to make a few improvements to my setup:
 * Generate changelog diffs locally, instead of linking to GitHub.
 * Add search (via [stork](https://stork-search.net/) or [tinysearch](https://endler.dev/2019/tinysearch/)).
 * Extend commenting to mixes and journal entries (currently only on posts).
-* Add a newsletter with the ability to subscribe
 
 ## License
 
