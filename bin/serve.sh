@@ -8,5 +8,5 @@ trap 'kill $SERVER_PID; exit' INT
 
 while true
 do
-	find . ! -name 'out' | entr ./bin/build/build.py
+	find . ! -name 'out' | entr sh -c './bin/build/build.py && ./bin/build/publish-archives.sh'
 done
