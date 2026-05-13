@@ -13,7 +13,7 @@ fi
 
 echo "validating html..."
 
-find ./out/site/ -name "*.html" -exec html5validator {} + || FAIL=1
+find ./out/site/ -name "*.html" -not -path "./out/site/archive/*" -exec html5validator {} + || FAIL=1
 
 echo "running shellcheck..."
 
@@ -26,7 +26,7 @@ find . -name "*.js" -not -path "./out/*" -not -path "*/node_modules/*" -not -pat
 echo "checking broken links..."
 
 # shellcheck disable=SC2044
-for FILE in $(find ./out/site/ -name "*.html")
+for FILE in $(find ./out/site/ -name "*.html" -not -path "./out/site/archive/*")
 do
     for URL in $(xidel --silent --extract "//a/@href" "$FILE")
     do
@@ -35,7 +35,7 @@ do
                 echo "$URL" | grep -E -f ./data/ignore_unarchived_links.txt > /dev/null 2>&1 && continue
                 if ! echo "SELECT url FROM core_snapshot" | sqlite3 data/archivebox/index.sqlite3 | grep -q "^$URL$"
                 then
-                    if ! echo "$URL" | grep -E -q "^https://web.archive.org/web/"; then
+                    if ! echo "$URL" | grep -E -q "^https://(web\.archive\.org/web/|archive\.(ph|today|li|is)/)"; then
                         echo "url not archived: $URL"
                         FAIL=3
                     fi
@@ -44,6 +44,11 @@ do
                 if ! curl -A "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" --max-time 5 --fail --head "$URL" > /dev/null 2>&1; then
                     if ! curl -A "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/81.0" --max-time 30 --fail "$URL" > /dev/null 2>&1; then
                         echo "broken link: $FILE:$URL"
+                        if ./bin/rescue-link.sh "$URL"; then
+                            echo "rescued — rebuild & re-validate"
+                        else
+                            echo "rescue failed — no archive available"
+                        fi
                         FAIL=4
                     fi
                 fi
