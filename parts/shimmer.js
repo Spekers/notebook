@@ -8,7 +8,7 @@
 		return;
 	}
 
-	var W = 80, H = 80;
+	var W = 160, H = 160;
 	canvas.width = W;
 	canvas.height = H;
 	var ctx = canvas.getContext('2d');
