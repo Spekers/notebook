@@ -29,6 +29,7 @@ echo "removing old site files..."
 rm -rf ./out/site/
 echo "building site..."
 ./bin/build/build.py
+./bin/build/publish-archives.sh
 if [[ "$YOLO_MODE" ]]; then
     echo "skipping validation..."
 else
