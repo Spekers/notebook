@@ -5,6 +5,7 @@ const MAX_EMAIL = 254;
 const MAX_SUBJECT = 200;
 const MAX_HTML = 200_000;
 const RATE_WINDOW_MS = 30_000;
+const CONFIRM_RESEND_MS = 60 * 60 * 1000;
 const PAGE_LIMIT = 200;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -25,6 +26,7 @@ export default {
 			if (url.pathname === "/api/subscribe" && req.method === "POST") return await postSubscribe(req, env, cors);
 			if (url.pathname === "/api/confirm" && req.method === "GET") return await getConfirm(req, env);
 			if (url.pathname === "/api/unsubscribe" && req.method === "GET") return await getUnsubscribe(req, env);
+			if (url.pathname === "/api/unsubscribe" && req.method === "POST") return await postUnsubscribe(req, env);
 			if (url.pathname === "/admin/pending" && req.method === "GET") return await adminPending(req, env, cors);
 			if (url.pathname === "/admin/approve" && req.method === "POST") return await adminApprove(req, env, cors);
 			if (url.pathname === "/admin/delete" && req.method === "POST") return await adminDelete(req, env, cors);
@@ -197,8 +199,17 @@ function escapeHtml(s) {
 
 function htmlPage(title, bodyHtml) {
 	return new Response(
-		`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escapeHtml(title)}</title><style>body{font-family:Georgia,serif;max-width:34rem;margin:6rem auto;padding:0 1.5rem;color:#111;line-height:1.5}a{color:inherit}</style></head><body>${bodyHtml}</body></html>`,
-		{ status: 200, headers: { "Content-Type": "text/html; charset=utf-8" } },
+		`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="no-referrer"><title>${escapeHtml(title)}</title><style>body{font-family:Georgia,serif;max-width:34rem;margin:6rem auto;padding:0 1.5rem;color:#111;line-height:1.5}a{color:inherit}button{font:inherit;padding:0.5em 1.2em;cursor:pointer}</style></head><body>${bodyHtml}</body></html>`,
+		{
+			status: 200,
+			headers: {
+				"Content-Type": "text/html; charset=utf-8",
+				"Referrer-Policy": "no-referrer",
+				"X-Content-Type-Options": "nosniff",
+				"X-Frame-Options": "DENY",
+				"Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'",
+			},
+		},
 	);
 }
 
@@ -258,20 +269,26 @@ async function postSubscribe(req, env, cors) {
 	}
 
 	const existing = await env.sips_log_comments.prepare(
-		"SELECT id, token, confirmed_at FROM subscribers WHERE email = ?"
+		"SELECT id, token, confirmed_at, last_sent_at FROM subscribers WHERE email = ?"
 	).bind(email).first();
 
 	let token;
 	if (existing) {
 		token = existing.token;
-		if (existing.confirmed_at) {
-			return json({ ok: true, already: true }, 200, cors);
+		// Already confirmed: don't reveal, don't resend.
+		if (existing.confirmed_at) return json({ ok: true }, 200, cors);
+		// Pending but within the resend cooldown: return the same generic ok without sending again.
+		if (existing.last_sent_at && now - existing.last_sent_at < CONFIRM_RESEND_MS) {
+			return json({ ok: true }, 200, cors);
 		}
+		await env.sips_log_comments.prepare(
+			"UPDATE subscribers SET last_sent_at = ? WHERE id = ?"
+		).bind(now, existing.id).run();
 	} else {
 		token = randomToken();
 		await env.sips_log_comments.prepare(
-			"INSERT INTO subscribers (email, token, created_at, ip_hash) VALUES (?, ?, ?, ?)"
-		).bind(email, token, now, ip_hash).run();
+			"INSERT INTO subscribers (email, token, created_at, ip_hash, last_sent_at) VALUES (?, ?, ?, ?, ?)"
+		).bind(email, token, now, ip_hash, now).run();
 	}
 
 	const link = confirmUrl(env, token);
@@ -315,9 +332,31 @@ async function getUnsubscribe(req, env) {
 	if (!token || token.length > 128) {
 		return htmlPage("Invalid link", "<h1>Invalid link</h1><p>This unsubscribe link isn't valid.</p>");
 	}
+	const row = await env.sips_log_comments.prepare(
+		"SELECT id FROM subscribers WHERE token = ?"
+	).bind(token).first();
+	if (!row) {
+		return htmlPage("Invalid link", "<h1>Invalid link</h1><p>This unsubscribe link isn't valid (it may have already been used).</p>");
+	}
+	const action = "/api/unsubscribe?token=" + encodeURIComponent(token);
+	return htmlPage(
+		"Unsubscribe from Sip's Newsletter",
+		`<h1>Unsubscribe?</h1><p>Click the button below to stop receiving Sip's Newsletter.</p><form method="POST" action="${escapeHtml(action)}"><button type="submit">Unsubscribe</button></form>`,
+	);
+}
+
+async function postUnsubscribe(req, env) {
+	const url = new URL(req.url);
+	const token = (url.searchParams.get("token") || "").trim();
+	const wantsHtml = (req.headers.get("Accept") || "").includes("text/html");
+	if (!token || token.length > 128) {
+		if (wantsHtml) return htmlPage("Invalid link", "<h1>Invalid link</h1><p>This unsubscribe link isn't valid.</p>");
+		return new Response("invalid", { status: 400 });
+	}
 	await env.sips_log_comments.prepare(
 		"DELETE FROM subscribers WHERE token = ?"
 	).bind(token).run();
+	if (!wantsHtml) return new Response("ok", { status: 200 });
 	const site = env.SITE_URL || "/";
 	return htmlPage(
 		"Unsubscribed",
