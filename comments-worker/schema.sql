@@ -20,8 +20,12 @@ CREATE TABLE IF NOT EXISTS subscribers (
   token TEXT NOT NULL UNIQUE,
   created_at INTEGER NOT NULL,
   confirmed_at INTEGER,
-  ip_hash TEXT NOT NULL
+  ip_hash TEXT NOT NULL,
+  last_sent_at INTEGER
 );
+
+-- Existing deployments: run the migration once.
+-- wrangler d1 execute sips-log-comments --remote --command "ALTER TABLE subscribers ADD COLUMN last_sent_at INTEGER"
 
 CREATE INDEX IF NOT EXISTS idx_subscribers_confirmed
   ON subscribers(confirmed_at);
