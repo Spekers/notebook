@@ -13,3 +13,4 @@ inspiration/
 data/archivebox/archive/**/media/*.mp4
 data/archivebox/archive/**/media/*.webm
 data/archivebox/archive/**/media/*.mkv
+bin/send-letter.sh
