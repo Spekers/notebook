@@ -10,6 +10,10 @@ routes = [
 ALLOWED_ORIGIN = "https://sips-log.com,http://localhost:8000"
 TURNSTILE_SITEKEY = "0x4AAAAAADI8SHa_W_cCIcXl"
 AUTO_APPROVE = "true"
+SITE_URL = "https://sips-log.com"
+PUBLIC_API_BASE = "https://comments.sips-log.com"
+FROM_EMAIL = "Sip's Newsletter <newsletter@sips-log.com>"
+REPLY_TO = ""
 
 [[d1_databases]]
 binding = "sips_log_comments"
@@ -20,3 +24,4 @@ database_id = "abb4e87d-c5be-47d4-9255-f1f3668a91f1"
 #   IP_SALT          - random 32+ byte string, used to hash IPs
 #   TURNSTILE_SECRET - secret half of the Turnstile keypair
 #   ADMIN_TOKEN      - bearer token for the /admin endpoints
+#   RESEND_API_KEY   - Resend API key, used to send newsletter emails

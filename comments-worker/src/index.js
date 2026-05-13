@@ -1,8 +1,12 @@
 const MAX_NAME = 60;
 const MAX_BODY = 2000;
 const MAX_SLUG = 200;
+const MAX_EMAIL = 254;
+const MAX_SUBJECT = 200;
+const MAX_HTML = 200_000;
 const RATE_WINDOW_MS = 30_000;
 const PAGE_LIMIT = 200;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default {
 	async fetch(req, env) {
@@ -18,9 +22,14 @@ export default {
 		try {
 			if (url.pathname === "/api/comments" && req.method === "GET") return await listComments(req, env, cors);
 			if (url.pathname === "/api/comments" && req.method === "POST") return await postComment(req, env, cors);
+			if (url.pathname === "/api/subscribe" && req.method === "POST") return await postSubscribe(req, env, cors);
+			if (url.pathname === "/api/confirm" && req.method === "GET") return await getConfirm(req, env);
+			if (url.pathname === "/api/unsubscribe" && req.method === "GET") return await getUnsubscribe(req, env);
 			if (url.pathname === "/admin/pending" && req.method === "GET") return await adminPending(req, env, cors);
 			if (url.pathname === "/admin/approve" && req.method === "POST") return await adminApprove(req, env, cors);
 			if (url.pathname === "/admin/delete" && req.method === "POST") return await adminDelete(req, env, cors);
+			if (url.pathname === "/admin/subscribers" && req.method === "GET") return await adminSubscribers(req, env, cors);
+			if (url.pathname === "/admin/send" && req.method === "POST") return await adminSend(req, env, cors);
 		} catch {
 			return json({ error: "internal" }, 500, cors);
 		}
@@ -162,4 +171,211 @@ async function adminDelete(req, env, cors) {
 	if (!Number.isInteger(id)) return json({ error: "bad_id" }, 400, cors);
 	await env.sips_log_comments.prepare("DELETE FROM comments WHERE id = ?").bind(id).run();
 	return json({ ok: true }, 200, cors);
+}
+
+function normEmail(s) {
+	if (typeof s !== "string") return null;
+	const t = s.trim().toLowerCase();
+	if (!t || t.length > MAX_EMAIL || !EMAIL_RE.test(t)) return null;
+	return t;
+}
+
+function randomToken() {
+	const buf = new Uint8Array(24);
+	crypto.getRandomValues(buf);
+	return [...buf].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function escapeHtml(s) {
+	return String(s)
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#39;");
+}
+
+function htmlPage(title, bodyHtml) {
+	return new Response(
+		`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escapeHtml(title)}</title><style>body{font-family:Georgia,serif;max-width:34rem;margin:6rem auto;padding:0 1.5rem;color:#111;line-height:1.5}a{color:inherit}</style></head><body>${bodyHtml}</body></html>`,
+		{ status: 200, headers: { "Content-Type": "text/html; charset=utf-8" } },
+	);
+}
+
+async function sendEmail(env, { to, subject, html, headers }) {
+	const body = {
+		from: env.FROM_EMAIL,
+		to: [to],
+		subject,
+		html,
+		reply_to: env.REPLY_TO || undefined,
+		headers: headers || undefined,
+	};
+	const res = await fetch("https://api.resend.com/emails", {
+		method: "POST",
+		headers: {
+			"Authorization": "Bearer " + env.RESEND_API_KEY,
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(body),
+	});
+	return res.ok;
+}
+
+function confirmUrl(env, token) {
+	return env.PUBLIC_API_BASE + "/api/confirm?token=" + encodeURIComponent(token);
+}
+
+function unsubscribeUrl(env, token) {
+	return env.PUBLIC_API_BASE + "/api/unsubscribe?token=" + encodeURIComponent(token);
+}
+
+async function postSubscribe(req, env, cors) {
+	if (!env.RESEND_API_KEY || !env.FROM_EMAIL || !env.PUBLIC_API_BASE || !env.SITE_URL) {
+		return json({ error: "misconfigured" }, 500, cors);
+	}
+
+	let payload;
+	try { payload = await req.json(); } catch { return json({ error: "bad_json" }, 400, cors); }
+
+	if (payload.website) return json({ ok: true }, 200, cors); // honeypot
+
+	const email = normEmail(payload.email);
+	if (!email) return json({ error: "bad_email" }, 400, cors);
+
+	const ip = req.headers.get("CF-Connecting-IP") || "";
+	const ok = await verifyTurnstile(payload.turnstile, env.TURNSTILE_SECRET, ip);
+	if (!ok) return json({ error: "turnstile_failed" }, 400, cors);
+
+	const ip_hash = await hashIp(ip, env.IP_SALT);
+	const now = Date.now();
+
+	const recent = await env.sips_log_comments.prepare(
+		"SELECT created_at FROM subscribers WHERE ip_hash = ? ORDER BY created_at DESC LIMIT 1"
+	).bind(ip_hash).first();
+	if (recent && now - recent.created_at < RATE_WINDOW_MS) {
+		return json({ error: "rate_limited" }, 429, cors);
+	}
+
+	const existing = await env.sips_log_comments.prepare(
+		"SELECT id, token, confirmed_at FROM subscribers WHERE email = ?"
+	).bind(email).first();
+
+	let token;
+	if (existing) {
+		token = existing.token;
+		if (existing.confirmed_at) {
+			return json({ ok: true, already: true }, 200, cors);
+		}
+	} else {
+		token = randomToken();
+		await env.sips_log_comments.prepare(
+			"INSERT INTO subscribers (email, token, created_at, ip_hash) VALUES (?, ?, ?, ?)"
+		).bind(email, token, now, ip_hash).run();
+	}
+
+	const link = confirmUrl(env, token);
+	const html = `<p>Hi,</p><p>Please confirm you want to subscribe to <strong>Sip's Newsletter</strong> by clicking the link below:</p><p><a href="${escapeHtml(link)}">Confirm my subscription</a></p><p>If you didn't ask for this, just ignore this email and you won't be subscribed.</p><p>— Sip</p>`;
+	await sendEmail(env, {
+		to: email,
+		subject: "Confirm your subscription to Sip's Newsletter",
+		html,
+	});
+
+	return json({ ok: true }, 200, cors);
+}
+
+async function getConfirm(req, env) {
+	const url = new URL(req.url);
+	const token = (url.searchParams.get("token") || "").trim();
+	if (!token || token.length > 128) {
+		return htmlPage("Invalid link", "<h1>Invalid link</h1><p>This confirmation link isn't valid.</p>");
+	}
+	const row = await env.sips_log_comments.prepare(
+		"SELECT id, confirmed_at FROM subscribers WHERE token = ?"
+	).bind(token).first();
+	if (!row) {
+		return htmlPage("Invalid link", "<h1>Invalid link</h1><p>This confirmation link isn't valid (it may have already been used or revoked).</p>");
+	}
+	if (!row.confirmed_at) {
+		await env.sips_log_comments.prepare(
+			"UPDATE subscribers SET confirmed_at = ? WHERE id = ?"
+		).bind(Date.now(), row.id).run();
+	}
+	const site = env.SITE_URL || "/";
+	return htmlPage(
+		"Subscription confirmed",
+		`<h1>You're in.</h1><p>Thanks for confirming — you'll get the next dispatch of Sip's Newsletter when it goes out.</p><p><a href="${escapeHtml(site)}/newsletters/">← Back to the newsletter</a></p>`,
+	);
+}
+
+async function getUnsubscribe(req, env) {
+	const url = new URL(req.url);
+	const token = (url.searchParams.get("token") || "").trim();
+	if (!token || token.length > 128) {
+		return htmlPage("Invalid link", "<h1>Invalid link</h1><p>This unsubscribe link isn't valid.</p>");
+	}
+	await env.sips_log_comments.prepare(
+		"DELETE FROM subscribers WHERE token = ?"
+	).bind(token).run();
+	const site = env.SITE_URL || "/";
+	return htmlPage(
+		"Unsubscribed",
+		`<h1>You're unsubscribed.</h1><p>You won't receive any more newsletter emails from Sip's Logbook.</p><p><a href="${escapeHtml(site)}/">← Back to the site</a></p>`,
+	);
+}
+
+async function adminSubscribers(req, env, cors) {
+	if (!requireAdmin(req, env)) return json({ error: "unauthorized" }, 401, cors);
+	const { results } = await env.sips_log_comments.prepare(
+		"SELECT id, email, created_at, confirmed_at FROM subscribers ORDER BY created_at DESC LIMIT 1000"
+	).all();
+	return json({ subscribers: results }, 200, cors);
+}
+
+async function adminSend(req, env, cors) {
+	if (!requireAdmin(req, env)) return json({ error: "unauthorized" }, 401, cors);
+	if (!env.RESEND_API_KEY || !env.FROM_EMAIL || !env.PUBLIC_API_BASE) {
+		return json({ error: "misconfigured" }, 500, cors);
+	}
+
+	let payload;
+	try { payload = await req.json(); } catch { return json({ error: "bad_json" }, 400, cors); }
+
+	const subject = clean(payload.subject, MAX_SUBJECT);
+	const bodyHtml = typeof payload.html === "string" && payload.html.length <= MAX_HTML ? payload.html : null;
+	const testTo = payload.test_to ? normEmail(payload.test_to) : null;
+	if (!subject || !bodyHtml) return json({ error: "bad_input" }, 400, cors);
+
+	let recipients;
+	if (testTo) {
+		const row = await env.sips_log_comments.prepare(
+			"SELECT email, token FROM subscribers WHERE email = ? AND confirmed_at IS NOT NULL"
+		).bind(testTo).first();
+		if (!row) return json({ error: "test_recipient_not_subscribed" }, 400, cors);
+		recipients = [row];
+	} else {
+		const { results } = await env.sips_log_comments.prepare(
+			"SELECT email, token FROM subscribers WHERE confirmed_at IS NOT NULL"
+		).all();
+		recipients = results;
+	}
+
+	let sent = 0, failed = 0;
+	for (const r of recipients) {
+		const unsub = unsubscribeUrl(env, r.token);
+		const footer = `<hr><p style="font-size:0.85em;color:#666">You're receiving this because you subscribed to Sip's Newsletter. <a href="${escapeHtml(unsub)}">Unsubscribe</a>.</p>`;
+		const ok = await sendEmail(env, {
+			to: r.email,
+			subject,
+			html: bodyHtml + footer,
+			headers: {
+				"List-Unsubscribe": `<${unsub}>`,
+				"List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+			},
+		});
+		if (ok) sent++; else failed++;
+	}
+
+	return json({ ok: true, sent, failed, total: recipients.length }, 200, cors);
 }
