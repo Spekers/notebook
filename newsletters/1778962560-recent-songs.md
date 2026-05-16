@@ -8,7 +8,7 @@
 Hey people,
 
 I've been collecting songs these past few weeks and I wanted to share some of them. A longer discussion about music is in the works however I couldn't stop myself from sharing.
-@marginnote: I recommend Elena Gigante's [article](https://psyche.co/ideas/music-speaks-louder-than-words-through-what-it-leaves-unsaid) while you wait.
+(I recommend Elena Gigante's [article](https://psyche.co/ideas/music-speaks-louder-than-words-through-what-it-leaves-unsaid) while you wait.)
 
 ---
 
@@ -34,7 +34,7 @@ This track was discovered thanks to [Big Squeeze Soul's DJ Set](https://www.yout
 
 <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=875741691/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/track=2122195483/transparent=true/" seamless><a href="https://habibifunkrecords.bandcamp.com/album/habibi-funk-003-musique-originale-de-films">La Silence des Cendres by Ahmed Malek</a></iframe>
 
-I'll end this showcase on maybe the most cinematic song I've heard in a while. If you haven't heard of Habibi Funk, I'll leave you to go down that rabbit hole and report back to me with your favorites. Among the many amazing albums they have re-released, this is the one I started with. La Silence des Cendres comes straight out of a noir movie. The drums, the melancholic theme, the amazing arrangement of instruments, *ahhhhh*. It's the kind of final credits track that will make me stay seated in my movie theatre seat and stare at the screen until I'm kicked out. 
+I'll end this showcase on maybe the most cinematic song I've heard in a while. If you haven't heard of [Habibi Funk](https://habibifunkrecords.bandcamp.com/), I'll leave you to go down that rabbit hole and report back to me with your favorites. Among the many amazing albums they have re-released, this is the one I started with. *La Silence des Cendres* comes straight out of a noir movie. The drums, the melancholic theme, the amazing arrangement of instruments, *ahhhhh*. It's the kind of final credits track that will make me stay seated in my movie theatre seat and stare at the screen until I'm kicked out. 
 
 ---
 
@@ -43,3 +43,6 @@ That's all for me, hope you enjoyed.
 Much love and good luck!
 
 Sip <3
+
+*P.S* Here's a long ambient to help you sleep
+<iframe style="border: 0; width: 100%; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/album=2043061668/size=small/bgcol=ffffff/linkcol=0687f5/track=3140253756/transparent=true/" seamless><a href="https://echospace313.bandcamp.com/album/home">home by brock van wey</a></iframe>
