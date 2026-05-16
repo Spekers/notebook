@@ -1,0 +1,284 @@
+{
+    "archive_path": "archive/1778965625.864318",
+    "base_url": "www.tiktok.com/@thefacemagazine",
+    "basename": "@thefacemagazine",
+    "bookmarked_date": "2026-05-16 21:07",
+    "canonical": {
+        "archive_org_path": "https://web.archive.org/web/www.tiktok.com/@thefacemagazine",
+        "dom_path": "output.html",
+        "favicon_path": "favicon.ico",
+        "git_path": "git/",
+        "google_favicon_path": "https://www.google.com/s2/favicons?domain=www.tiktok.com",
+        "headers_path": "headers.json",
+        "htmltotext_path": "htmltotext.txt",
+        "index_path": "index.html",
+        "media_path": "media/",
+        "mercury_path": "mercury/content.html",
+        "pdf_path": "output.pdf",
+        "readability_path": "readability/content.html",
+        "screenshot_path": "screenshot.png",
+        "singlefile_path": "singlefile.html",
+        "warc_path": "warc/",
+        "wget_path": "www.tiktok.com/@thefacemagazine.html"
+    },
+    "domain": "www.tiktok.com",
+    "extension": "",
+    "hash": "1MSC5C2JC28GHSE0KR2A",
+    "history": {
+        "dom": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--dump-dom",
+                    "https://www.tiktok.com/@thefacemagazine"
+                ],
+                "cmd_version": "Google Chrome 148.0.7778.168",
+                "end_ts": "2026-05-16T21:07:26.710953+00:00",
+                "index_texts": null,
+                "output": "output.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778965625.864318",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-16T21:07:23.889144+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "favicon": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--max-time",
+                    "60",
+                    "--output",
+                    "favicon.ico",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://www.google.com/s2/favicons?domain=www.tiktok.com"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-16T21:07:06.267360+00:00",
+                "index_texts": null,
+                "output": "favicon.ico",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778965625.864318",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-16T21:07:06.022842+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "git": [],
+        "headers": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--head",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://www.tiktok.com/@thefacemagazine"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-16T21:07:06.844323+00:00",
+                "index_texts": null,
+                "output": "headers.json",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778965625.864318",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-16T21:07:06.271656+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "htmltotext": [],
+        "media": [],
+        "mercury": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/@postlight/parser/cli.js",
+                    "https://www.tiktok.com/@thefacemagazine"
+                ],
+                "cmd_version": "1.0.0",
+                "end_ts": "2026-05-16T21:07:34.909768+00:00",
+                "index_texts": null,
+                "output": "mercury",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778965625.864318",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-16T21:07:31.802964+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "pdf": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--print-to-pdf",
+                    "https://www.tiktok.com/@thefacemagazine"
+                ],
+                "cmd_version": "Google Chrome 148.0.7778.168",
+                "end_ts": "2026-05-16T21:07:20.796732+00:00",
+                "index_texts": null,
+                "output": "output.pdf",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778965625.864318",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-16T21:07:17.609791+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "readability": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/readability-extractor/readability-extractor",
+                    "/var/folders/5c/pl67hms52szcj9ppn2gb4gw00000gn/T/tmpwwvtz9k_",
+                    "https://www.tiktok.com/@thefacemagazine"
+                ],
+                "cmd_version": "0.0.6",
+                "end_ts": "2026-05-16T21:07:31.794899+00:00",
+                "index_texts": [
+                    "THE FACE Magazinethefacemagazine313Following109.6KFollowers6.9MLikesThe best of everything."
+                ],
+                "output": "readability",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778965625.864318",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-16T21:07:29.850454+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "screenshot": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--screenshot",
+                    "https://www.tiktok.com/@thefacemagazine"
+                ],
+                "cmd_version": "Google Chrome 148.0.7778.168",
+                "end_ts": "2026-05-16T21:07:23.887978+00:00",
+                "index_texts": null,
+                "output": "screenshot.png",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778965625.864318",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-16T21:07:20.797980+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "singlefile": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/single-file-cli/single-file-node.js",
+                    "--browser-executable-path=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--browser-args=[\"--headless=new\", \"--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)\", \"--window-size=1440,2000\"]",
+                    "https://www.tiktok.com/@thefacemagazine",
+                    "singlefile.html"
+                ],
+                "cmd_version": "2.0.83",
+                "end_ts": "2026-05-16T21:07:17.607901+00:00",
+                "index_texts": null,
+                "output": "singlefile.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778965625.864318",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-16T21:07:06.847424+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "title": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://www.tiktok.com/@thefacemagazine"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-16T21:07:29.849144+00:00",
+                "index_texts": null,
+                "output": "TikTok - Make Your Day",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778965625.864318",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-16T21:07:29.840787+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "wget": [
+            {
+                "cmd": [
+                    "wget",
+                    "--no-verbose",
+                    "--adjust-extension",
+                    "--convert-links",
+                    "--force-directories",
+                    "--backup-converted",
+                    "--span-hosts",
+                    "--no-parent",
+                    "-e",
+                    "robots=off",
+                    "--timeout=60",
+                    "--restrict-file-names=windows",
+                    "--warc-file=/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778965625.864318/warc/1778965646",
+                    "--page-requisites",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) wget/GNU Wget 1.25.0",
+                    "--compression=auto",
+                    "https://www.tiktok.com/@thefacemagazine"
+                ],
+                "cmd_version": "GNU Wget 1.25.0",
+                "end_ts": "2026-05-16T21:07:29.837416+00:00",
+                "index_texts": null,
+                "output": "www.tiktok.com/@thefacemagazine.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778965625.864318",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-16T21:07:26.712130+00:00",
+                "status": "succeeded"
+            }
+        ]
+    },
+    "icons": null,
+    "is_archived": true,
+    "is_static": false,
+    "latest": {
+        "archive_org": null,
+        "dom": "output.html",
+        "favicon": "favicon.ico",
+        "git": null,
+        "media": null,
+        "pdf": "output.pdf",
+        "screenshot": "screenshot.png",
+        "singlefile": "singlefile.html",
+        "title": "TikTok - Make Your Day",
+        "warc": null,
+        "wget": "www.tiktok.com/@thefacemagazine.html"
+    },
+    "link_dir": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1778965625.864318",
+    "newest_archive_date": "2026-05-16T21:07:31.802964+00:00",
+    "num_failures": 0,
+    "num_outputs": 10,
+    "oldest_archive_date": "2026-05-16T21:07:06.022842+00:00",
+    "path": "/@thefacemagazine",
+    "schema": "Link",
+    "scheme": "https",
+    "snapshot_id": "136495eb-909c-4649-b6c8-fdbb2f91ba3e",
+    "sources": [
+        "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/sources/1778965625-import.txt"
+    ],
+    "tags": null,
+    "tags_str": "",
+    "timestamp": "1778965625.864318",
+    "title": null,
+    "updated": "2026-05-16T21:07:06.022776+00:00",
+    "updated_date": "2026-05-16 21:07",
+    "url": "https://www.tiktok.com/@thefacemagazine"
+}
