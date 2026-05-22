@@ -233,6 +233,20 @@ async function sendEmail(env, { to, subject, html, headers }) {
 	return res.ok;
 }
 
+async function sendEmailBatch(env, emails) {
+	const res = await fetch("https://api.resend.com/emails/batch", {
+		method: "POST",
+		headers: {
+			"Authorization": "Bearer " + env.RESEND_API_KEY,
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(emails),
+	});
+	let body = null;
+	try { body = await res.json(); } catch {}
+	return { ok: res.ok, status: res.status, body };
+}
+
 function confirmUrl(env, token) {
 	return env.PUBLIC_API_BASE + "/api/confirm?token=" + encodeURIComponent(token);
 }
@@ -400,21 +414,37 @@ async function adminSend(req, env, cors) {
 		recipients = results;
 	}
 
-	let sent = 0, failed = 0;
-	for (const r of recipients) {
+	const emails = recipients.map(r => {
 		const unsub = unsubscribeUrl(env, r.token);
 		const footer = `<hr><p style="font-size:0.85em;color:#666">You're receiving this because you subscribed to Sip's Newsletter. <a href="${escapeHtml(unsub)}">Unsubscribe</a>.</p>`;
-		const ok = await sendEmail(env, {
-			to: r.email,
+		return {
+			from: env.FROM_EMAIL,
+			to: [r.email],
 			subject,
 			html: bodyHtml + footer,
+			reply_to: env.REPLY_TO || undefined,
 			headers: {
 				"List-Unsubscribe": `<${unsub}>`,
 				"List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
 			},
-		});
-		if (ok) sent++; else failed++;
+		};
+	});
+
+	const BATCH_SIZE = 100;
+	let sent = 0, failed = 0;
+	const failures = [];
+	for (let i = 0; i < emails.length; i += BATCH_SIZE) {
+		const chunk = emails.slice(i, i + BATCH_SIZE);
+		const result = await sendEmailBatch(env, chunk);
+		const chunkRecipients = chunk.map(e => e.to[0]);
+		if (result.ok) {
+			sent += chunk.length;
+		} else {
+			failed += chunk.length;
+			failures.push({ status: result.status, error: result.body, recipients: chunkRecipients });
+			console.log("batch send failed", result.status, JSON.stringify(result.body), chunkRecipients);
+		}
 	}
 
-	return json({ ok: true, sent, failed, total: recipients.length }, 200, cors);
+	return json({ ok: true, sent, failed, total: recipients.length, failures }, 200, cors);
 }
