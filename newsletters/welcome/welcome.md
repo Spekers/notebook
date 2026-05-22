@@ -1,0 +1,9 @@
+# Welcome to Sip's Newsletter
+
+Hello,
+
+This is the very first letter for Sip's Newsletter: a slow, irregular letter to be updated on what I've been reading, watching, eating, or drinking. Expect essay recommendations, café reviews, art exhibit reminders, and more.
+
+Thanks for stopping by; hope you enjoy it.
+
+— Sip <3

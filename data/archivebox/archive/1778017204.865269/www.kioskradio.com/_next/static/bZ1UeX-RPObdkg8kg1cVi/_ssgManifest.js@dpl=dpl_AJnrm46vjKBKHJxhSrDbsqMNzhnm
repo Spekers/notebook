@@ -1,1 +1,0 @@
-self.__SSG_MANIFEST=new Set(["\u002F[page]","\u002Fartist\u002F[slug]","\u002Fepisode\u002F[date]\u002F[slug]","\u002Fgenre\u002F[slug]","\u002Flabel\u002F[slug]","\u002Fshow\u002F[slug]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
