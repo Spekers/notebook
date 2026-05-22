@@ -1,0 +1,339 @@
+{
+    "archive_path": "archive/1779448018.523595",
+    "base_url": "aeon.co/essays/things-have-jobs-and-digital-devices-are-made-to-track-you",
+    "basename": "things-have-jobs-and-digital-devices-are-made-to-track-you",
+    "bookmarked_date": "2026-05-22 11:06",
+    "canonical": {
+        "archive_org_path": "https://web.archive.org/web/aeon.co/essays/things-have-jobs-and-digital-devices-are-made-to-track-you",
+        "dom_path": "output.html",
+        "favicon_path": "favicon.ico",
+        "git_path": "git/",
+        "google_favicon_path": "https://www.google.com/s2/favicons?domain=aeon.co",
+        "headers_path": "headers.json",
+        "htmltotext_path": "htmltotext.txt",
+        "index_path": "index.html",
+        "media_path": "media/",
+        "mercury_path": "mercury/content.html",
+        "pdf_path": "output.pdf",
+        "readability_path": "readability/content.html",
+        "screenshot_path": "screenshot.png",
+        "singlefile_path": "singlefile.html",
+        "warc_path": "warc/",
+        "wget_path": null
+    },
+    "domain": "aeon.co",
+    "extension": "",
+    "hash": "X6XQXX6VXVFAKX72MTS8",
+    "history": {
+        "archive_org": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--head",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://web.archive.org/save/https://aeon.co/essays/things-have-jobs-and-digital-devices-are-made-to-track-you"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-22T11:14:21.944040+00:00",
+                "index_texts": null,
+                "output": "ArchiveError: Failed to find \"content-location\" URL header in Archive.org response.",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1779448018.523595",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-22T11:14:15.216739+00:00",
+                "status": "failed"
+            }
+        ],
+        "dom": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--dump-dom",
+                    "https://aeon.co/essays/things-have-jobs-and-digital-devices-are-made-to-track-you"
+                ],
+                "cmd_version": "Google Chrome 148.0.7778.179",
+                "end_ts": "2026-05-22T11:14:13.505904+00:00",
+                "index_texts": null,
+                "output": "output.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1779448018.523595",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-22T11:14:11.232424+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "favicon": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--max-time",
+                    "60",
+                    "--output",
+                    "favicon.ico",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://www.google.com/s2/favicons?domain=aeon.co"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-22T11:13:55.621560+00:00",
+                "index_texts": null,
+                "output": "favicon.ico",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1779448018.523595",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-22T11:13:55.468081+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "git": [],
+        "headers": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--head",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://aeon.co/essays/things-have-jobs-and-digital-devices-are-made-to-track-you"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-22T11:13:56.209535+00:00",
+                "index_texts": null,
+                "output": "headers.json",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1779448018.523595",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-22T11:13:55.624365+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "htmltotext": [],
+        "media": [
+            {
+                "cmd": [
+                    "yt-dlp",
+                    "--write-description",
+                    "--write-info-json",
+                    "--write-annotations",
+                    "--write-thumbnail",
+                    "--no-call-home",
+                    "--write-sub",
+                    "--write-auto-subs",
+                    "--convert-subs=srt",
+                    "--yes-playlist",
+                    "--continue",
+                    "--no-abort-on-error",
+                    "--ignore-errors",
+                    "--geo-bypass",
+                    "--add-metadata",
+                    "--format=(bv*+ba/b)[filesize<=750m][filesize_approx<=?750m]/(bv*+ba/b)",
+                    "https://aeon.co/essays/things-have-jobs-and-digital-devices-are-made-to-track-you"
+                ],
+                "cmd_version": "2026.03.17",
+                "end_ts": "2026-05-22T11:14:15.214222+00:00",
+                "index_texts": [],
+                "output": "media",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1779448018.523595",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-22T11:14:14.409810+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "mercury": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/@postlight/parser/cli.js",
+                    "https://aeon.co/essays/things-have-jobs-and-digital-devices-are-made-to-track-you",
+                    "--format=text"
+                ],
+                "cmd_version": "1.0.0",
+                "end_ts": "2026-05-22T11:14:14.393360+00:00",
+                "index_texts": null,
+                "output": "ArchiveError: Mercury was not able to get article text from the URL",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1779448018.523595",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-22T11:14:14.127875+00:00",
+                "status": "failed"
+            }
+        ],
+        "pdf": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--print-to-pdf",
+                    "https://aeon.co/essays/things-have-jobs-and-digital-devices-are-made-to-track-you"
+                ],
+                "cmd_version": "Google Chrome 148.0.7778.179",
+                "end_ts": "2026-05-22T11:14:08.617236+00:00",
+                "index_texts": null,
+                "output": "output.pdf",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1779448018.523595",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-22T11:14:06.224991+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "readability": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/readability-extractor/readability-extractor",
+                    "/var/folders/5c/pl67hms52szcj9ppn2gb4gw00000gn/T/tmpwok3zwpu",
+                    "https://aeon.co/essays/things-have-jobs-and-digital-devices-are-made-to-track-you"
+                ],
+                "cmd_version": "0.0.6",
+                "end_ts": "2026-05-22T11:14:14.126145+00:00",
+                "index_texts": [
+                    "Prometheus might have handed humanity fire, but he certainly did not give us a smartphone. Digital technology is not God-given. Nor is digital technology a natural kind, an object of nature, like strawberries or lakes. We don\u2019t find smartphones growing from trees. The digital gadgets that populate our lives \u2013 smartphones, laptops, smartwatches and more \u2013 are artefacts.\nAn artefact exists because human beings have created it. Hammers, laws and symphonies are artefacts too. Their existence depends on human minds and purposes. No artefact, in all the richness of its details, is inevitable. That\u2019s partly because artefacts are designed by human beings, and there are choices in design \u2013 choices that could\u2019ve been different. Every one of the letters you are reading right now, for instance, could\u2019ve had a different shape by design.\nShape is not the only choice we make in designing artefacts. In addition to making choices about the sensorial attributes of artefacts \u2013 their tactile qualities, what they look, sound, smell and sometimes taste like \u2013 we make choices about what the artefact is supposed to do. An artefact is created for a purpose; it\u2019s intended to do some things and not others. Pillows are supposed to be comfortable, pens are meant to smoothly transfer ink onto paper, and toasters should brown your bread.\nSome artefacts do many things. A perfect chair, say an Eames chair, is both an object of beauty, something that is pleasurable to behold, and a useful tool for the comfort of the body. I edited my last book on an Eames chair that was so comfortable, it allowed me to focus on the content of the book instead of worrying about my body.\nDigital technology does many things too. A smartphone can enable you to make calls, send emails, and track how many minutes you meditate to destress from the calls and the emails, and then track how many hours you\u2019ve been on your smartphone, and stress about that. Mixed in the flour that bakes digital technology sit two original sins pervading most gadgets, apps and platforms alike: surveillance and prediction; more specifically, surveillance at the service of prediction. Both lead to social control.\nFor the most part, digital technology has been developed by computer scientists, engineers, data analysts and ambitious businessmen (yes, mostly men) with little to no consideration of the impact their technology could have on democracy.\nThat\u2019s partly because, when the fundamental blocks of the digital and the online were designed, it was hard to envision that they would grow to be what they are today, something that everyone has access to, every second of the day, including gadgets that are small enough to fit into a pocket. The internet was originally designed to be a tool for researchers to communicate easily with one another; it wasn\u2019t meant to be a major way of communication for ordinary citizens.\nBut another influencing element is undoubtedly that the people designing our gadgets tend to be people well versed in programming, business, mathematics and other fields distant from a deep understanding of ethics or politics. (That said, there are notable exceptions like Reid Hoffman, who co-founded LinkedIn, one of the least toxic social media platforms we have.) Considerations about how technology could impact democracy were largely not part of the design of our digital environment. And whenever political considerations did come in, they\u2019ve come in the form of an anti-government bent.\nThere is some tension between Peter Thiel\u2019s supposed defence of freedom, and the systems of mass surveillance, prediction and control he\u2019s building\nSome of the pioneers of the digital strike me as naive idealists, assuming that freedom and fairness will magically come from having no government interference. \u2018A Declaration of the Independence of Cyberspace\u2019 (1996) is one of the most iconic documents of the early internet era, written by John Perry Barlow, as quirky a character as they come. A Republican and an anarchist, Barlow was raised as a devoted member of the Church of Jesus Christ of Latter-day Saints; he was also a cattle rancher and a lyricist for the band Grateful Dead.\nThe beginning of his declaration reads:\nGovernments of the Industrial World, you weary giants of flesh and steel, I come from Cyberspace, the new home of Mind. On behalf of the future, I ask you of the past to leave us alone. You are not welcome among us. You have no sovereignty where we gather.\nAnd it ends with:\nWe will create a civilisation of the Mind in Cyberspace. May it be more humane and fair than the world your governments have made before.\nThose strike me as extremely naive sentiments, at best, barely plausible when the internet was populated by a handful of nerdy guys, and utterly unrealistic once it starts encompassing millions of people from around the world, including thieves, drug dealers and human traffickers, not to mention swathes of terrifyingly ordinary trolls who silence people they don\u2019t like (women, often). Where did Barlow think fairness was going to come from?\nIn other instances, digital anarchism or libertarianism seems anything but naive. Peter Thiel is a German and American venture capitalist and a conservative political activist. He was the first outside investor in Facebook \u2013 you know, the company that popularised a model of surveillance for social media that led to the Cambridge Analytica scandal \u2013 and a co-founder of Palantir \u2013 you know, the company named after J R R Tolkien\u2019s omniscient crystal balls in The Lord of the Rings that was partly funded by the CIA and helps governments surveil their populations, whose ads recently read \u2018we build to dominate\u2019. Before that, he co-founded PayPal, which he conceived of as a payment service to shield people from governmental reach.\nThiel is famous for his libertarianism and for expressing sceptical views about democracy. Although he is not shy about voicing his opinions, many of his perspectives seem contradictory, and listening to him \u2013 from the content of his words to the intensity of his goggle-eyed demeanour \u2013 can be a surreal experience. Thiel\u2019s own biographer Max Chafkin said he finds what Thiel thinks an unsettling mystery.\nSurely it doesn\u2019t escape Thiel that there is some tension between his supposed defence of freedom, and the systems of mass surveillance, prediction and control that he is building. One rather depressing hypothesis is that Thiel is nothing more complex or sophisticated than an opportunist; someone who is mostly interested in earning money and gaining dominance over others; someone who is fighting for freedom for himself and his buddies, not caring if it comes at the price of slavery for everyone else. Sometimes Ockham\u2019s Razor is right, sometimes the simplest explanation is the correct one. Whatever Thiel\u2019s intentions might be, what is clear is that digital technology has not been and is still not being designed to support democracy.\nOne of the most deceptive narratives technology companies have been successfully peddling is that technology is neutral and it\u2019s our use of the technology that determines whether it\u2019s good or bad. How very convenient, to put all moral responsibility on the shoulders of people; I\u2019m sure that is an entirely coincidental implication and not at all self-serving (eye roll). The crudest way to rebut this argument is to consider an extreme technology: a chemical weapon that would obliterate all life on Earth. Would it be morally acceptable to develop such an artefact under the pretence that technology is always neutral? No. Such a technology would not be neutral, and neither is any other technology.\nEvery piece of technology is an artefact, which means that it has been designed by someone to do something, and that fact alone strips it of neutrality. Even a blank page is not neutral: it\u2019s inviting you to write (or to make a paper plane). Technology is never neutral because it embodies the belief in the value of what it was designed to do. You make an artefact because you think there is value in it doing what it does.\nPhilosophers describe the embodied values of artefacts by pointing out that artefacts have affordances. An affordance is what an artefact invites you to do. A paper book invites you to read it; it\u2019s made to be light, to fit comfortably in your hands, be easy to store, and its words are designed to inform you, or persuade you, or move you. It\u2019s the result of thousands of years of refinements to make it more portable, durable, reproducible \u2013 from stone tablets to papyrus scrolls to bound codices to the printed book. Of course, you can use a book as a hammer, or a brick, or a projectile, but since it wasn\u2019t designed for that, you\u2019d be better off using a hammer, or a brick, or a baseball. Affordances are how the designer of an object communicates with its user.\nBecause surveillance affords control, when it comes to politics, it tends to decrease freedom\nSurveillance tools afford control; they invite you to keep track of things and people, or people through their things, or people as things. Given how highly social creatures we are, we are typically more interested in tracking people than things.\nYou keep track of people to have some amount of control over them. In some cases, it\u2019s justified. It\u2019s part of a parent\u2019s job to watch a toddler at all times of the day in case they run into danger, and the world is a very dangerous place for a toddler. Parents are superheroes who intervene before heads hit the floor, hands touch hot objects, and marbles get swallowed; to be able to intercede on behalf of children, parents need to keep a watch on little ones. Parents surveil children to predict disasters and avert them.\nThe case to surveil becomes much harder when it comes to autonomous adults. First, when adult human beings are autonomous, their ability to keep reasonably safe is greatly enhanced; we get better at not falling head first, not touching hot objects, and not swallowing marbles. Second, other things being equal, the desires of autonomous people about how they lead their lives should be respected, and most people don\u2019t want someone watching over their shoulders (again, other things being equal). Third, because surveillance affords control, when it comes to politics, it tends to decrease freedom, which tends to be bad for liberal democracies. It is no coincidence that authoritarian regimes rely on surveillance of their citizens.\nParents who surveil toddlers tend to do so benevolently, for the child\u2019s own good. But not all watchers are as benevolent. People can have their own agenda, which is not always aligned with your best interests. Whoever surveils you gains more power over you by virtue of learning more about you, which makes it easier to predict what you\u2019ll do next, and use that information in their favour. If I learn that you have gone to the movies every Monday night for the past year, I can use that information to predict that you\u2019ll be at the movies next Monday night and plan to rob your house then.\nMost digital tools, as they are currently designed, are built to surveil. They collect as much data as possible by default, and your ability to constrain that data collection is limited at best. Your phone not only has a microphone and a camera, it has an accelerometer, a gyroscope, a compass, a barometer, a light sensor, proximity sensor, humidity sensor, iris and fingerprint scanners and a GPS, among many items in a long list. That\u2019s just your phone.\nMany apps on our devices \u2013 maps, online documents and social media \u2013 were designed precisely with the creation of personal data in mind, to make our lives more trackable by machines. That they are useful to us is just the attractions used to make us inadvertently give up the data that is used to control us.\nAccording to James C Scott, the American political scientist, digital records make society more \u2018legible\u2019 to machines \u2013 arguably the same applies whether the machine is a state, a corporation or an AI. Without a quantified record of the comings, goings, communications and purchases of people, institutions are blind. When we turn analogue records into digital ones, we make data much more easily retrievable, and we make it easier for that data to get copied and shared. Finally, digital records also make it easier for computers to analyse information: to identify people, catalogue them, track their income and location, and predict their lives.\nThe surveillance machinery we have built exists at the service of a prediction machinery. We collect so much data to monetise it, and we monetise it by using it to predict, or by selling it to others who want to use it for the purposes of prediction. But efforts to predict people\u2019s behaviour are intrinsically linked to efforts to control it, because the easiest way to predict the future is to influence it; preferably to determine it.\nWe\u2019ve seen similar dreams of folly, for instance, in the Soviet Union\u2019s desire to plan the economy, or with East Germany\u2019s Stasi, but the technology then was not nearly as powerful to surveil and control as it is today. In the 1960s, if you wanted to surveil one person, you had to hire someone else to bug them or follow them. Today, we surveil everyone by default; you just have to tap into the data collected by the spies in their pockets (smartphones), on their wrists and fingers (smart watches and rings), their work tools (laptops), and in the public sphere (CCTV cameras) \u2013 you\u2019ll have more on any person than the Stasi could ever dream of.\nYou might think that there is nothing to worry about because, while the Soviet Union and East Germany had a clear political agenda, today\u2019s surveillance is mostly about earning a profit. But, as the old adage goes, power corrupts, and surveillance conveys too much power to the watchers. Furthermore, human beings are political animals, as Aristotle pointed out. It\u2019s a matter of time before things get heated and the powerful reveal their political colours, as we\u2019re increasingly seeing tech barons like Thiel do.\nPredictions about people have a tendency to become self-fulfilling prophecies\nEven disregarding the terrifying implications of surveillance (how much more surveillance can liberal democracies take before falling into societies of control?), an overreliance on prediction is a democratic problem in itself, and today we are using prediction more than ever.\nPredictions might sound like descriptions of the world, or like facts, but they are neither. When we analyse them as assertions, it becomes clear that they are what the philosopher J L Austin called \u2018speech acts\u2019, language that does something rather than describe. Predictions are often veiled commands, implicitly telling us what to do. When someone like Thiel prophesies that, if we fear or regulate technology, we will hasten the coming of the Antichrist, the message is an order. Paraphrasing, Thiel is telling people to not stand in the way of his technology, or else terrible things will happen. That he has a major financial stake in the technology is something he doesn\u2019t remark on as much.\nPredictions also invite foul play. Predictions about people have a tendency to become self-fulfilling prophecies, which creates the temptation to unduly influence the future. For example, politicians have bet on themselves in prediction markets to try to sway public opinion, making them look more popular than they are.\nPredictions also stand in contrast to justice, and yet we are using algorithmic predictions to make decisions about sentencing and bail. Justice is supposed to give each one what they deserve on the basis of what they\u2019ve done or who they are, not on the basis of who other people think they will become, which is what a prediction is. If we punish someone or deny them an opportunity on the basis of clear and contestable criteria, on the basis of facts, those decisions can be challenged; they can be proven wrong. But if we punish or deny opportunities based on predictions, there is no way to contest those. Since they are about the future, they cannot be proven false in the present.\nFurthermore, if people\u2019s behaviour becomes more predictable, there\u2019s a good chance that\u2019s because it\u2019s being conditioned or even determined. At an extreme, the surest way to predict someone\u2019s death is to murder them. People living in authoritarian regimes can be more predictable because their behaviour is being constrained by tyranny.\nHealthy democracies are all about embracing and managing uncertainty. It\u2019s only when we don\u2019t know what the results of elections will be that we have true democracy. If we knew what the election results would be, there\u2019d be no point in holding the elections.\nWe have been using prophecy since before the Oracle of Delphi. We have waged wars, married, and bet our livelihoods on account of predictions. Every day, we put our life and those of others on the line based on forecasts. It\u2019s about time we thought more carefully about the ethics of prediction. When is it appropriate to make predictions and when is it not? Who is entitled to make which predictions? What do we owe the subjects of prediction? What are ethical methods of coming up with predictions, and what are ethical uses of prediction?\nIn some ways, our current prophetic environment is not that dissimilar to that of ancient Greece, where the most important decisions were often made through the filter of divination, from the Oracles of Delphi and Dodona to freelance soothsayers and seers. Philosophy arose as the voice of reason partly as a reaction against a context dominated by prophecies and myth.\nWhen the priest Lampon declared that the finding of a single-horned ram prophesied that Pericles would overcome his political adversaries and become the sole political leader of Athens, the philosopher Anaxagoras had more questions. He instructed that the skull be cut in two, revealing an underdeveloped brain that could explain the single horn. To Anaxagoras, the physiological explanation was more satisfying than the magical one.\nWe should demand safer products that can be more supportive of democracies\nAnaxagoras was also well known for his cosmological theories, taking a step in demystifying the sun, in a context in which ordinary Greeks prayed at daybreak to the sun-god Helios. Denying the divinity of the sun was a serious offence because it risked angering the gods and bringing punishment to the whole of the community. It is no coincidence that Anaxagoras, Socrates and Aristotle were all denounced for impiety.\nToday, some aspects of tech have become such an ideology that to criticise fundamental elements like surveillance and predictions feels like an act of heresy. But perhaps philosophy can rise to the occasion once more. I don\u2019t mean academic philosophy, although that would be nice. I mean critical thinking more generally. We should be asking more questions of our prophets. We should be less naive about prediction and surveillance, and we should demand safer products that can be more supportive of democracies. Technological systems designed to surveil, predict, and control are ideal for an authoritarian takeover.\nLarry Ellison, the chairman of the tech giant Oracle, has predicted a modern surveillance state in which \u2018citizens will be on their best behaviour\u2019 because we\u2019re constantly watched. Hannah Arendt argued that it\u2019s pointless to argue with a potential murderer about whether his future victim is dead or alive. The only appropriate response is to \u2018rescue the person whose death is predicted\u2019. When today\u2019s prophets are predicting the death of our democracy and building the systems to undermine it, the only appropriate response is to rescue it.\nLet\u2019s make Prometheus proud."
+                ],
+                "output": "readability",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1779448018.523595",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-22T11:14:13.752076+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "screenshot": [
+            {
+                "cmd": [
+                    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--headless=new",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)",
+                    "--window-size=1440,2000",
+                    "--screenshot",
+                    "https://aeon.co/essays/things-have-jobs-and-digital-devices-are-made-to-track-you"
+                ],
+                "cmd_version": "Google Chrome 148.0.7778.179",
+                "end_ts": "2026-05-22T11:14:11.230650+00:00",
+                "index_texts": null,
+                "output": "screenshot.png",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1779448018.523595",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-22T11:14:08.619205+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "singlefile": [
+            {
+                "cmd": [
+                    "/opt/homebrew/lib/node_modules/single-file-cli/single-file-node.js",
+                    "--browser-executable-path=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                    "--browser-args=[\"--headless=new\", \"--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/)\", \"--window-size=1440,2000\"]",
+                    "https://aeon.co/essays/things-have-jobs-and-digital-devices-are-made-to-track-you",
+                    "singlefile.html"
+                ],
+                "cmd_version": "2.0.83",
+                "end_ts": "2026-05-22T11:14:06.222637+00:00",
+                "index_texts": null,
+                "output": "singlefile.html",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1779448018.523595",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-22T11:13:56.213359+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "title": [
+            {
+                "cmd": [
+                    "curl",
+                    "--silent",
+                    "--location",
+                    "--compressed",
+                    "--max-time",
+                    "60",
+                    "--user-agent",
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) curl/curl 8.7.1 (x86_64-apple-darwin25.0)",
+                    "https://aeon.co/essays/things-have-jobs-and-digital-devices-are-made-to-track-you"
+                ],
+                "cmd_version": "curl 8.7.1 (x86_64-apple-darwin25.0)",
+                "end_ts": "2026-05-22T11:14:13.750592+00:00",
+                "index_texts": null,
+                "output": "Things have jobs and digital devices are made to track you | Aeon Essays",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1779448018.523595",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-22T11:14:13.740793+00:00",
+                "status": "succeeded"
+            }
+        ],
+        "wget": [
+            {
+                "cmd": [
+                    "wget",
+                    "--no-verbose",
+                    "--adjust-extension",
+                    "--convert-links",
+                    "--force-directories",
+                    "--backup-converted",
+                    "--span-hosts",
+                    "--no-parent",
+                    "-e",
+                    "robots=off",
+                    "--timeout=60",
+                    "--restrict-file-names=windows",
+                    "--warc-file=/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1779448018.523595/warc/1779448453",
+                    "--page-requisites",
+                    "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 ArchiveBox/0.7.2 (+https://github.com/ArchiveBox/ArchiveBox/) wget/GNU Wget 1.25.0",
+                    "--compression=auto",
+                    "https://aeon.co/essays/things-have-jobs-and-digital-devices-are-made-to-track-you"
+                ],
+                "cmd_version": "GNU Wget 1.25.0",
+                "end_ts": "2026-05-22T11:14:13.736812+00:00",
+                "index_texts": null,
+                "output": "ArchiveError: Wget failed or got an error from the server",
+                "pwd": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1779448018.523595",
+                "schema": "ArchiveResult",
+                "start_ts": "2026-05-22T11:14:13.507518+00:00",
+                "status": "failed"
+            }
+        ]
+    },
+    "icons": null,
+    "is_archived": true,
+    "is_static": false,
+    "latest": {
+        "archive_org": "ArchiveError: Failed to find \"content-location\" URL header in Archive.org response.",
+        "dom": "output.html",
+        "favicon": "favicon.ico",
+        "git": null,
+        "media": "media",
+        "pdf": "output.pdf",
+        "screenshot": "screenshot.png",
+        "singlefile": "singlefile.html",
+        "title": "Things have jobs and digital devices are made to track you | Aeon Essays",
+        "warc": null,
+        "wget": "ArchiveError: Wget failed or got an error from the server"
+    },
+    "link_dir": "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/archive/1779448018.523595",
+    "newest_archive_date": "2026-05-22T11:14:15.216739+00:00",
+    "num_failures": 3,
+    "num_outputs": 9,
+    "oldest_archive_date": "2026-05-22T11:13:55.468081+00:00",
+    "path": "/essays/things-have-jobs-and-digital-devices-are-made-to-track-you",
+    "schema": "Link",
+    "scheme": "https",
+    "snapshot_id": "d0776df7-f193-4f66-8444-9c7f58439459",
+    "sources": [
+        "/Users/sipke/Local/Local Docu/sips-log/data/archivebox/sources/1779448018-import.txt"
+    ],
+    "tags": null,
+    "tags_str": "",
+    "timestamp": "1779448018.523595",
+    "title": "Things have jobs and digital devices are made to track you | Aeon Essays",
+    "updated": "2026-05-22T11:13:55.468004+00:00",
+    "updated_date": "2026-05-22 11:13",
+    "url": "https://aeon.co/essays/things-have-jobs-and-digital-devices-are-made-to-track-you"
+}

@@ -1,0 +1,16 @@
+{
+    "Status-Code": 200,
+    "Date": "Fri, 22 May 2026 11:11:53 GMT",
+    "Server": "Apache/2.4.37 (AlmaLinux) OpenSSL/1.1.1k mod_fcgid/2.3.9",
+    "Cache-Control": "no-cache, private, max-age=0",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Expose-Headers": "Authorization",
+    "Access-Control-Allow-Methods": "GET, HEAD, PUT, POST, DELETE, OPTIONS, PATCH",
+    "Access-Control-Allow-Headers": "Set-Cookie, Origin, Content-type, Accept, Authorization, applanguage",
+    "Set-Cookie": "XSRF-TOKEN=eyJpdiI6IjlnU3pUMFM3NkN1Q2swMG9XWDlTOFE9PSIsInZhbHVlIjoiT0xvVDJrcGZNM3d0VzBPZ2dRNHpLa1wvNmtWY2J4Z1NDTWtuMFZmUHFocGlvRkRNK1JuaTdMYjRsN3daTDRmc1dYdytCVTVVY0VcL3ZiVHZuQnltTlpGMUtqblVCQVRnVEJiSHZLOHJxaGI1bzNmeXpWQjBkSjJOMHBwTXNcL09cLzZ2IiwibWFjIjoiZTQ5NGNhNmNkOGRhMDA5MGNlYzY1MmY2YzA3ZTY4OWFjODIwZTk0ODcxOTJiZTJjOWM4ZTQ4MTZjNWQ5OTBiNiJ9; expires=Fri, 22-May-2026 13:11:53 GMT; Max-Age=7200; path=/, livecs_session=eyJpdiI6InBjQ2VEV2xIQ3IrQjRxM0wzNDdoeUE9PSIsInZhbHVlIjoiUnBlbFZ6NW1TKzRWTW9vK1ZPU3dqYk9LZ2x1ZlBzVmtRSmI2V0E5UEl5RzdDT2oxUVJUMm1maThhVVdmWElGSjc0RmowaG1DSGttOVwvNmhSb1h4ZjVyNW5YZzhjS200ZEhPZ1MyVVd0MUtUTVRCc1NIU1FnM2t6VlhYWmtBdzE0IiwibWFjIjoiNzczZmYxOTE1YWM0MmE1OGZmYmE3NWJlYzE3NjYzNGFmNWM3NWIxZDkyNTkyOWYyOTIwNjkwYmRhNWVhNmMyYiJ9; expires=Fri, 22-May-2026 13:11:53 GMT; Max-Age=7200; path=/; httponly",
+    "Expires": "Fri, 22 May 2026 11:11:53 GMT",
+    "Keep-Alive": "timeout=10, max=1000",
+    "Connection": "Keep-Alive",
+    "Content-Type": "text/html; charset=UTF-8"
+}

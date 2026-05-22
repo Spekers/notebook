@@ -1,0 +1,11 @@
+{
+    "Status-Code": 200,
+    "date": "Fri, 22 May 2026 11:10:45 GMT",
+    "server": "Apache",
+    "vary": "Accept-Encoding,Cookie,X-FORWARDED-PROTO",
+    "cache-control": "max-age=3, must-revalidate",
+    "strict-transport-security": "max-age=16000000",
+    "upgrade": "h2",
+    "connection": "Upgrade",
+    "content-type": "text/html; charset=UTF-8"
+}

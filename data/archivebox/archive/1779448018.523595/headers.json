@@ -1,0 +1,17 @@
+{
+    "Status-Code": 200,
+    "Age": "41",
+    "Cache-Control": "public, max-age=0, must-revalidate",
+    "Content-Length": "245384",
+    "Content-Type": "text/html; charset=utf-8",
+    "Date": "Fri, 22 May 2026 11:13:14 GMT",
+    "Etag": "\"fpldob5hc958wn\"",
+    "Server": "Vercel",
+    "Strict-Transport-Security": "max-age=63072000",
+    "Vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "X-Matched-Path": "/essays/[slug]",
+    "X-Nextjs-Prerender": "1",
+    "X-Nextjs-Stale-Time": "300",
+    "X-Vercel-Cache": "HIT",
+    "X-Vercel-Id": "fra1::pdx1::lwr5t-1779448435698-18b33101be7c"
+}

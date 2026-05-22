@@ -1,0 +1,23 @@
+{
+    "Status-Code": 200,
+    "Date": "Fri, 22 May 2026 11:09:49 GMT",
+    "Content-Type": "text/html; charset=UTF-8",
+    "Connection": "keep-alive",
+    "Report-To": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=2ZWRPxIHG0q%2BmTOd2BKiaOb6ZVRemtkStEpeXeoEuKxoT%2FJaiPNTVnCGrGg%2BRE8ULXawkp3Wy8lqCDCU3eOAzzmjAc5XYlfdO5NThAh1DCcUGLOote5pmeXrbTxuOFWydKLRFif4uMytSxgG\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+    "Server": "cloudflare",
+    "NEL": "{\"success_fraction\":0.01,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+    "cf-cache-status": "DYNAMIC",
+    "Set-Cookie": "__cf_bm=OnMpKsJU97nmer50spVSy1WEkNtiJf6l53hJY115v5I-1779448189-1.0.1.1-s_TIMyz_k9R5YZwEIbgz4KNaEA_D3lhQDBZ_gq8CDECFADevpgK2WcvCVEWPAcLeAm3Yhxax.xqr.Y0_F2rFb_JR1.uE6ENWuxBa7TmM4aM; path=/; expires=Fri, 22-May-26 11:39:49 GMT; domain=.thebaffler.com; HttpOnly; Secure; SameSite=None",
+    "Link": "<https://thebaffler.com/wp-json/>; rel=\"https://api.w.org/\", <https://thebaffler.com/wp-json/wp/v2/article/62799>; rel=\"alternate\"; title=\"JSON\"; type=\"application/json\", <https://thebaffler.com/?p=62799>; rel=shortlink",
+    "Vary": "Accept-Encoding",
+    "Ki-CF-Cache-Status": "BYPASS",
+    "Ki-Edge-o2o": "yes",
+    "X-Content-Type-Options": "nosniff",
+    "X-Edge-Location-Klb": "1",
+    "ki-cache-type": "None",
+    "ki-edge": "v=27.1.2;mv=99.9.9",
+    "ki-origin": "g1p",
+    "x-kinsta-cache": "MISS",
+    "Content-Encoding": "gzip",
+    "CF-RAY": "9ffb5eec5efee7f3-LYS"
+}
