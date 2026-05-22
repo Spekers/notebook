@@ -59,7 +59,7 @@ A soft mix of modern classical piano helped me take an unexpected nap on Sunday,
 
 - Le Capitole - [Cinéma queer](https://live.cinematheque.ch/cycle/2347-cinma-queer)
 
-The Capitole Cinémathèque de Lausanne is playing a spectrum of queer movies until June 28th. Looking through the selection, there are too many to recommend individually. Whichever movie you go to, you're bound to have a great experience. On friday June 5th at 6.30pm, in collaboration with the associations, there will be a [round-table discussion](https://live.cinematheque.ch/films/festivals-queer-en-suisse-histoire-et-dfis) to examine the history, challenges and future of queer film festivals in Switzerland, which have been campaigning for the visibility of creative works for the past three decades
+The Capitole Cinémathèque de Lausanne is playing a spectrum of queer movies until June 28th. Looking through the selection, there are too many to recommend individually. Whichever movie you go to, you're bound to have a great experience. On friday June 5th at 6.30pm, in collaboration with the associations, there will be a [round-table discussion](/archive/11cc3e46c680/) to examine the history, challenges and future of queer film festivals in Switzerland, which have been campaigning for the visibility of creative works for the past three decades
 
 - Mudac, [Isao Takahata](https://mudac.ch/en/exhibitions/isao-takahata/)
 
